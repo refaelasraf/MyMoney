@@ -11,9 +11,7 @@
         width="200"
         trigger="hover"
       >
-        <div class="popover-body">
-          Designed by Invision. Coded by Creative Tim
-        </div>
+
       </el-popover>
     </template>
     <template slot="navbar-menu">
