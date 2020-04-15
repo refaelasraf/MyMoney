@@ -22,7 +22,7 @@
         methods: {
             onChartReady(chart, google) {
                 const query = new google.visualization.Query(
-                    "https://docs.google.com/spreadsheets/d/1qhyJnMpiuuwKLCY3t6W4bp6XKnixTFekAPlCpR8AcK0/edit?usp=sharing"
+                    "https://docs.google.com/spreadsheets/d/1gd9_OcRjyGTfFvcY1YAsZd33OSNsqW4IfTvdfevD9Jk/edit?usp=sharing"
                 );
                 query.send(response => {
                     const options = {
