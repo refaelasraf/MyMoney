@@ -45,7 +45,7 @@
               class="nav-item"
       >
         <nav-link to="/landing">
-          <i class="now-ui-icons education_paper"></i> Landing
+          <i class="now-ui-icons education_paper"></i> Charts Exampels
         </nav-link>
         <nav-link to="/login">
           <i class="now-ui-icons users_circle-08"></i> Login
