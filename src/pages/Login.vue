@@ -35,14 +35,11 @@
                 >
               </div>
               <div class="pull-left">
+                <router-link to="/signup">
                 <h6>
-                  <a href="#pablo" class="link footer-link">Create Account</a>
+                  <a href="#signup" class="link footer-link">Create Account</a>
                 </h6>
-              </div>
-              <div class="pull-right">
-                <h6>
-                  <a href="#pablo" class="link footer-link">Need Help?</a>
-                </h6>
+                </router-link>
               </div>
             </template>
           </card>
