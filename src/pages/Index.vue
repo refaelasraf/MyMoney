@@ -11,33 +11,29 @@
           <img class="n-logo" src="img/now-logo.png" alt="" />
           <h1 class="h1-seo">My Money.</h1>
           <h3>Manage your balances.</h3>
-        </div>
+          <div>
+            <router-link to="/login">
+          <n-button type="primary" style="width: 200px" outline round>
+            <i class="fa fa-key" ></i> Login
+          </n-button>
+            </router-link>
+          </div>
+          <div>
+            <router-link to="/signup">
 
-      </div>
-    </div>
-    <div class="main">
-      <div class="section section-images">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="hero-images-container">
-                <img src="img/hero-image-1.png" alt="" />
-              </div>
-              <div class="hero-images-container-1">
-                <img src="img/hero-image-2.png" alt="" />
-              </div>
-              <div class="hero-images-container-2">
-                <img src="img/hero-image-3.png" alt="" />
-              </div>
-            </div>
+            <n-button type="primary" style="width: 200px"  outline round>
+            <i class="fa fa-user"></i> sign up
+          </n-button>
+            </router-link>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 <script>
-import { Parallax } from '@/components';
+import { Parallax , Button} from '@/components';
 import BasicElements from './components/BasicElementsSection';
 import Navigation from './components/Navigation';
 import TabsSection from './components/Tabs';
@@ -47,7 +43,6 @@ import Typography from './components/Typography';
 import JavascriptComponents from './components/JavascriptComponents';
 import CarouselSection from './components/CarouselSection';
 import NucleoIconsSection from './components/NucleoIconsSection';
-import SignupForm from './components/SignupForm';
 import ExamplesSection from './components/ExamplesSection';
 import DownloadSection from './components/DownloadSection';
 
@@ -65,9 +60,9 @@ export default {
     JavascriptComponents,
     CarouselSection,
     NucleoIconsSection,
-    SignupForm,
     ExamplesSection,
-    DownloadSection
+    DownloadSection,
+      [Button.name]: Button
   }
 };
 </script>
