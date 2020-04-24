@@ -10,5 +10,9 @@
     "server": "node ./dist/server.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@types/mongodb": "^3.5.10",
+    "mongodb": "^3.5.6"
+  }
 }
