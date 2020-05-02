@@ -56,6 +56,12 @@
         <nav-link to="/profile">
           <i class="now-ui-icons users_single-02"></i> Profile
         </nav-link>
+        <nav-link to="/goals">
+          <i class="now-ui-icons ui-2_time-alarm"></i> Goals
+        </nav-link>
+        <nav-link to="/">
+          <i class="now-ui-icons ui-2_settings-90"></i> Home
+        </nav-link>
       </drop-down>
 
     </template>

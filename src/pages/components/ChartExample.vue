@@ -3,6 +3,7 @@
         <GChart
                 type="ColumnChart"
                 @ready="onChartReady"
+                style="width: 100%"
         />
     </div>
 </template>

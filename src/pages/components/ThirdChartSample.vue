@@ -4,7 +4,7 @@
                 type="PieChart"
                 :data="chartData"
                 :options="chartOptions"
-                style="width: 900px; height: 500px;"
+                style="width: 100%; height: 500px;"
         />
     </div>
 </template>
