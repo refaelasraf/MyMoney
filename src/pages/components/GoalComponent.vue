@@ -7,8 +7,8 @@
                 :settings="{ packages: ['corechart', 'gauge'] }"
                 style="width: 100%; height:280px;"
         />
-        <n-button type="danger">Delete</n-button>
-        <n-button type="success">Edit</n-button>
+        <n-button type="danger">  <i class="now-ui-icons ui-1_simple-remove"></i> </n-button>
+        <n-button type="success"> <i class="now-ui-icons design-2_ruler-pencil"></i></n-button>
     </div>
 
 </template>
