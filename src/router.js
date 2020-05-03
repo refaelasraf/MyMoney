@@ -7,6 +7,7 @@ import Transaction from './pages/Transaction.vue';
 import Login from './pages/Login.vue';
 import Profile from './pages/Profile.vue';
 import GoalsManager from "./pages/GoalsManager";
+import ManageFinancialData from "./pages/ManageFinancialData";
 import MainNavbar from './layout/MainNavbar.vue';
 import MainFooter from './layout/MainFooter.vue';
 
@@ -76,7 +77,16 @@ export default new Router({
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }
       }
-    }
+    },
+    {
+      path: '/managedata',
+      name: 'manage-financial-data',
+      components: { default: ManageFinancialData, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
   ],
   scrollBehavior: to => {
     if (to.hash) {
