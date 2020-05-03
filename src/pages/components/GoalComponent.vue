@@ -17,7 +17,14 @@
     import { GChart } from "vue-google-charts";
     import {  Button} from '@/components';
     export default {
-
+        props:{
+          label:String,
+          value:Number,
+          redFrom:Number,
+          redTo: Number,
+          yellowFrom: Number,
+          yellowTo:Number
+        },
         name: "GoalComponent",
         components: {
             GChart,
@@ -28,12 +35,12 @@
                 // Array will be automatically processed with visualization.arrayToDataTable function
                 chartData: [
                     ['Label', 'Value'],
-                    ['Goal', 80],
+                    [this.label, this.value],
                 ],
                 chartOptions: {
                     width: 280, height: 280,
-                    redFrom: 90, redTo: 100,
-                    yellowFrom:75, yellowTo: 90,
+                    redFrom: this.redFrom, redTo: this.redTo,
+                    yellowFrom:this.yellowFrom, yellowTo: this.yellowTo,
                     minorTicks: 5
                 },
                 packages:['gauge']

@@ -14,10 +14,10 @@
         </div>
         <div class="container">
             <center>
-            <goal-component></goal-component>
-                <goal-component></goal-component>
-                <goal-component></goal-component>
-                <goal-component></goal-component>
+                <goal-component label="Goal 1" :red-from="60" :red-to="80" :yellow-from="40" :yellow-to="59" :value="43"></goal-component>
+                <goal-component label="Goal 2" :red-from="90" :red-to="100" :yellow-from="40" :yellow-to="89" :value="10"></goal-component>
+                <goal-component label="Goal 3" :red-from="60" :red-to="80" :yellow-from="40" :yellow-to="59" :value="25"></goal-component>
+                <goal-component label="Goal 4" :red-from="60" :red-to="80" :yellow-from="40" :yellow-to="59" :value="80"></goal-component>
             </center>
         </div>
     </div>
