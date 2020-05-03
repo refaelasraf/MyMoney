@@ -1,7 +1,9 @@
 import { bankAccount } from "./bankAccout";
 
 export type user = {
-    name : string,
+    userName : string,
+    email: string,
+    pasword: string,
     dateOfBirth : Date,
     creditCard : {},
     bankAccoutn : bankAccount

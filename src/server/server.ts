@@ -10,4 +10,4 @@ app.listen(port, ()=> {
 const userC = new userController()
 app.use(bodyParser.json());
 
-app.post("/user/register" , userC.register)
+app.post("/api/user/register" , userC.register)

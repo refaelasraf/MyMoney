@@ -1,9 +1,15 @@
 import { user } from "../models/user";
 import {MongoHelper} from "../dbHelpers/mongoHelper"
-export class userBL {
+import { InsertOneWriteOpResult } from "mongodb";
+export class userDAL {
     
-    public registerUser = async (user:user) => {
-        await MongoHelper.client.db("myMoney").collection("user").insertOne(user);
+    private mongoHelper : MongoHelper
+    constructor() {
+        this.mongoHelper = new MongoHelper()
+        
+    }
+    public registerUser = async (user:user) : Promise<InsertOneWriteOpResult<any>> => {
+        return await MongoHelper.client.db("myMoney").collection("user").insertOne(user);
     }
 }
 

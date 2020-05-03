@@ -4,6 +4,9 @@ export class MongoHelper {
   public static client: mongo.MongoClient;
  
   constructor() {
+    if (!MongoHelper.client) {
+      MongoHelper.connect();
+    }
   }
  
   public static connect(url: string = "mongodb://localhost:27017"): Promise<any> {
