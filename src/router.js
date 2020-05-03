@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Index from './pages/Index.vue';
 import SignUp from "./pages/SignUp";
 import Landing from './pages/Landing.vue';
+import Transaction from './pages/Transaction.vue';
 import Login from './pages/Login.vue';
 import Profile from './pages/Profile.vue';
 import GoalsManager from "./pages/GoalsManager";
@@ -18,6 +19,15 @@ export default new Router({
       path: '/',
       name: 'index',
       components: { default: Index, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/transaction',
+      name: 'transaction',
+      components: { default: Transaction, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }

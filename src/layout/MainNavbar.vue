@@ -34,6 +34,9 @@
         <nav-link to="/login">
           <i class="now-ui-icons users_circle-08"></i> Login
         </nav-link>
+        <nav-link to="/transaction">
+          <i class="now-ui-icons ui-1_calendar-60 "></i> transactions
+        </nav-link>
         <nav-link to="/goals">
           <i class="now-ui-icons ui-2_time-alarm"></i> Goals
         </nav-link>
