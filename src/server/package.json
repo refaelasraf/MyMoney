@@ -12,7 +12,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/mongodb": "^3.5.10",
+    "@elastic/elasticsearch": "^7.0.0-rc.1",
     "mongodb": "^3.5.6"
+  },
+  "devDependencies": {
+    "@types/elasticsearch": "^5.0.36",
+    "@types/mongodb": "^3.5.10"
   }
 }
