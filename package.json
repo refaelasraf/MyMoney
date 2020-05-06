@@ -10,6 +10,7 @@
   "dependencies": {
     "bootstrap": "^4.3.0",
     "element-ui": "^2.5.4",
+    "mongodb": "^3.5.7",
     "nouislider": "^11.1.0",
     "vue": "^2.6.6",
     "vue-google-charts": "^0.3.2",
