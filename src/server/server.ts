@@ -17,13 +17,13 @@ const bankAccountC = new BankAccountController();
 
 app.use(bodyParser.json());
 
-app.post("/user/register", (req, res) => userC.register(req, res));
-app.post("/user/login", (req, res) =>userC.login(req, res));
-app.post("/creditCard/add", (req, res) =>creditCardC.add(req, res));
-app.post("/creditCard/edit", (req, res) =>creditCardC.edit(req, res));
-app.post("/creditCard/remove", (req, res) =>creditCardC.remove(req, res));
-app.post("/creditCard/getByUser", (req, res) =>creditCardC.getByUser(req, res));
-app.post("/bankAccount/add", (req, res) =>bankAccountC.add(req, res));
-app.post("/bankAccount/edit", (req, res) =>bankAccountC.edit(req, res));
-app.post("/bankAccount/remove", (req, res) =>bankAccountC.remove(req, res));
-app.post("/bankAccount/getByUser", (req, res) =>bankAccountC.getByUser(req, res));
+app.post("/api/user/register", (req, res) => userC.register(req, res));
+app.post("/api/user/login", (req, res) =>userC.login(req, res));
+app.post("/api/creditCard/add", (req, res) =>creditCardC.add(req, res));
+app.post("/api/creditCard/edit", (req, res) =>creditCardC.edit(req, res));
+app.post("/api/creditCard/remove", (req, res) =>creditCardC.remove(req, res));
+app.post("/api/creditCard/getByUser", (req, res) =>creditCardC.getByUser(req, res));
+app.post("/api/bankAccount/add", (req, res) =>bankAccountC.add(req, res));
+app.post("/api/bankAccount/edit", (req, res) =>bankAccountC.edit(req, res));
+app.post("/api/bankAccount/remove", (req, res) =>bankAccountC.remove(req, res));
+app.post("/api/bankAccount/getByUser", (req, res) =>bankAccountC.getByUser(req, res));
