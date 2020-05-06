@@ -1,26 +1,15 @@
-import {bankAccount} from '../models/bankAccout'
-import { user } from '../models/user';
-export class userBL {
-    /**
-     *
-     */
-    private userDAL : {
-        insertUser : (user : object) => boolean
-    };
-    constructor() {
-        
+import {UserDal} from "../DAL/userDAL";
+import {IUser} from "../models/user";
+
+export class UserBL {
+    constructor(private readonly userDal: UserDal = new UserDal()) {
     }
 
-
-    public registerUser = (name: string, password: string, dateOfBirth: Date, bankAccount : bankAccount) => {
-        const user : user  = {
-            name : name,
-            creditCard : {},
-            bankAccoutn : bankAccount,
-            dateOfBirth:  dateOfBirth
-        }
-
-        this.userDAL.insertUser(user);
+    public async register(userName: string, password: string, dateOfBirth: Date, email: string) {
+        await this.userDal.register(userName, password, dateOfBirth, email);
     }
 
+    public async login(userName: string, password: string): Promise<IUser> {
+        return await this.userDal.login(userName, password);
+    }
 }

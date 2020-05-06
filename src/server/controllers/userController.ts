@@ -1,23 +1,21 @@
-import {Router} from 'express'
 import {Request,Response} from 'express'
+import {UserBL} from "../BL/userBL";
 
 export class userController {
-    public register = (req: Request, res : Response) => {
-        const body = req.body;
-        const userName = body.userName;
-        const email = body.emil;
-        const dateOfBirth = body.dateOfBirth;
-        const password = body.password;
-        const creditCardNumber = body.creditNumber;
-        const bankAccount = body.bankAccount;
-        console.warn("here comes a user")
-        res.send("there you go").status(200);
-    }
-    
-    public  login = (req: Request, res : Response) => {
-        console.warn("user login")
-        res.send("there you go").status(200);
+    constructor(private readonly userBl: UserBL = new UserBL()) {
     }
 
+    public async register(req: Request, res: Response) {
+        try {
+            await this.userBl.register(req.body.userName, req.body.password, req.body.dateOfBirth, req.body.email);
+            res.send('success').status(200);
+        } catch (e) {
+            res.send('internal server error').status(502);
+        }
+    }
+
+    public async login(req: Request, res: Response) {
+        const user = await this.userBl.login(req.body.userName, req.body.password);
+        res.send(user).status(200);
+    }
 }
-
