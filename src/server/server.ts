@@ -10,7 +10,6 @@ import creditCardController from "./controllers/creditCardController";
 import BankAccountController from "./controllers/bankAccountController";
 import mongoHelper from "./dbHelpers/mongoHelper";
 import {IConfig} from "./configuration/IConfig";
-import {IRouter} from "@types/express";
 
 const app = express();
 const port = 3000;
@@ -41,7 +40,7 @@ app.post("/api/bankAccount/getByUser", (req, res) =>bankAccountC.getByUser(req, 
 
 
 
-function  createTransactionRouter():IRouter {
+function  createTransactionRouter(){
     let elasticHelper = new ElasticHelper(config.DAL.elasticsearch);
     let transactionDAL = new TransactionDAL(elasticHelper, config.DAL.transactionDal);
     let transactionBL = new TransactionBL(transactionDAL);
