@@ -7,7 +7,7 @@ export  class TransactionController {
 
     public getRouter(){
         var router =  Router();
-        router.post("/upsert", this.upsert)
+        router.post("/upsert",(req,res)=> this.upsert(req,res));
 
         return router
     }
