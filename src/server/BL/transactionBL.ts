@@ -9,7 +9,7 @@ export class TransactionBL {
         return this.dal.upsert(document, document.docID);
     }
 
-    public async delete(docID: string) {
-        return this.dal.delete(docID);
+    public async delete(doc: ITransaction) {
+        return this.dal.delete(doc.docID);
     }
 }

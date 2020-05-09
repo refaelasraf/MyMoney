@@ -1,13 +1,14 @@
-import {Router,Request, Response} from "express";
+import {Router, Request, Response} from "express";
 import {TransactionBL} from "../BL/transactionBL";
 
-export  class TransactionController {
+export class TransactionController {
     constructor(private readonly bl: TransactionBL) {
     }
 
-    public getRouter(){
-        var router =  Router();
-        router.post("/upsert",(req,res)=> this.upsert(req,res));
+    public getRouter() {
+        var router = Router();
+        router.post("/upsert", (req, res) => this.upsert(req, res));
+        router.post("/delete", (req, res) => this.delete(req, res));
 
         return router
     }
@@ -17,7 +18,17 @@ export  class TransactionController {
             const entity = await this.bl.upsert(req.body.transaction);
             res.send(entity).status(200);
         } catch (e) {
-            res.send('failed adding credit card').status(502);
+            res.send('failed upsert transaction').status(502);
+        }
+    }
+
+
+    private async delete(req: Request, res: Response) {
+        try {
+            const entity = await this.bl.delete(req.body.transaction);
+            res.send(entity).status(200);
+        } catch (e) {
+            res.send('failed delete transaction').status(502);
         }
     }
 }
