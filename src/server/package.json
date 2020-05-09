@@ -1,3 +1,4 @@
+{
   "version": "1.0.0",
   "name": "server",
   "main": "server.js",
@@ -12,9 +13,11 @@
   "license": "ISC",
   "dependencies": {
     "@elastic/elasticsearch": "^7.0.0-rc.1",
-    "mongodb": "^3.5.6"
+    "mongodb": "^3.5.6",
     "mongoose": "^5.9.11"
-    "@types/mongoose": "^5.7.14"
+  },
+  "devDependencies": {
+    "@types/mongoose": "^5.7.14",
     "@types/mongodb": "^3.5.10"
   }
 }

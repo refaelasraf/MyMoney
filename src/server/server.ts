@@ -15,13 +15,14 @@ import {IConfig} from "./configuration/IConfig";
 const app = express();
 const port = 3000;
 app.listen(port, ()=> {
-const statisticsController = new StatisticsController();
+
     console.log("app is running on port " + port);
 });
 mongoHelper.connect();
 const userC = new userController();
 const creditCardC = new creditCardController();
 const bankAccountC = new BankAccountController();
+const statisticsController = new StatisticsController();
 const transactionRouter = createTransactionRouter();
 
 app.use(bodyParser.json());
@@ -37,6 +38,7 @@ app.post("/api/bankAccount/add", (req, res) =>bankAccountC.add(req, res));
 app.post("/api/bankAccount/edit", (req, res) =>bankAccountC.edit(req, res));
 app.post("/api/bankAccount/remove", (req, res) =>bankAccountC.remove(req, res));
 app.post("/api/bankAccount/getByUser", (req, res) =>bankAccountC.getByUser(req, res));
+app.get("/api/statistics/getUserStatistics/:userId", statisticsController.getUserStatistics);
 
 
 
@@ -51,4 +53,3 @@ function  createTransactionRouter(){
 }
 app.post("/api/user/register" , userC.register)
 
-app.get("/api/statistics/getUserStatistics/:userId", statisticsController.getUserStatistics);

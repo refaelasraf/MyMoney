@@ -3,7 +3,7 @@ import {Request,Response} from 'express'
 export class statisticsController {
 
 
-    constructor(private readonly statisticsBL: StatisticsBL = new StatisticsBL()) {}
+    public constructor(private readonly statisticsBL: StatisticsBL = new StatisticsBL()) {}
 
     public getUserStatistics = async (req: Request, res : Response) => {
         const userId = req.body.userId;
