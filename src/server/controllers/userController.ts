@@ -1,38 +1,25 @@
-import {Router} from 'express'
 import {Request,Response} from 'express'
-import {userBL} from '../BL/userBL'
+import {UserBL} from "../BL/userBL";
+
 export class userController {
-
-    private userBL: userBL;
-    constructor() {
-        this.userBL = new userBL();
+    constructor(private readonly userBl: UserBL = new UserBL()) {
     }
 
-    public register = async (req: Request, res : Response) => {
-        const body = req.body;
-        const userName = body.userName;
-        const email = body.email;
-        const dateOfBirth = body.dateOfBirth;
-        const password = body.password;
-        const creditCardNumber = body.creditCardNumber;
-        const bankAccount = body.bankAccount;
+    public async register(req: Request, res: Response) {
         try {
-        const isSucceed = await this.userBL.registerUser(userName,email,password,dateOfBirth,bankAccount,creditCardNumber)
-        if (isSucceed)
-            res.send("userRegisterd seccessfuly").status(200);
-            return;
+            await this.userBl.register(req.body.userName, req.body.password, req.body.dateOfBirth, req.body.email);
+            res.send('success').status(200);
+        } catch (e) {
+            res.send('registration failed').status(500);
         }
-        catch (err){
-            res.send(err).status(500)
-        }
-            res.send("couldont insert user").status(500);
-        
-    }
-    
-    public  login = (req: Request, res : Response) => {
-        console.warn("user login")
-        res.send("there you go").status(200);
     }
 
+    public async login(req: Request, res: Response) {
+        try {
+            const user = await this.userBl.login(req.body.userName, req.body.password);
+            res.send(user).status(200);
+        } catch (e) {
+            res.send('login failed').status(500);
+        }
+    }
 }
-

@@ -1,15 +1,12 @@
-import { user } from "../models/user";
-import {MongoHelper} from "../dbHelpers/mongoHelper"
-import { InsertOneWriteOpResult } from "mongodb";
-export class userDAL {
-    
-    private mongoHelper : MongoHelper
-    constructor() {
-        this.mongoHelper = new MongoHelper()
-        
+import { IUser, UserModel } from "../models/user";
+
+export class UserDal {
+    public async register(userName: string, password: string, dateOfBirth: Date, email: string) {
+       await UserModel.create({userName, password, dateOfBirth, email});
     }
-    public registerUser = async (user:user) : Promise<InsertOneWriteOpResult<any>> => {
-        return await MongoHelper.client.db("myMoney").collection("user").insertOne(user);
+
+    public async login(userName: string, password: string): Promise<IUser> {
+        return await UserModel.findOne({ userName, password }).exec();
     }
 }
 
