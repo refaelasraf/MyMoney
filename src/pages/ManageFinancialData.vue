@@ -25,7 +25,7 @@
                 <i class="now-ui-icons tech_headphones"> 0123456789</i>
                 </div>
             </h5>
-            <n-button type="info" @click.native="modals.classic = true">Edit</n-button>
+            <n-button type="info" @click.native="modals.bla = true">Edit</n-button>
 
             <h3 class="title">Banks</h3>
             <h5 class="description">
@@ -48,7 +48,7 @@
             <n-button type="success" style="margin-right: 5px;">Add</n-button>
             <n-button type="danger">Delete</n-button>
 
-            <modal :show.sync="modals.classic" headerClasses="justify-content-center">
+            <modal :show.sync="modals.bla" headerClasses="justify-content-center">
                 <h4 slot="header" class="title title-up">Modal title</h4>
                 <p>Here will be good good.</p>
                 <fg-input placeholder="Name" v-model="inputVal"></fg-input>
@@ -56,7 +56,7 @@
                 <fg-input placeholder="Tel. number" v-model="inputVal"></fg-input>
                 <template slot="footer">
                 <n-button>Nice Button</n-button>
-                <n-button type="danger" @click.native="modals.classic = false">Close</n-button>
+                <n-button type="danger" @click.native="modals.bla = false">Close</n-button>
                 </template>
             </modal>
             
@@ -69,7 +69,7 @@
 
     export default {
         name: 'managefinancialdataManager',
-        bodyClass: 'manage-financial-data-page',
+        bodyClass: 'manage-financial-page',
         components: {
             ManageFinancialDataComponent,
             [Button.name]: Button,
@@ -79,7 +79,8 @@
         data() {
             return {         
                 modals: {
-                  classic: false
+                  classic: false,
+                  bla: false
                 }
             };
         }
