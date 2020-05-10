@@ -8,6 +8,7 @@ import Login from './pages/Login.vue';
 import Profile from './pages/Profile.vue';
 import GoalsManager from "./pages/GoalsManager";
 import ManageFinancialData from "./pages/ManageFinancialData";
+import AdminDashboard from "./pages/AdminDashboard";
 import MainNavbar from './layout/MainNavbar.vue';
 import MainFooter from './layout/MainFooter.vue';
 
@@ -82,6 +83,15 @@ export default new Router({
       path: '/managedata',
       name: 'manage-financial-data',
       components: { default: ManageFinancialData, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/admindashboard',
+      name: 'admin-dashboard',
+      components: { default: AdminDashboard, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }
