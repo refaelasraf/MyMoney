@@ -18,6 +18,17 @@
                 <admin-dashboard-component label="Goal 2" :red-from="90" :red-to="100" :yellow-from="40" :yellow-to="89" :value="10"></admin-dashboard-component>
             </center>
         </div>
+
+        <card style="width: 20rem;">
+            <ul slot="raw-content" class="list-group list-group-flush">
+                <li class="list-group-item">Cras justo odio</li>
+                <li class="list-group-item">Dapibus ac facilisis in</li>
+                <li class="list-group-item">Vestibulum at eros</li>
+                <li class="list-group-item">EZ7</li>
+                <li class="list-group-item">AN8</li>
+                <li class="list-group-item">KOLOLOLOLO</li>
+            </ul>
+        </card>
     </div>
 </template>
 <script>
