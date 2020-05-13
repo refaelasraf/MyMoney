@@ -6,10 +6,14 @@ export class TransactionBL {
     }
 
     public async upsert(document: ITransaction) {
-        return this.dal.upsert(document, document.docID);
+        return await this.dal.upsert(document, document.docID);
     }
 
     public async delete(doc: ITransaction) {
-        return this.dal.delete(doc.docID);
+        return await this.dal.delete(doc.docID);
+    }
+
+    public async getByDate(start: Date, end: Date) {
+        return await this.dal.getByDate(start, end);
     }
 }
