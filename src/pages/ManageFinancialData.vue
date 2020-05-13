@@ -65,6 +65,8 @@
                 <p>Here will be good good.</p>
                 <fg-input placeholder="Name" v-model="inputVal"></fg-input>
                 <fg-input placeholder="Account number" v-model="inputVal"></fg-input>
+                <fg-input placeholder="Branch number" v-model="inputVal"></fg-input>
+                <fg-input placeholder="Bank number" v-model="inputVal"></fg-input>
                 <template slot="footer">
                 <n-button>Nice Button</n-button>
                 <n-button type="danger" @click.native="modals.editBank = false">Close</n-button>
@@ -75,6 +77,8 @@
                 <p>Here will be good good.</p>
                 <fg-input placeholder="Name" v-model="inputVal"></fg-input>
                 <fg-input placeholder="Account number" v-model="inputVal"></fg-input>
+                <fg-input placeholder="Branch number" v-model="inputVal"></fg-input>
+                <fg-input placeholder="Bank number" v-model="inputVal"></fg-input>
                 <template slot="footer">
                 <n-button>Nice Button</n-button>
                 <n-button type="danger" @click.native="modals.addBank = false">Close</n-button>
@@ -94,6 +98,8 @@
                 <p>Here will be good good.</p>
                 <fg-input placeholder="Name" v-model="inputVal"></fg-input>
                 <fg-input placeholder="Card number" v-model="inputVal"></fg-input>
+                <fg-input placeholder="Safety number" v-model="inputVal"></fg-input>
+                <fg-input placeholder="Expiration number" v-model="inputVal"></fg-input>
                 <template slot="footer">
                 <n-button>Nice Button</n-button>
                 <n-button type="danger" @click.native="modals.editCard = false">Close</n-button>
@@ -104,6 +110,8 @@
                 <p>Here will be good good.</p>
                 <fg-input placeholder="Name" v-model="inputVal"></fg-input>
                 <fg-input placeholder="Card number" v-model="inputVal"></fg-input>
+                <fg-input placeholder="Safety number" v-model="inputVal"></fg-input>
+                <fg-input placeholder="Expiration number" v-model="inputVal"></fg-input>
                 <template slot="footer">
                 <n-button>Nice Button</n-button>
                 <n-button type="danger" @click.native="modals.addCard = false">Close</n-button>
