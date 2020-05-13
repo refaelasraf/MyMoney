@@ -30,6 +30,7 @@ app.use(bodyParser.json());
 app.use("/api/transaction", transactionRouter);
 app.post("/api/user/register", (req, res) => userC.register(req, res));
 app.post("/api/user/login", (req, res) =>userC.login(req, res));
+app.post("/api/user/register" , userC.register);
 app.post("/api/creditCard/add", (req, res) =>creditCardC.add(req, res));
 app.post("/api/creditCard/edit", (req, res) =>creditCardC.edit(req, res));
 app.post("/api/creditCard/remove", (req, res) =>creditCardC.remove(req, res));
@@ -40,10 +41,6 @@ app.post("/api/bankAccount/remove", (req, res) =>bankAccountC.remove(req, res));
 app.post("/api/bankAccount/getByUser", (req, res) =>bankAccountC.getByUser(req, res));
 app.get("/api/statistics/getUserStatistics/:userId", statisticsController.getUserStatistics);
 
-
-
-
-
 function  createTransactionRouter(){
     let elasticHelper = new ElasticHelper(config.DAL.elasticsearch);
     let transactionDAL = new TransactionDAL(elasticHelper, config.DAL.transactionDal);
@@ -51,5 +48,5 @@ function  createTransactionRouter(){
     let transactionController = new TransactionController(transactionBL);
     return transactionController.getRouter();
 }
-app.post("/api/user/register" , userC.register)
+
 
