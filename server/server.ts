@@ -40,13 +40,12 @@ app.post("/api/bankAccount/edit", (req, res) =>bankAccountC.edit(req, res));
 app.post("/api/bankAccount/remove", (req, res) =>bankAccountC.remove(req, res));
 app.post("/api/bankAccount/getByUser", (req, res) =>bankAccountC.getByUser(req, res));
 app.get("/api/statistics/getUserStatistics/:userId", statisticsController.getUserStatistics);
+app.post("/api/statistics/getUserSimilarStatistics", statisticsController.getUserSimilarStatistics)
 
-function  createTransactionRouter(){
+function  createTransactionRouter() {
     let elasticHelper = new ElasticHelper(config.DAL.elasticsearch);
     let transactionDAL = new TransactionDAL(elasticHelper, config.DAL.transactionDal);
     let transactionBL = new TransactionBL(transactionDAL);
     let transactionController = new TransactionController(transactionBL);
     return transactionController.getRouter();
 }
-
-

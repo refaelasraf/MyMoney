@@ -14,6 +14,12 @@ export class statisticsController {
         catch (exp){
             res.json("sorry got an exption" + exp).status(500)
         }
-        
+    }
+
+    public getUserSimilarStatistics = async (req: Request, res: Response) => {
+        const filters : string[] = req.body.filters;
+        const userId : string = req.body.userId;
+        const statistics = await this.statisticsBL.getUserSimilarStatistics(userId,filters)
+        res.json(statistics).status(200);
     }
 }
