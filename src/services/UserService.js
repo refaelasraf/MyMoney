@@ -5,7 +5,7 @@ export default class UserService {
 
 	static async register(userName, password, dateOfBirth, email) {
 		let res = await axios.post(this.#route + '/register', {userName, password, dateOfBirth, email});
-		return res.data === 'success';
+		return res.data;
 	}
 
 	static async login(userName, password) {

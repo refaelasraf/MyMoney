@@ -2,7 +2,8 @@ import { IUser, UserModel } from "../models/user";
 
 export class UserDal {
     public async register(userName: string, password: string, dateOfBirth: Date, email: string) {
-       await UserModel.create({userName, password, dateOfBirth, email});
+       const res = await UserModel.create({userName, password, dateOfBirth, email});
+       return res._id;
     }
 
     public async login(userName: string, password: string): Promise<IUser> {
