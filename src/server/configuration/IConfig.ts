@@ -11,5 +11,5 @@ export interface IElasticSearchConfig {
 
 export interface IESDALConfig{
     index:string,
-    type:"_doc"
+    type : "_doc"
 }

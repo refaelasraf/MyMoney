@@ -6,6 +6,7 @@ import {TransactionController} from "./controllers/transactionController";
 import {TransactionDAL} from "./DAL/ElasticSearchDAL/transactionDAL";
 import * as bodyParser from 'body-parser';
 import {userController} from './controllers/userController'
+import { statisticsController as StatisticsController } from "./controllers/statisticsController";
 import creditCardController from "./controllers/creditCardController";
 import BankAccountController from "./controllers/bankAccountController";
 import mongoHelper from "./dbHelpers/mongoHelper";
@@ -14,12 +15,14 @@ import {IConfig} from "./configuration/IConfig";
 const app = express();
 const port = 3000;
 app.listen(port, ()=> {
+
     console.log("app is running on port " + port);
 });
 mongoHelper.connect();
 const userC = new userController();
 const creditCardC = new creditCardController();
 const bankAccountC = new BankAccountController();
+const statisticsController = new StatisticsController();
 const transactionRouter = createTransactionRouter();
 
 app.use(bodyParser.json());
@@ -35,6 +38,7 @@ app.post("/api/bankAccount/add", (req, res) =>bankAccountC.add(req, res));
 app.post("/api/bankAccount/edit", (req, res) =>bankAccountC.edit(req, res));
 app.post("/api/bankAccount/remove", (req, res) =>bankAccountC.remove(req, res));
 app.post("/api/bankAccount/getByUser", (req, res) =>bankAccountC.getByUser(req, res));
+app.get("/api/statistics/getUserStatistics/:userId", statisticsController.getUserStatistics);
 
 
 
@@ -47,3 +51,5 @@ function  createTransactionRouter(){
     let transactionController = new TransactionController(transactionBL);
     return transactionController.getRouter();
 }
+app.post("/api/user/register" , userC.register)
+
