@@ -5,12 +5,12 @@ export class TransactionController {
     constructor(private readonly bl: TransactionBL) {
     }
 
-    public getRouter() {
-        var router = Router();
+    public getRouter(): Router {
+        const router = Router();
         router.post("/upsert", (req, res) => this.upsert(req, res));
         router.post("/delete", (req, res) => this.delete(req, res));
 
-        return router
+        return router;
     }
 
     private async upsert(req: Request, res: Response) {

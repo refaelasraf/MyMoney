@@ -1,5 +1,6 @@
 import {IElasticSearchConfig} from "../configuration/IConfig";
 import {Client as ESClient} from "@elastic/elasticsearch";
+import {userController} from "../controllers/userController";
 
 export class ElasticHelper {
     private esClient:ESClient;
