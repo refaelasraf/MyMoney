@@ -24,6 +24,8 @@
 <script>
     import { GChart } from "vue-google-charts";
     import {  Button ,Checkbox , Radio } from '@/components';
+	import StatisticsService from "../../services/StatisticsService";
+    
     export default {
         name: "ColumChart",
         components: {
@@ -31,6 +33,12 @@
             [Button.name]: Button,
             [Checkbox.name]: Checkbox,
             [Radio.name]: Radio
+        },
+        created() {
+            this.UserStats = StatisticsService.getUserStats();
+            //Filter User By month
+            this.HevraStats = StatisticsService.getSimilarStats();
+            //Filter User By month
         },
         data() {
             return {
