@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface IUser {
-    _id : string;
+    id : string;
     userName : string;
     dateOfBirth : Date;
     password: string;
@@ -14,7 +14,7 @@ const UserSchema: Schema = new Schema({
     dateOfBirth: { type: Date, required: true },
     password: { type: String, required: true },
     email: { type: String, required: true },
-    groupId : {type: String, required : true}
+    groupId : {type: String, required : false}
 });
 
 export const UserModel = mongoose.model<IUser & Document>('User', UserSchema);

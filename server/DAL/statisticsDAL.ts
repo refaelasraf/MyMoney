@@ -52,7 +52,6 @@ export class statisticsDAL extends ESBaseDAL<ITransaction> {
       : Promise<{'user' : IUserStatistic[], 'other' : IUserStatistic[]}> => {
       
       const aggs : any = { 
-        "aggs": {
         "category" : {
           "terms": {
             "field": "category"
@@ -65,21 +64,18 @@ export class statisticsDAL extends ESBaseDAL<ITransaction> {
             }
           }
         }
-      }
     } 
       const query : any = { 
-      "query" : {
         "terms" : {
           "clientId" : otherIds
         }
       }
-     }
       const otherAggs = await this.elasticHelper.aggregate(this.esConfig.index, this.esConfig.type, {
         query,
         aggs
       });
 
-      query.terms = {"clientId" : userId};
+      query.terms = {"clientId" : [userId]};
       const userAggs = await this.elasticHelper.aggregate(this.esConfig.index, this.esConfig.type , {
         query,
         aggs

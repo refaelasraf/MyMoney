@@ -9,18 +9,19 @@ export class UserDal {
         return await UserModel.findOne({ userName, password }).exec();
     }
 
-    public async getById(clientId: string) : Promise<IUser> {
-        return await UserModel.findOne({clientId}).exec();
+    public async getById(userId: string) : Promise<IUser> {
+        return await UserModel.findById(userId).exec();
     }
 
     public async findSimilarUsers(user : IUser, filters : string[]) : Promise<string[]> {
         const filterObject : any = {};
         for(const filter in filters){
-            filterObject[filter] = (user as any).filter;
+            const fieldName :string = filters[filter]
+            filterObject[fieldName] = (user as any)[fieldName];
         }
         const otherIds = await UserModel.find(filterObject, {"_id" : 1});
 
-        return otherIds.map(user=> user._id).filter(id=> id != user._id );
+        return otherIds.map(user=> user.id).filter(id=> id != user.id );
     }
 }
 

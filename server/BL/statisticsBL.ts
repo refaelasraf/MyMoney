@@ -10,10 +10,17 @@ export class statisticsBL {
 
     public getUserSimilarStatistics = async (clientId: string, filters : string[]) => {
         const user  = await this.userDAL.getById(clientId);
+        let statistics = null;
         if (!filters || filters.length == 0)
             filters = ["groupId"];
-        const otherIds = await this.userDAL.findSimilarUsers(user,filters);
-        const statistics = await this.statisticsDAL.getUserSimilarStatistics(user._id, otherIds);
+        try {
+            const otherIds = await this.userDAL.findSimilarUsers(user,filters);
+            statistics = await this.statisticsDAL.getUserSimilarStatistics(user.id, otherIds);
+        }
+        catch (ex) {
+            console.log(ex);
+        }
+        
         return statistics;
     }
 

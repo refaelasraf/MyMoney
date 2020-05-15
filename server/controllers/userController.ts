@@ -10,7 +10,7 @@ export class userController {
             await this.userBl.register(req.body.userName, req.body.password, req.body.dateOfBirth, req.body.email);
             res.send('success').status(200);
         } catch (e) {
-            res.send('registration failed').status(500);
+            res.send('registration failed' + e).status(500);
         }
     }
 
