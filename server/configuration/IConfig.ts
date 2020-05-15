@@ -2,6 +2,10 @@ export interface IConfig {
     DAL:{
         elasticsearch?: IElasticSearchConfig,
         transactionDal?: IESDALConfig
+    },
+    pushWeb:{
+        publicKey:string,
+        privateKey:string
     }
 }
 

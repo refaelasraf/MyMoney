@@ -10,9 +10,12 @@ import { statisticsController as StatisticsController } from "./controllers/stat
 import creditCardController from "./controllers/creditCardController";
 import BankAccountController from "./controllers/bankAccountController";
 import mongoHelper from "./dbHelpers/mongoHelper";
+import {NotificationController} from "./controllers/NotificationController";
+import Cors from "cors";
 
 const app = express();
 const port = 3000;
+app.use(Cors());
 app.listen(port, ()=> {
 
     console.log("app is running on port " + port);
@@ -29,10 +32,11 @@ const userC = new userController();
 const creditCardC = new creditCardController();
 const bankAccountC = new BankAccountController();
 const statisticsController = new StatisticsController();
+const notificationRouter = new NotificationController().getRouter();
 const transactionRouter = createTransactionRouter();
-
 app.use(bodyParser.json());
 
+app.use("/api/notification", notificationRouter);
 app.use("/api/transaction", transactionRouter);
 app.post("/api/user/register", (req, res) => userC.register(req, res));
 app.post("/api/user/login", (req, res) =>userC.login(req, res));

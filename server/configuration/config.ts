@@ -9,5 +9,9 @@ export var config: IConfig = {
             index: "transactions",
             type:"_doc"
         }
+    },
+    pushWeb:{
+        publicKey:"BFxVLNQ0jH3Zm9tJjiREpWs344wKZ3SOesnKycXW5v6n0m88l7AxlAps2A05HmGVzI0QXrr6_BPObAPGH-6mNYA",
+        privateKey:"k-a0F5dx6-IoQPiXZUUGxgsWLb7fdJqiQ86HP6fJ5r8"
     }
 }
