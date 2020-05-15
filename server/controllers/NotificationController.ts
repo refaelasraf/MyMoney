@@ -17,7 +17,7 @@ export class NotificationController {
             res.status(201).json({});
 
             const payload = JSON.stringify({
-                title: 'refael Asraf the king' + userId,
+                title: 'welcome user : ' + userId,
             });
 
             webPush.sendNotification(subscription, payload)
