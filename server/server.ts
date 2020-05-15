@@ -10,7 +10,6 @@ import { statisticsController as StatisticsController } from "./controllers/stat
 import creditCardController from "./controllers/creditCardController";
 import BankAccountController from "./controllers/bankAccountController";
 import mongoHelper from "./dbHelpers/mongoHelper";
-import {IConfig} from "./configuration/IConfig";
 
 const app = express();
 const port = 3000;
@@ -18,6 +17,13 @@ app.listen(port, ()=> {
 
     console.log("app is running on port " + port);
 });
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 mongoHelper.connect();
 const userC = new userController();
 const creditCardC = new creditCardController();

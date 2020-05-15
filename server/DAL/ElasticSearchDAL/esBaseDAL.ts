@@ -9,10 +9,10 @@ export abstract class ESBaseDAL<T> {
     }
 
     public async upsert(document: T, documentId: string): Promise<boolean> {
-        return this.elasticHelper.upsert(this.DALConfig.index, this.DALConfig.type, document, documentId);
+        return await this.elasticHelper.upsert(this.DALConfig.index, this.DALConfig.type, document, documentId);
     }
 
     public async delete(documentId: string): Promise<string> {
-        return this.elasticHelper.delete(this.DALConfig.index, this.DALConfig.type, documentId);
+        return await this.elasticHelper.delete(this.DALConfig.index, this.DALConfig.type, documentId);
     }
 }

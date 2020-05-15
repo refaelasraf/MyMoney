@@ -12,31 +12,35 @@
 
 <script>
     import { GChart } from "vue-google-charts";
+
+    const headers = ['action', 'company', 'date'];
+
     export default {
-        props:{
-        },
+        props: ['transactions'],
         name: "TransactionTable",
         components: {
             GChart
         },
         data() {
             return {
-                // Array will be automatically processed with visualization.arrayToDataTable function
                 chartData: [
-                    ['action', 'company', 'date'],
-                    ["400$+", "my money", '20-Mar'],
-                    ["500$-", "my money", '21-Mar'],
-                        ["200$-", "my money", '22-Mar'],
-                        ["600$-", "my money", '23-Mar'],
-                        ["800$+", "my money", '24-Mar']
-
+                    headers
                 ],
                 chartOptions: {
                     width: 480, height: 380,
                 },
-                packages:['table']
-
+                packages:['table'],
             };
+        },
+        watch: {
+            transactions: function(newVal) {
+                if (!newVal) return;
+
+                this.chartData = [
+                        headers,
+                        ...newVal.map(v => [v.amount, v.storeName, v.eventTime])
+                ];
+            }
         }
     };
 </script>

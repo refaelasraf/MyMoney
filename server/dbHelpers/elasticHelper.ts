@@ -9,38 +9,39 @@ export class ElasticHelper {
     }
 
     public async search<T>(index: string|Array<string>, type:string|Array<string>, body: any):Promise<Array<T>>{
-        return this.esClient.search({
+        const res = await this.esClient.search({
             index:index,
             type: type,
             body : body
-        }).then((a)=>{
-            return a.body.hits.map((hit: any)=>{
-                return hit._source as T;
-            })
         });
+
+        return res.body.hits.hits.map((hit: any)=> hit._source as T);
     }
 
     public async aggregate(index: string|Array<string>, type:string|Array<string>, body: any):Promise<any>{
-        return this.esClient.search({
+        const res = await this.esClient.search({
             index:index,
             type: type,
             body : body
-        }).then((a)=>{
-            return a.body.aggregations;
         });
+
+        return res.body.aggregations;
     }
 
     public async upsert<T>(index :string, type: string, document: T, documentId: string):Promise<boolean>
     {
-        return this.esClient.index({
+        const res = await this.esClient.index({
             index:index,
             id:documentId,
             type: type,
             body:document
-        }).then((result)=> result.body.acknowledged)
+        });
+
+        return res.body.acknowledged;
     }
 
     public async delete<T>(index:string, type:string, documentId:string):Promise<string> {
-        return this.esClient.delete({index: index, type: type, id: documentId}).then((result => result.body.result));
+        const res = await this.esClient.delete({index: index, type: type, id: documentId});
+        return res.body.result;
     }
 }

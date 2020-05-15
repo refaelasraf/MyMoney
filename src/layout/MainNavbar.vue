@@ -43,6 +43,12 @@
         <nav-link to="/managedata">
           <i class="now-ui-icons ui-2_time-alarm"></i> Mange Financial data
         </nav-link>
+        <nav-link to="/comparison">
+          <i class="now-ui-icons education_paper"></i> Comparison
+        </nav-link>
+        <nav-link to="/userhome">
+          <i class="now-ui-icons education_paper"></i> User Home
+        </nav-link>
         <nav-link to="/">
           <i class="now-ui-icons ui-2_settings-90"></i> Home
         </nav-link>
