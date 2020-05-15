@@ -13,24 +13,21 @@
       </div>
     </div>
         <div class="container">
-          <colum-chart></colum-chart>
-          <second-chart></second-chart>
+          <bar-chart></bar-chart>
           <third-chart-sample></third-chart-sample>
         </div>
     </div>
 </template>
 <script>
 import { Button, FormGroupInput } from '@/components';
-import ColumChart from "./components/ColumChart";
-import SecondChart from "./components/SecondChart";
+import BarChart from "./components/BarChart";
 import ThirdChartSample from "./components/ThirdChartSample";
 export default {
   name: 'userhome',
   bodyClass: 'user-home-page',
   components: {
+    BarChart,
     ThirdChartSample,
-    SecondChart,
-    ColumChart,
     [Button.name]: Button,
     [FormGroupInput.name]: FormGroupInput
   },
