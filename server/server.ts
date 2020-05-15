@@ -10,7 +10,7 @@ import { statisticsController as StatisticsController } from "./controllers/stat
 import creditCardController from "./controllers/creditCardController";
 import BankAccountController from "./controllers/bankAccountController";
 import mongoHelper from "./dbHelpers/mongoHelper";
-
+import { adminController as AdminController } from "./controllers/adminController";
 const app = express();
 const port = 3000;
 app.listen(port, ()=> {
@@ -29,6 +29,7 @@ const userC = new userController();
 const creditCardC = new creditCardController();
 const bankAccountC = new BankAccountController();
 const statisticsController = new StatisticsController();
+const adminController = new AdminController();
 const transactionRouter = createTransactionRouter();
 
 app.use(bodyParser.json());
@@ -47,6 +48,11 @@ app.post("/api/bankAccount/remove", (req, res) =>bankAccountC.remove(req, res));
 app.post("/api/bankAccount/getByUser", (req, res) =>bankAccountC.getByUser(req, res));
 app.get("/api/statistics/getUserStats/:userId", statisticsController.getUserStatistics);
 app.post("/api/statistics/getUserSimilarStats", statisticsController.getUserSimilarStatistics)
+
+
+app.get("/api/admin/getStats");
+app.get("/api/admin/getUserList", adminController.getUserList);
+
 
 function  createTransactionRouter() {
     let elasticHelper = new ElasticHelper(config.DAL.elasticsearch);
