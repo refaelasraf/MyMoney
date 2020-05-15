@@ -10,7 +10,7 @@ export class userController {
             const id = await this.userBl.register(req.body.userName, req.body.password, req.body.dateOfBirth, req.body.email);
             res.status(200).send(id);
         } catch (e) {
-            res.status(500).send('registration failed');
+            res.send('registration failed' + e).status(500);
         }
     }
 
