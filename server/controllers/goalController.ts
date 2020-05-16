@@ -1,8 +1,19 @@
-import {Request, Response} from "express";
+import {Request, Response, Router} from "express";
 import {GoalBL} from "../BL/goalBL";
 
 export default class GoalController {
+    private readonly router: Router;
+
     constructor(private readonly bl: GoalBL = new GoalBL()) {
+        this.router = Router();
+        this.router.post("/add", (req, res) => this.add(req, res));
+        this.router.post("/edit", (req, res) => this.edit(req, res));
+        this.router.get("/remove/:id", (req, res) => this.remove(req, res));
+        this.router.get("/getByUser/:userId", (req, res) => this.getByUser(req, res));
+    }
+
+    public getRouter() {
+        return this.router;
     }
 
     public async add(req: Request, res: Response) {
