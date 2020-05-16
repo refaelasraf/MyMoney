@@ -1,7 +1,7 @@
 import {GoalDAL} from "../DAL/goalDAL";
 import {IGoal} from "../models/goal";
 
-export class CreditCardBL {
+export class GoalBL {
     constructor(private readonly dal: GoalDAL = new GoalDAL()) {
     }
 

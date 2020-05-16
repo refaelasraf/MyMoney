@@ -10,7 +10,7 @@ import { statisticsController as StatisticsController } from "./controllers/stat
 import creditCardController from "./controllers/creditCardController";
 import BankAccountController from "./controllers/bankAccountController";
 import mongoHelper from "./dbHelpers/mongoHelper";
-import {NotificationController} from "./controllers/NotificationController";
+import {NotificationController} from "./controllers/notificationController";
 import Cors from "cors";
 
 const app = express();
