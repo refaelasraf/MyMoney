@@ -13,6 +13,7 @@ import mongoHelper from "./dbHelpers/mongoHelper";
 import {NotificationController} from "./controllers/notificationController";
 import GoalController from "./controllers/goalController";
 import Cors from "cors";
+import SubscriptionController from "./controllers/subscriptionController";
 
 const app = express();
 const port = 3000;
@@ -34,7 +35,9 @@ const creditCardC = new creditCardController();
 const bankAccountC = new BankAccountController();
 const statisticsController = new StatisticsController();
 const goalController = new GoalController();
+const subscriptionController = new SubscriptionController();
 
+const subscriptionRouter = subscriptionController.getRouter();
 const goalRouter = goalController.getRouter();
 const notificationRouter = new NotificationController().getRouter();
 const transactionRouter = createTransactionRouter();
@@ -44,6 +47,7 @@ app.use(bodyParser.json());
 app.use("/api/notification", notificationRouter);
 app.use("/api/transaction", transactionRouter);
 app.use("/api/goal", goalRouter);
+app.use("/api/subscription", subscriptionRouter);
 
 app.post("/api/user/register", (req, res) => userC.register(req, res));
 app.post("/api/user/login", (req, res) =>userC.login(req, res));
