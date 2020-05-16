@@ -30,6 +30,7 @@ app.use((req, res, next) => {
 });
 
 mongoHelper.connect();
+
 const userC = new userController();
 const creditCardC = new creditCardController();
 const bankAccountC = new BankAccountController();
@@ -49,17 +50,25 @@ app.use("/api/transaction", transactionRouter);
 app.use("/api/goal", goalRouter);
 app.use("/api/subscription", subscriptionRouter);
 
+
+//user
 app.post("/api/user/register", (req, res) => userC.register(req, res));
 app.post("/api/user/login", (req, res) =>userC.login(req, res));
 app.post("/api/user/register" , userC.register);
+
+//credit card
 app.post("/api/creditCard/add", (req, res) =>creditCardC.add(req, res));
 app.post("/api/creditCard/edit", (req, res) =>creditCardC.edit(req, res));
 app.get("/api/creditCard/remove/:id", (req, res) =>creditCardC.remove(req, res));
 app.get("/api/creditCard/getByUser/:userId", (req, res) =>creditCardC.getByUser(req, res));
+
+//bank account
 app.post("/api/bankAccount/add", (req, res) =>bankAccountC.add(req, res));
 app.post("/api/bankAccount/edit", (req, res) =>bankAccountC.edit(req, res));
 app.get("/api/bankAccount/remove/:id", (req, res) =>bankAccountC.remove(req, res));
 app.get("/api/bankAccount/getByUser/:userId", (req, res) =>bankAccountC.getByUser(req, res));
+
+//statistics
 app.get("/api/statistics/getUserStats/:userId", statisticsController.getUserStatistics);
 app.post("/api/statistics/getUserSimilarStats", statisticsController.getUserSimilarStatistics)
 
