@@ -9,6 +9,7 @@ import Profile from './pages/Profile.vue';
 import GoalsManager from "./pages/GoalsManager";
 import ManageFinancialData from "./pages/ManageFinancialData";
 import AdminDashboard from "./pages/AdminDashboard";
+import UserHome from "./pages/UserHome";
 import Comparison from './pages/Comparison.vue';
 import MainNavbar from './layout/MainNavbar.vue';
 import MainFooter from './layout/MainFooter.vue';
@@ -102,6 +103,15 @@ export default new Router({
       path: '/comparison',
       name: 'comparison',
       components: { default: Comparison, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' }
+      }
+    },
+    {
+      path: '/userhome',
+      name: 'userhome',
+      components: { default: UserHome, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'black' }

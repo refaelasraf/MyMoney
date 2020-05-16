@@ -19,32 +19,53 @@
             </center>
         </div>
 
-        <card style="width: 20rem;">
-            <ul slot="raw-content" class="list-group list-group-flush">
-                <li class="list-group-item">Cras justo odio</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Vestibulum at eros</li>
-                <li class="list-group-item">EZ7</li>
-                <li class="list-group-item">AN8</li>
-                <li class="list-group-item">KOLOLOLOLO</li>
-            </ul>
-        </card>
+        <GChart
+                type="Table"
+                :data="chartData"
+                :options="chartOptions"
+                :settings="{ packages: ['corechart', 'table'] }"
+                style="width: 100%"
+        />
+
     </div>
 </template>
 <script>
     import { Button, FormGroupInput } from '@/components';
     import AdminDashboardComponent from "./components/AdminDashboardComponent";
+	import AdminService from "../services/AdminService";
+    import { GChart } from "vue-google-charts";
 
     export default {
         name: 'admindashboard',
         bodyClass: 'admin-dashboard-page',
         components: {
+            GChart,
             AdminDashboardComponent,
             [Button.name]: Button,
             [FormGroupInput.name]: FormGroupInput
         },
         data() {
             return {
+                //TODO: Get data as: await AdminService.getUserList();
+                chartData: [
+                    ['החודש', 'אני', 'החברלך'],
+                    ['ינואר', 1000, 200],
+                    ['פארבואר', 1170, 250],
+                    ['מרץ', 660, 300],
+                    ['אפריל', 1030, 350],
+                    ['מאי', 1000, 200],
+                    ['יוני', 1170, 250],
+                    ['יולי', 660, 300],
+                    ['אוגוסט', 1030, 350],
+                    ['ספטמבר', 1000, 200],
+                    ['אוקטובר', 1170, 250],
+                    ['נובמבר', 660, 300],
+                    ['דצמבר', 1030, 350]
+                ],
+                chartOptions: {
+                    width: 480, height: 380,
+                },
+                packages:['table'],
             };
         }
     };

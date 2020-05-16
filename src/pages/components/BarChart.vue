@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <GChart
-                type="PieChart"
+                type="BarChart"
                 :data="chartData"
                 :options="chartOptions"
                 style="width: 100%; height: 500px;"
@@ -12,7 +12,7 @@
 <script>
     import { GChart } from "vue-google-charts";
     export default {
-        name: "ThirdChartSample",
+        name: "BarChart",
         components: {
             GChart
         },
@@ -21,12 +21,8 @@
                 // Array will be automatically processed with visualization.arrayToDataTable function
                 //TODO: Get stats from server
                 chartData: [
-                    ['Task', 'Hours per Day'],
-                    ['Work',     11],
-                    ['Eat',      2],
-                    ['Commute',  2],
-                    ['Watch TV', 2],
-                    ['Sleep',    7]
+                    ['Task', ''],
+                    ['Your Expeness in this month',     11],
                 ]
             };
         }
