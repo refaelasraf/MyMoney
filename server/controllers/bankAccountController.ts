@@ -25,7 +25,7 @@ export default class BankAccountController {
 
 	public async remove(req: Request, res: Response) {
 		try {
-			await this.bl.remove(req.body.id);
+			await this.bl.remove(req.params.id);
 			res.send('success').status(200);
 		} catch (e) {
 			res.send('failed deleting bank account').status(502);
@@ -34,7 +34,7 @@ export default class BankAccountController {
 
 	public async getByUser(req: Request, res: Response) {
 		try {
-			const account = await this.bl.getByUser(req.body.id);
+			const account = await this.bl.getByUser(req.params.userId);
 			res.send(account).status(200);
 		} catch (e) {
 			res.send('failed deleting bank account').status(502);

@@ -39,15 +39,15 @@ app.post("/api/user/login", (req, res) =>userC.login(req, res));
 app.post("/api/user/register" , userC.register);
 app.post("/api/creditCard/add", (req, res) =>creditCardC.add(req, res));
 app.post("/api/creditCard/edit", (req, res) =>creditCardC.edit(req, res));
-app.post("/api/creditCard/remove", (req, res) =>creditCardC.remove(req, res));
-app.post("/api/creditCard/getByUser", (req, res) =>creditCardC.getByUser(req, res));
+app.get("/api/creditCard/remove/:id", (req, res) =>creditCardC.remove(req, res));
+app.get("/api/creditCard/getByUser/:userId", (req, res) =>creditCardC.getByUser(req, res));
 app.post("/api/bankAccount/add", (req, res) =>bankAccountC.add(req, res));
 app.post("/api/bankAccount/edit", (req, res) =>bankAccountC.edit(req, res));
-app.post("/api/bankAccount/remove", (req, res) =>bankAccountC.remove(req, res));
-app.post("/api/bankAccount/getByUser", (req, res) =>bankAccountC.getByUser(req, res));
+app.get("/api/bankAccount/remove/:id", (req, res) =>bankAccountC.remove(req, res));
+app.get("/api/bankAccount/getByUser/:userId", (req, res) =>bankAccountC.getByUser(req, res));
 app.get("/api/statistics/getUserStatistics/:userId", statisticsController.getUserStatistics);
 
-function  createTransactionRouter(){
+function  createTransactionRouter() {
     let elasticHelper = new ElasticHelper(config.DAL.elasticsearch);
     let transactionDAL = new TransactionDAL(elasticHelper, config.DAL.transactionDal);
     let transactionBL = new TransactionBL(transactionDAL);

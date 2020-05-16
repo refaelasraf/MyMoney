@@ -35,7 +35,7 @@
 							<div class="card-footer text-center">
 								<a
 										class="btn btn-primary btn-round btn-lg btn-block"
-										v-on:click="login"
+										@click="login"
 								>
 									Get Started
 								</a>

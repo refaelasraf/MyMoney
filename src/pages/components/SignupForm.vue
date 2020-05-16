@@ -64,7 +64,7 @@
 						</fg-input>
 					</template>
 					<div class="card-footer text-center">
-						<n-button type="neutral" round size="lg" v-on:click="register">
+						<n-button type="neutral" round size="lg" @click="register">
                           Get Started
                         </n-button>
 					</div>
