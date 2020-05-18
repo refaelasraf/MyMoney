@@ -20,7 +20,7 @@
         </div>
         <div class="content-center">
             <div class="container"  >
-                <transaction-table v-bind:transactions="transactions"></transaction-table>
+                <transaction-table v-bind:transactions="transactions"/>
                 <br/>
                 <div>
                     Total spending in month {{totalSpending}}$

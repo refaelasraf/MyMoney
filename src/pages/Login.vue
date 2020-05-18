@@ -35,7 +35,7 @@
 							<div class="card-footer text-center">
 								<a
 										class="btn btn-primary btn-round btn-lg btn-block"
-										v-on:click="login"
+										@click="login"
 								>
 									Get Started
 								</a>
@@ -60,7 +60,7 @@
 	import SignupForm from './components/SignupForm';
 	import MainFooter from '@/layout/MainFooter';
 	import UserService from "@/services/UserService";
-
+	import PushManager from "../services/PushManager";
 	export default {
 		name: 'login-page',
 		bodyClass: 'login-page',
@@ -85,6 +85,7 @@
 					this.didLoginFail = true;
 					return;
 				}
+				await PushManager.subscriptionToNotification(user._id);
 				localStorage.userId = user._id;
 				await this.$router.push('/landing')
 			},
