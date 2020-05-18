@@ -24,6 +24,10 @@ export class UserDal {
 
         return otherIds.map(user=> user.id).filter(id=> id != user.id );
     }
+
+    public getAll = async() : Promise<IUser[]> => {
+        return await UserModel.find({});
+    }
 }
 
  

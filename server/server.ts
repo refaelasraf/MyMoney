@@ -10,6 +10,7 @@ import { statisticsController as StatisticsController } from "./controllers/stat
 import creditCardController from "./controllers/creditCardController";
 import BankAccountController from "./controllers/bankAccountController";
 import mongoHelper from "./dbHelpers/mongoHelper";
+import { adminController as AdminController } from "./controllers/adminController";
 import {NotificationController} from "./controllers/notificationController";
 import GoalController from "./controllers/goalController";
 import Cors from "cors";
@@ -41,6 +42,7 @@ const subscriptionController = new SubscriptionController();
 const subscriptionRouter = subscriptionController.getRouter();
 const goalRouter = goalController.getRouter();
 const notificationRouter = new NotificationController().getRouter();
+const adminController = new AdminController();
 const transactionRouter = createTransactionRouter();
 
 app.use(bodyParser.json());
@@ -71,6 +73,11 @@ app.get("/api/bankAccount/getByUser/:userId", (req, res) =>bankAccountC.getByUse
 //statistics
 app.get("/api/statistics/getUserStats/:userId", statisticsController.getUserStatistics);
 app.post("/api/statistics/getUserSimilarStats", statisticsController.getUserSimilarStatistics)
+
+
+app.get("/api/admin/getStats");
+app.get("/api/admin/getUserList", adminController.getUserList);
+
 
 function  createTransactionRouter() {
     let elasticHelper = new ElasticHelper(config.DAL.elasticsearch);
