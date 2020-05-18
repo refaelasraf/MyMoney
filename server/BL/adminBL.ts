@@ -8,7 +8,7 @@ export class adminBL {
        
     }
 
-    public async getUserList() : Promise<IUser[]> {
+    public getUserList = async () : Promise<IUser[]> => {
         return await this.userDal.getAll();
     }
 
