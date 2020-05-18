@@ -48,23 +48,34 @@ export class statisticsDAL extends ESBaseDAL<ITransaction> {
         return ress;
     }
 
-    public getUserSimilarStatistics = async (userId:string, otherIds : string[]) 
+    public getUserSimilarStatistics = async (userId:string, otherIds : string[], year: number) 
       : Promise<{'user' : IUserStatistic[], 'other' : IUserStatistic[]}> => {
       
+      const fromYear = "01-01-" + year
+      const toYeat = "01-01-" + (year + 1);
+
       const aggs : any = { 
-        "category" : {
-          "terms": {
-            "field": "category"
+        "date" : {
+          "date_histogram" :{
+            "field" : "eventTime",
+            "interval" : "month"
           },
-          "aggs": {
-            "sum_money": {
-              "sum": {
-                "field": "ammount"
+          "aggs" : {
+            "category" : {
+              "terms": {
+                "field": "category"
+              },
+              "aggs": {
+                "sum_money": {
+                  "sum": {
+                    "field": "ammount"
+                  }
+                }
               }
             }
           }
-        }
-    } 
+        },
+      } 
       const query : any = { 
         "terms" : {
           "clientId" : otherIds
@@ -80,6 +91,7 @@ export class statisticsDAL extends ESBaseDAL<ITransaction> {
         query,
         aggs
       })
+      
       
       const userStats = userAggs.category.buckets.map((bucket : any) => {
         return {
