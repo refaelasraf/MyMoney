@@ -8,8 +8,8 @@ export default class StatisticsService {
 		return res.data;
 	}
 
-	static async getSimilarStats(userId, filters) {
-		let res = await axios.post(this.#route + '/getSimilarStats', {userId, filters});
+	static async getSimilarStats(userId, filters, year) {
+		let res = await axios.post(this.#route + '/getSimilarStats', {userId, filters, year});
 		return res.data;
 	}
 }

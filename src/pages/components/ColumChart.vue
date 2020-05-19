@@ -15,7 +15,7 @@
         </div>
         <ul style="column-count: 3; padding: 10px; line-height: 2em; background: #fff;">
             <li v-for="mainCat in mainCategories">
-                <n-checkbox @input="check(mainCat.merchantId, $event)"  id="mainCat.merchantId">Unchecked {{mainCat.merchantId}}</n-checkbox>
+                <n-checkbox @input="filterByCat(mainCat.merchantId, $event)"  id="mainCat.merchantId">Unchecked {{mainCat.merchantId}}</n-checkbox>
             </li>
         </ul>
     </div>
@@ -35,9 +35,9 @@
             [Radio.name]: Radio
         },
         created() {
-            this.UserStats = StatisticsService.getUserStats();
+            this.UserStats = StatisticsService.getUserStats(localStorage.userId);
             //Filter User By month
-            this.HevraStats = StatisticsService.getSimilarStats();
+            this.HevraStats = StatisticsService.getSimilarStats(localStorage.userId,[], 2016);
             //Filter User By month
         },
         data() {
@@ -94,20 +94,24 @@
                 }],
                 unchecked: false,
                 checked: true,
-                checkedCategories: [],
+                checkedCategories: ["email"],
                 mainYears:["2020","2019","2018","2017","2016"],
                 enabledRadio: "5",
+                year:2016,
             };
         },
         methods: {
-            changeYear: function(id,e) {
+            changeYear: function(yearChoosen,e) {
                 console.log("changeYear");
-                console.log(id);
-                this.chartOptions.title= 'נתונים עם חברלך אחרים בשנת ' + id;
+                console.log(yearChoosen);
+                this.chartOptions.title= 'נתונים עם חברלך אחרים בשנת ' + yearChoosen;
+                this.year = yearChoosen;
+
+                this.CharStats = StatisticsService.getSimilarStats(localStorage.userId,checkedCategories, yearChoosen);
             },
-            check: function(id,e) {
+            filterByCat: function(cat,e) {
                 console.log("Ohad The King");
-                console.log(this.checkedCategories,id,e);
+                console.log(this.checkedCategories,cat,e);
                 if(e == true)
                 {
                     //Send to server this Categorie
@@ -126,6 +130,8 @@
                         ['נובמבר', 660, 300],
                         ['דצמבר', 1030, 350]
                     ];
+
+                    this.CharStats = StatisticsService.getSimilarStats(localStorage.userId,checkedCategories, this.year);
                 }
                 else
                 {
@@ -145,6 +151,9 @@
                         ['נובמבר', 660, 300],
                         ['דצמבר', 1030, 350]
                     ];
+
+                    this.checkedCategories = this.checkedCategories.filter(e => e !== cat);
+                    this.CharStats = StatisticsService.getSimilarStats(localStorage.userId,checkedCategories, this.year);
                 }
             }
         }
