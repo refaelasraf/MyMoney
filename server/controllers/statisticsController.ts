@@ -19,7 +19,8 @@ export class statisticsController {
     public getUserSimilarStatistics = async (req: Request, res: Response) => {
         const filters : string[] = req.body.filters;
         const userId : string = req.body.userId;
-        const statistics = await this.statisticsBL.getUserSimilarStatistics(userId,filters)
+        const year : number = req.body.year;
+        const statistics = await this.statisticsBL.getUserSimilarStatistics(userId,filters,year)
         res.json(statistics).status(200);
     }
 }
