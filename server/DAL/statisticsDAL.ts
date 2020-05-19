@@ -51,8 +51,8 @@ export class statisticsDAL extends ESBaseDAL<ITransaction> {
     public getUserSimilarStatistics = async (userId:string, otherIds : string[], year: number) 
       : Promise<{'user' : IUserStatistic[], 'other' : IUserStatistic[]}> => {
       
-      const fromYear = "01-01-" + year
-      const toYeat = "01-01-" + (year + 1);
+      const fromYear = year + "-01-01"; 
+      const toYear = (year + 1) + "-01-01";
 
       const aggs : any = { 
         "date" : {
@@ -77,8 +77,22 @@ export class statisticsDAL extends ESBaseDAL<ITransaction> {
         },
       } 
       const query : any = { 
-        "terms" : {
-          "clientId" : otherIds
+        "bool" : {
+          "must" : [
+            {
+            "terms" : {
+              "clientId" : otherIds
+              }
+            },
+            {
+            "range" : {
+              "eventTime" : {
+                "gte" : fromYear,
+                "lte" : toYear
+                }
+              }
+            }
+          ]
         }
       }
       const otherAggs = await this.elasticHelper.aggregate(this.esConfig.index, this.esConfig.type, {
@@ -86,25 +100,41 @@ export class statisticsDAL extends ESBaseDAL<ITransaction> {
         aggs
       });
 
-      query.terms = {"clientId" : [userId]};
+      query.bool.must[0].terms = {"clientId" : [userId]};
       const userAggs = await this.elasticHelper.aggregate(this.esConfig.index, this.esConfig.type , {
         query,
         aggs
       })
       
-      
-      const userStats = userAggs.category.buckets.map((bucket : any) => {
+      const userStats  = userAggs.date.buckets.map((bucket:any)=> {
+        const date  = bucket.key_as_string;
+        const expense = bucket.category.buckets.map((bucket : any) => {
+          return {
+            category :bucket.key,
+            ammount : bucket.sum_money.value
+          }
+        });
         return {
-          category :bucket.key,
-          ammount : bucket.sum_money.value
-        }
-      });
-      const otherStats = otherAggs.category.buckets.map((bucket : any) => {
-        return {
-          category :bucket.key,
-          ammount : bucket.sum_money.value
+          "month" : date,
+          "expense" : expense
+
         }
       })
+     
+      const otherStats = otherAggs.date.buckets.map((bucket:any)=> {
+        const date  = bucket.key_as_string;
+        const expense = bucket.category.buckets.map((bucket : any) => {
+          return {
+            category :bucket.key,
+            ammount : bucket.sum_money.value
+          }
+        });
+        return {
+          "month" : date,
+          "expense" : expense
+
+        }
+      });
       return {'user' : userStats, 'other' : otherStats};
     }
 
