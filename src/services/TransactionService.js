@@ -8,6 +8,11 @@ export default class TransactionService {
 		return res.data;
 	}
 
+	static async getCurrentMonthSum(){
+		let res = await axios.post(this.#route +  "/getSumOfMonth", {clientID: "666"});
+		return res;
+	}
+
 	static getNextMonth(date) {
 		const clone = new Date(date.getTime());
 		clone.setMonth(clone.getMonth() + 1);

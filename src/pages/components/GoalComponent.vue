@@ -18,6 +18,7 @@
     import {  Button} from '@/components';
     export default {
         props:{
+            max:Number,
           label:String,
           value:Number,
           redFrom:Number,
@@ -40,7 +41,7 @@
                 chartOptions: {
                     width: 280, height: 280,
                     redFrom: this.redFrom, redTo: this.redTo,
-                    yellowFrom:this.yellowFrom, yellowTo: this.yellowTo,
+                    yellowFrom:this.yellowFrom, yellowTo: this.yellowTo, max: this.max,
                     minorTicks: 5
                 },
                 packages:['gauge']

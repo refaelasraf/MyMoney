@@ -12,19 +12,20 @@
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div class="container" v-if="goals!=null">
             <center>
-                <goal-component label="Goal 1" :red-from="60" :red-to="80" :yellow-from="40" :yellow-to="59" :value="43"></goal-component>
-                <goal-component label="Goal 2" :red-from="90" :red-to="100" :yellow-from="40" :yellow-to="89" :value="10"></goal-component>
-                <goal-component label="Goal 3" :red-from="60" :red-to="80" :yellow-from="40" :yellow-to="59" :value="25"></goal-component>
-                <goal-component label="Goal 4" :red-from="60" :red-to="80" :yellow-from="40" :yellow-to="59" :value="80"></goal-component>
+                <goal-component v-for="(goal, index) in goals" :label="goal.title" :red-from="goal.redFrom" :red-to="goal.max" :max="goal.max" :yellow-from="goal.yellowFrom" :yellow-to="goal.yellowTo"
+                                :value="goal.value"></goal-component>
+                <h1>{{currentMonthSum}}</h1>
             </center>
         </div>
     </div>
 </template>
 <script>
-    import { Button, FormGroupInput } from '@/components';
+    import {Button, FormGroupInput} from '@/components';
     import GoalComponent from "./components/GoalComponent";
+    import TransactionService from "../services/TransactionService";
+    import GoalsService from "../services/GoalsService";
 
     export default {
         name: 'goalManager',
@@ -36,7 +37,32 @@
         },
         data() {
             return {
+                currentMonthSum: null,
+                goals: null
             };
+        },
+        created() {
+            this.getMonthSum();
+        },
+        methods: {
+            async getMonthSum() {
+                const pureGoals = await GoalsService.getUserGoals();
+                const result = (await TransactionService.getCurrentMonthSum());
+                this.currentMonthSum = result.data.amountSum.value;
+                this.goals = this.mapGoalsToViewElements(pureGoals, this.currentMonthSum);
+            },
+
+            mapGoalsToViewElements(goals, currentAmount) {
+                return goals.map((goal) => ({
+                    title: goal.title,
+                    id: goal._id,
+                    value : currentAmount,
+                    redFrom: Math.floor(goal.triggerValue),
+                    max: Math.floor(Math.max(goal.triggerValue * 1.30, currentAmount)),
+                    yellowFrom: Math.floor(goal.triggerValue * 0.75),
+                    yellowTo: Math.floor(goal.triggerValue)
+                }))
+            }
         }
     };
 </script>
