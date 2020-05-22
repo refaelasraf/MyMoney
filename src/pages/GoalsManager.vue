@@ -14,15 +14,26 @@
         </div>
         <div class="container" v-if="goals!=null">
             <center>
-                <goal-component v-for="(goal, index) in goals" :delete-func="deleteGoal" :id="goal.id" :label="goal.title" :red-from="goal.redFrom" :red-to="goal.max" :max="goal.max" :yellow-from="goal.yellowFrom" :yellow-to="goal.yellowTo"
+                <n-button  @click.native="modals.addGoal.isVisible = true">Add Goal</n-button>
+                <modal :show.sync="modals.addGoal.isVisible" headerClasses="justify-content-center">
+                    <h4 slot="header" class="title title-up">Add goal</h4>
+                    <fg-input placeholder="title" v-model="modals.addGoal.goal.title"></fg-input>
+                    <fg-input placeholder="trigger value" v-model="modals.addGoal.goal.triggerValue"></fg-input>
+                    <template slot="footer">
+                        <n-button @click="addGoal">Add goal</n-button>
+                        <n-button type="danger" @click.native="modals.addGoal.isVisible = false">Close</n-button>
+                    </template>
+                </modal>
+                <goal-component v-for="(goal, index) in goals" :delete-func="deleteGoal" :id="goal.id"
+                                :label="goal.title" :red-from="goal.redFrom" :red-to="goal.max" :max="goal.max"
+                                :yellow-from="goal.yellowFrom" :yellow-to="goal.yellowTo"
                                 :value="goal.value"></goal-component>
-                <h1>{{currentMonthSum}}</h1>
             </center>
         </div>
     </div>
 </template>
 <script>
-    import {Button, FormGroupInput} from '@/components';
+    import {Modal, Button, FormGroupInput} from '@/components';
     import GoalComponent from "./components/GoalComponent";
     import TransactionService from "../services/TransactionService";
     import GoalsService from "../services/GoalsService";
@@ -33,34 +44,63 @@
         components: {
             GoalComponent,
             [Button.name]: Button,
-            [FormGroupInput.name]: FormGroupInput
+            [FormGroupInput.name]: FormGroupInput,
+            [Modal.name]: Modal
         },
         data() {
             return {
                 currentMonthSum: null,
-                goals: null
+                goals: null,
+                modals: {
+                    classic: false,
+                    editProfile: false,
+                    addGoal: {
+                        isVisible: false,
+                        goal: {
+                            title: null,
+                            triggerValue: 0,
+                            owner: localStorage.userId,
+                            type: "amount",
+                            isActivated: true
+                        }
+                    }
+                }
             };
-        },
+        }
+        ,
         created() {
             this.getMonthSum();
-        },
+        }
+        ,
         methods: {
-            async deleteGoal(id){
+            async addGoal() {
+                await GoalsService.addGoal(this.modals.addGoal.goal);
+                await this.getMonthSum();
+                this.restoreAddGoalModel();
+            },
+            restoreAddGoalModel(){
+              this.modals.addGoal.isVisible = false;
+              this.modals.addGoal.goal.title = null;
+              this.modals.addGoal.goal.triggerValue = 0;
+            },
+            async deleteGoal(id) {
                 await GoalsService.deleteGoal(id);
                 await this.getMonthSum();
-            },
+            }
+            ,
             async getMonthSum() {
                 const pureGoals = await GoalsService.getUserGoals();
                 const result = (await TransactionService.getCurrentMonthSum());
                 this.currentMonthSum = result.data.amountSum.value;
                 this.goals = this.mapGoalsToViewElements(pureGoals, this.currentMonthSum);
-            },
+            }
+            ,
             mapGoalsToViewElements(goals, currentAmount) {
                 return goals.map((goal) => ({
                     pureGoal: goal,
                     title: goal.title,
                     id: goal._id,
-                    value : currentAmount,
+                    value: currentAmount,
                     redFrom: Math.floor(goal.triggerValue),
                     max: Math.floor(Math.max(goal.triggerValue * 1.30, currentAmount)),
                     yellowFrom: Math.floor(goal.triggerValue * 0.75),
@@ -68,6 +108,7 @@
                 }))
             }
         }
-    };
+    }
+    ;
 </script>
 <style></style>
