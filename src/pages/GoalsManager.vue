@@ -14,7 +14,7 @@
         </div>
         <div class="container" v-if="goals!=null">
             <center>
-                <goal-component v-for="(goal, index) in goals" :label="goal.title" :red-from="goal.redFrom" :red-to="goal.max" :max="goal.max" :yellow-from="goal.yellowFrom" :yellow-to="goal.yellowTo"
+                <goal-component v-for="(goal, index) in goals" :delete-func="deleteGoal" :id="goal.id" :label="goal.title" :red-from="goal.redFrom" :red-to="goal.max" :max="goal.max" :yellow-from="goal.yellowFrom" :yellow-to="goal.yellowTo"
                                 :value="goal.value"></goal-component>
                 <h1>{{currentMonthSum}}</h1>
             </center>
@@ -45,15 +45,19 @@
             this.getMonthSum();
         },
         methods: {
+            async deleteGoal(id){
+                await GoalsService.deleteGoal(id);
+                await this.getMonthSum();
+            },
             async getMonthSum() {
                 const pureGoals = await GoalsService.getUserGoals();
                 const result = (await TransactionService.getCurrentMonthSum());
                 this.currentMonthSum = result.data.amountSum.value;
                 this.goals = this.mapGoalsToViewElements(pureGoals, this.currentMonthSum);
             },
-
             mapGoalsToViewElements(goals, currentAmount) {
                 return goals.map((goal) => ({
+                    pureGoal: goal,
                     title: goal.title,
                     id: goal._id,
                     value : currentAmount,

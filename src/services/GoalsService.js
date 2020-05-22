@@ -7,4 +7,9 @@ export default class GoalsService {
         let res = await axios.get(this.#route + `/getByUser/${localStorage.userId}`);
         return res.data;
     }
+
+    static async deleteGoal(id){
+        let res = await axios.get(this.#route + `/remove/${id}`);
+        return res.data;
+    }
 }
