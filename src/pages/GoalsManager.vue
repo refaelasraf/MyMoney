@@ -12,7 +12,7 @@
                 </div>
             </div>
         </div>
-        <div class="container" v-if="goals!=null && !isLoading">
+        <div class="container" v-if="!isLoading">
             <center>
                 <n-button @click.native="modals.addGoal.isVisible = true">Add Goal</n-button>
                 <modal :show.sync="modals.addGoal.isVisible" headerClasses="justify-content-center">
