@@ -16,4 +16,8 @@ export class TransactionBL {
     public async getByDate(start: Date, end: Date) {
         return await this.dal.getByDate(start, end);
     }
+
+    public async getThisMonthTransactionSum(clientID: string){
+        return await this.dal.getSumOfCurrentMonth(clientID);
+    }
 }

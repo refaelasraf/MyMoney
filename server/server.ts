@@ -10,8 +10,11 @@ import { statisticsController as StatisticsController } from "./controllers/stat
 import creditCardController from "./controllers/creditCardController";
 import BankAccountController from "./controllers/bankAccountController";
 import mongoHelper from "./dbHelpers/mongoHelper";
-import {NotificationController} from "./controllers/NotificationController";
+import { adminController as AdminController } from "./controllers/adminController";
+import {NotificationController} from "./controllers/notificationController";
+import GoalController from "./controllers/goalController";
 import Cors from "cors";
+import SubscriptionController from "./controllers/subscriptionController";
 
 const app = express();
 const port = 3000;
@@ -28,29 +31,53 @@ app.use((req, res, next) => {
 });
 
 mongoHelper.connect();
+
 const userC = new userController();
 const creditCardC = new creditCardController();
 const bankAccountC = new BankAccountController();
 const statisticsController = new StatisticsController();
+const goalController = new GoalController();
+const subscriptionController = new SubscriptionController();
+
+const subscriptionRouter = subscriptionController.getRouter();
+const goalRouter = goalController.getRouter();
 const notificationRouter = new NotificationController().getRouter();
+const adminController = new AdminController();
 const transactionRouter = createTransactionRouter();
+
 app.use(bodyParser.json());
 
 app.use("/api/notification", notificationRouter);
 app.use("/api/transaction", transactionRouter);
+app.use("/api/goal", goalRouter);
+app.use("/api/subscription", subscriptionRouter);
+
+
+//user
 app.post("/api/user/register", (req, res) => userC.register(req, res));
 app.post("/api/user/login", (req, res) =>userC.login(req, res));
 app.post("/api/user/register" , userC.register);
+
+//credit card
 app.post("/api/creditCard/add", (req, res) =>creditCardC.add(req, res));
 app.post("/api/creditCard/edit", (req, res) =>creditCardC.edit(req, res));
 app.get("/api/creditCard/remove/:id", (req, res) =>creditCardC.remove(req, res));
 app.get("/api/creditCard/getByUser/:userId", (req, res) =>creditCardC.getByUser(req, res));
+
+//bank account
 app.post("/api/bankAccount/add", (req, res) =>bankAccountC.add(req, res));
 app.post("/api/bankAccount/edit", (req, res) =>bankAccountC.edit(req, res));
 app.get("/api/bankAccount/remove/:id", (req, res) =>bankAccountC.remove(req, res));
 app.get("/api/bankAccount/getByUser/:userId", (req, res) =>bankAccountC.getByUser(req, res));
+
+//statistics
 app.get("/api/statistics/getUserStats/:userId", statisticsController.getUserStatistics);
 app.post("/api/statistics/getUserSimilarStats", statisticsController.getUserSimilarStatistics);
+
+
+app.get("/api/admin/getStats");
+app.get("/api/admin/getUserList", adminController.getUserList);
+
 
 function  createTransactionRouter() {
     let elasticHelper = new ElasticHelper(config.DAL.elasticsearch);

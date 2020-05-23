@@ -44,6 +44,10 @@
             [Button.name]: Button,
             [FormGroupInput.name]: FormGroupInput
         },
+        created() {
+            this.Users = AdminService.getUserList();
+            //TODO: insert Users into chartData
+        },
         data() {
             return {
                 //TODO: Get data as: await AdminService.getUserList();

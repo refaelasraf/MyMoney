@@ -12,19 +12,41 @@
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div class="container" v-if="goals!=null">
             <center>
-                <goal-component label="Goal 1" :red-from="60" :red-to="80" :yellow-from="40" :yellow-to="59" :value="43"></goal-component>
-                <goal-component label="Goal 2" :red-from="90" :red-to="100" :yellow-from="40" :yellow-to="89" :value="10"></goal-component>
-                <goal-component label="Goal 3" :red-from="60" :red-to="80" :yellow-from="40" :yellow-to="59" :value="25"></goal-component>
-                <goal-component label="Goal 4" :red-from="60" :red-to="80" :yellow-from="40" :yellow-to="59" :value="80"></goal-component>
+                <n-button @click.native="modals.addGoal.isVisible = true">Add Goal</n-button>
+                <modal :show.sync="modals.addGoal.isVisible" headerClasses="justify-content-center">
+                    <h4 slot="header" class="title title-up">Add goal</h4>
+                    <fg-input placeholder="title" v-model="modals.addGoal.goal.title"></fg-input>
+                    <fg-input placeholder="trigger value" v-model="modals.addGoal.goal.triggerValue"></fg-input>
+                    <template slot="footer">
+                        <n-button @click="addGoal">Add goal</n-button>
+                        <n-button type="danger" @click.native="modals.addGoal.isVisible = false">Close</n-button>
+                    </template>
+                </modal>
+                <modal :show.sync="modals.editGoal.isVisible" headerClasses="justify-content-center">
+                    <h4 slot="header" class="title title-up">Edit goal</h4>
+                    <fg-input placeholder="title" v-model="modals.editGoal.goal.title"></fg-input>
+                    <fg-input placeholder="trigger value" v-model="modals.editGoal.goal.triggerValue"></fg-input>
+                    <template slot="footer">
+                        <n-button @click="editGoal">Edit goal</n-button>
+                        <n-button type="danger" @click="hideUpdateModal">Close</n-button>
+                    </template>
+                </modal>
+                <goal-component v-for="(goal, index) in goals" :delete-func="deleteGoal" :update-func="showUpdateModal"
+                                :goal="goal.pureGoal"
+                                :label="goal.title" :red-from="goal.redFrom" :red-to="goal.max" :max="goal.max"
+                                :yellow-from="goal.yellowFrom" :yellow-to="goal.yellowTo"
+                                :value="goal.value"></goal-component>
             </center>
         </div>
     </div>
 </template>
 <script>
-    import { Button, FormGroupInput } from '@/components';
+    import {Modal, Button, FormGroupInput} from '@/components';
     import GoalComponent from "./components/GoalComponent";
+    import TransactionService from "../services/TransactionService";
+    import GoalsService from "../services/GoalsService";
 
     export default {
         name: 'goalManager',
@@ -32,12 +54,94 @@
         components: {
             GoalComponent,
             [Button.name]: Button,
-            [FormGroupInput.name]: FormGroupInput
+            [FormGroupInput.name]: FormGroupInput,
+            [Modal.name]: Modal
         },
         data() {
             return {
+                currentMonthSum: null,
+                goals: null,
+                modals: {
+                    classic: false,
+                    editProfile: false,
+                    editGoal: {
+                        isVisible:false,
+                        goal:{
+                            _id:null,
+                            title: null,
+                            triggerValue: 0,
+                            owner: null,
+                            type: null,
+                            isActivated: false
+                        }
+                    },
+                    addGoal: {
+                        isVisible: false,
+                        goal: {
+                            title: null,
+                            triggerValue: 0,
+                            owner: localStorage.userId,
+                            type: "amount",
+                            isActivated: true
+                        }
+                    }
+                }
             };
         }
-    };
+        ,
+        created() {
+            this.getMonthSum();
+        }
+        ,
+        methods: {
+            async addGoal() {
+                await GoalsService.addGoal(this.modals.addGoal.goal);
+                await this.getMonthSum();
+                this.restoreAddGoalModal();
+            },
+            showUpdateModal(goal){
+                this.modals.editGoal.isVisible = true;
+                this.modals.editGoal.goal = goal;
+            },
+            hideUpdateModal(){
+                this.modals.editGoal.isVisible = false;
+            },
+            async editGoal() {
+                await GoalsService.editGoal(this.modals.editGoal.goal._id, this.modals.editGoal.goal);
+                this.hideUpdateModal();
+                await this.getMonthSum();
+            },
+            restoreAddGoalModal() {
+                this.modals.addGoal.isVisible = false;
+                this.modals.addGoal.goal.title = null;
+                this.modals.addGoal.goal.triggerValue = 0;
+            },
+            async deleteGoal(id) {
+                await GoalsService.deleteGoal(id);
+                await this.getMonthSum();
+            }
+            ,
+            async getMonthSum() {
+                const pureGoals = await GoalsService.getUserGoals();
+                const result = (await TransactionService.getCurrentMonthSum());
+                this.currentMonthSum = result.data.amountSum.value;
+                this.goals = this.mapGoalsToViewElements(pureGoals, this.currentMonthSum);
+            }
+            ,
+            mapGoalsToViewElements(goals, currentAmount) {
+                return goals.map((goal) => ({
+                    pureGoal: goal,
+                    title: goal.title,
+                    id: goal._id,
+                    value: currentAmount,
+                    redFrom: Math.floor(goal.triggerValue),
+                    max: Math.floor(Math.max(goal.triggerValue * 1.30, currentAmount)),
+                    yellowFrom: Math.floor(goal.triggerValue * 0.75),
+                    yellowTo: Math.floor(goal.triggerValue)
+                }))
+            }
+        }
+    }
+    ;
 </script>
 <style></style>
