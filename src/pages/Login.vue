@@ -81,10 +81,12 @@
 		methods: {
 			async login() {
 				const user = await UserService.login(this.userName, this.password);
+
 				if (!user) {
 					this.didLoginFail = true;
 					return;
 				}
+
 				await PushManager.subscriptionToNotification(user._id);
 				localStorage.userId = user._id;
 				localStorage.isAdmin = user.isAdmin;

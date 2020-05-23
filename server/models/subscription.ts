@@ -2,7 +2,6 @@ import {Schema, Document} from "mongoose";
 import * as mongoose from "mongoose";
 
 export interface ISubscription {
-    id: string,
     owner: string;
     subscription: object
 }
