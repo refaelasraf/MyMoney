@@ -14,7 +14,7 @@ export class UserBL {
     }
 
     public async getAllUsers():Promise<IUser[]>{
-        return await this.getAllUsers();
+        return await this.userDal.getAll();
     }
 
     public async setUserAsAdmin(id: string) {

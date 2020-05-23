@@ -20,6 +20,8 @@ interface IUsersFullDetails {
 
 export class GoalChecker {
 
+    private usersFullDetails: IUsersFullDetails;
+
     public constructor(private transactionBL: TransactionBL = new TransactionBL(),
                        private goalBL: GoalBL = new GoalBL(),
                        private subscriptionBL: SubscriptionBL = new SubscriptionBL(),
