@@ -20,4 +20,8 @@ export class SubscriptionBL {
     public async getByUser(userId: string) {
         return await this.dal.getByUser(userId);
     }
+
+    public async getAll(){
+        return await this.dal.getAll();
+    }
 }

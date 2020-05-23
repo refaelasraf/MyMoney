@@ -2,7 +2,7 @@ import {ITransaction} from "../models/transaction";
 import {TransactionDAL} from "../DAL/ElasticSearchDAL/transactionDAL";
 
 export class TransactionBL {
-    constructor(private dal: TransactionDAL) {
+    constructor(private dal: TransactionDAL =  new TransactionDAL()) {
     }
 
     public async upsert(document: ITransaction) {
@@ -19,5 +19,9 @@ export class TransactionBL {
 
     public async getThisMonthTransactionSum(clientID: string){
         return await this.dal.getSumOfCurrentMonth(clientID);
+    }
+
+    public async getCurrentMonthStatsOfAllUsers(){
+        return await this.dal.getCurrentMonthStatsOfAllUsers();
     }
 }

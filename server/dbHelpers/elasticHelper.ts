@@ -1,10 +1,11 @@
 import {IElasticSearchConfig} from "../configuration/IConfig";
 import {Client as ESClient} from "@elastic/elasticsearch";
+import  {config} from "../configuration/config";
 
 export class ElasticHelper {
     private esClient:ESClient;
 
-    public constructor(private elasticSearchConfig:IElasticSearchConfig) {
+    public constructor(private elasticSearchConfig:IElasticSearchConfig = config.DAL.elasticsearch) {
         this.esClient = new ESClient({node : elasticSearchConfig.host});
     }
 

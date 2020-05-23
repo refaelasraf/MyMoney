@@ -20,4 +20,8 @@ export class GoalBL {
     public async getByUser(userId: string) {
         return await this.dal.getByUser(userId);
     }
+
+    public async getAllGoals() {
+        return await this.dal.getAllGoals();
+    }
 }

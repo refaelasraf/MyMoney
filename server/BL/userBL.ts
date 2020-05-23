@@ -13,6 +13,10 @@ export class UserBL {
         return await this.userDal.login(userName, password);
     }
 
+    public async getAllUsers():Promise<IUser[]>{
+        return await this.getAllUsers();
+    }
+
     public async setUserAsAdmin(id: string) {
         return await this.userDal.setUserAsAdmin(id);
     }
