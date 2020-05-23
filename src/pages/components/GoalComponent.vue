@@ -7,7 +7,8 @@
                 :settings="{ packages: ['corechart', 'gauge'] }"
                 style="width: 100%; height:280px;"
         />
-        <n-button type="danger" v-on:click="deleteFunc(id)"><i class="now-ui-icons ui-1_simple-remove"></i></n-button>
+        <n-button type="danger" v-on:click="deleteFunc(goal._id)"><i class="now-ui-icons ui-1_simple-remove"></i></n-button>
+        <n-button type="success" v-on:click="updateFunc(goal)" > <i class="now-ui-icons design-2_ruler-pencil"></i></n-button>
     </div>
 
 </template>
@@ -18,7 +19,7 @@
 
     export default {
         props: {
-            id: String,
+            goal: Object,
             max: Number,
             label: String,
             value: Number,
@@ -26,6 +27,7 @@
             redTo: Number,
             yellowFrom: Number,
             yellowTo: Number,
+            updateFunc: Function,
             deleteFunc: Function
         },
         name: "GoalComponent",

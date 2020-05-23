@@ -14,7 +14,7 @@
         </div>
         <div class="container" v-if="goals!=null">
             <center>
-                <n-button  @click.native="modals.addGoal.isVisible = true">Add Goal</n-button>
+                <n-button @click.native="modals.addGoal.isVisible = true">Add Goal</n-button>
                 <modal :show.sync="modals.addGoal.isVisible" headerClasses="justify-content-center">
                     <h4 slot="header" class="title title-up">Add goal</h4>
                     <fg-input placeholder="title" v-model="modals.addGoal.goal.title"></fg-input>
@@ -24,7 +24,17 @@
                         <n-button type="danger" @click.native="modals.addGoal.isVisible = false">Close</n-button>
                     </template>
                 </modal>
-                <goal-component v-for="(goal, index) in goals" :delete-func="deleteGoal" :id="goal.id"
+                <modal :show.sync="modals.editGoal.isVisible" headerClasses="justify-content-center">
+                    <h4 slot="header" class="title title-up">Edit goal</h4>
+                    <fg-input placeholder="title" v-model="modals.editGoal.goal.title"></fg-input>
+                    <fg-input placeholder="trigger value" v-model="modals.editGoal.goal.triggerValue"></fg-input>
+                    <template slot="footer">
+                        <n-button @click="editGoal">Edit goal</n-button>
+                        <n-button type="danger" @click="hideUpdateModal">Close</n-button>
+                    </template>
+                </modal>
+                <goal-component v-for="(goal, index) in goals" :delete-func="deleteGoal" :update-func="showUpdateModal"
+                                :goal="goal.pureGoal"
                                 :label="goal.title" :red-from="goal.redFrom" :red-to="goal.max" :max="goal.max"
                                 :yellow-from="goal.yellowFrom" :yellow-to="goal.yellowTo"
                                 :value="goal.value"></goal-component>
@@ -54,6 +64,17 @@
                 modals: {
                     classic: false,
                     editProfile: false,
+                    editGoal: {
+                        isVisible:false,
+                        goal:{
+                            _id:null,
+                            title: null,
+                            triggerValue: 0,
+                            owner: null,
+                            type: null,
+                            isActivated: false
+                        }
+                    },
                     addGoal: {
                         isVisible: false,
                         goal: {
@@ -76,12 +97,24 @@
             async addGoal() {
                 await GoalsService.addGoal(this.modals.addGoal.goal);
                 await this.getMonthSum();
-                this.restoreAddGoalModel();
+                this.restoreAddGoalModal();
             },
-            restoreAddGoalModel(){
-              this.modals.addGoal.isVisible = false;
-              this.modals.addGoal.goal.title = null;
-              this.modals.addGoal.goal.triggerValue = 0;
+            showUpdateModal(goal){
+                this.modals.editGoal.isVisible = true;
+                this.modals.editGoal.goal = goal;
+            },
+            hideUpdateModal(){
+                this.modals.editGoal.isVisible = false;
+            },
+            async editGoal() {
+                await GoalsService.editGoal(this.modals.editGoal.goal._id, this.modals.editGoal.goal);
+                this.hideUpdateModal();
+                await this.getMonthSum();
+            },
+            restoreAddGoalModal() {
+                this.modals.addGoal.isVisible = false;
+                this.modals.addGoal.goal.title = null;
+                this.modals.addGoal.goal.triggerValue = 0;
             },
             async deleteGoal(id) {
                 await GoalsService.deleteGoal(id);

@@ -13,6 +13,11 @@ export default class GoalsService {
         return res.data;
     }
 
+    static async editGoal(id, goal){
+        let res = await axios.post(this.#route + `/edit`, {id, goal});
+        return res.data;
+    }
+
     static async addGoal(goal){
         let res = await axios.post(this.#route + `/add`, {goal});
         return res.data;
