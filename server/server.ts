@@ -76,6 +76,7 @@ app.post("/api/statistics/getUserSimilarStats", statisticsController.getUserSimi
 
 
 app.get("/api/admin/getStats");
+app.get("/api/admin/getUsers", (req, res) => adminController.getUsers(req, res));
 
 function  createTransactionRouter() {
     let elasticHelper = new ElasticHelper(config.DAL.elasticsearch);

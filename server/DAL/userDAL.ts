@@ -28,6 +28,10 @@ export class UserDal {
     public async setUserAsAdmin(id: string) {
         return UserModel.findByIdAndUpdate(id, {isAdmin: true}).exec();
     }
+
+    public async getAll() : Promise<IUser[]> {
+        return await UserModel.find({}).exec();
+    }
 }
 
  

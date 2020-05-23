@@ -7,4 +7,8 @@ export class adminBL {
     constructor(private readonly userDal: UserDal = new UserDal()) {
        
     }
+
+    public async getUsers() : Promise<IUser[]> {
+        return await this.userDal.getAll();
+    }
 }
