@@ -1,7 +1,8 @@
 import axios from "axios"
+import config from "../configuration/config";
 
 export default class CreditCardService {
-	static #route = 'http://localhost:3000/api/creditCard';
+	static #route = `${config.baseServerUrl}/api/creditCard`;
 
 	static async get(userId) {
 		let res = await axios.get(this.#route + `/getByUser/${userId}`);

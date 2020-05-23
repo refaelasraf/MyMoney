@@ -1,7 +1,8 @@
 import axios from "axios"
+import config from "../configuration/config";
 
 export default class StatisticsService {
-	static #route = 'http://localhost:3000/api/statistics';
+	static #route = `${config.baseServerUrl}/api/statistics`;
 
 	static async getUserStats(userId) {
 		let res = await axios.get(this.#route + `/getUserStats/${userId}`);

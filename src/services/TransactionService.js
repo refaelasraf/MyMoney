@@ -1,7 +1,8 @@
 import axios from "axios"
+import config from '../configuration/config';
 
 export default class TransactionService {
-	static #route = 'http://localhost:3000/api/transaction';
+	static #route = `${config.baseServerUrl}/api/transaction`;
 
 	static async getMonth(date) {
 		let res = await axios.post(this.#route + '/getByDate', {start: date, end: this.getNextMonth(date)});

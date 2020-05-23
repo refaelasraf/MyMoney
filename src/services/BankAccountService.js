@@ -1,7 +1,7 @@
 import axios from "axios"
 
 export default class BankAccountService {
-	static #route = 'http://localhost:3000/api/bankAccount';
+	static #route = `${config.baseServerUrl}/api/bankAccount`;
 
 	static async get(userId) {
 		let res = await axios.get(this.#route + `/getByUser/${userId}`);

@@ -1,7 +1,8 @@
 import axios from "axios"
+import config from "../configuration/config";
 
 export default class UserService {
-	static #route = 'http://localhost:3000/api/user';
+	static #route = `${config.baseServerUrl}/api/user`;
 
 	static async register(userName, password, dateOfBirth, email) {
 		let res = await axios.post(this.#route + '/register', {userName, password, dateOfBirth, email});
