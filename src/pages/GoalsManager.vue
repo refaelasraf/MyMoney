@@ -12,7 +12,7 @@
                 </div>
             </div>
         </div>
-        <div class="container" v-if="goals!=null">
+        <div class="container" v-if="goals!=null && !isLoading">
             <center>
                 <n-button @click.native="modals.addGoal.isVisible = true">Add Goal</n-button>
                 <modal :show.sync="modals.addGoal.isVisible" headerClasses="justify-content-center">
@@ -59,6 +59,7 @@
         },
         data() {
             return {
+                isLoading:false,
                 currentMonthSum: null,
                 goals: null,
                 modals: {
@@ -109,7 +110,7 @@
             async editGoal() {
                 await GoalsService.editGoal(this.modals.editGoal.goal._id, this.modals.editGoal.goal);
                 this.hideUpdateModal();
-                await this.getMonthSum();
+                await this.getMonthSum()
             },
             restoreAddGoalModal() {
                 this.modals.addGoal.isVisible = false;
@@ -122,10 +123,12 @@
             }
             ,
             async getMonthSum() {
+                this.isLoading = true;
                 const pureGoals = await GoalsService.getUserGoals();
                 const result = (await TransactionService.getCurrentMonthSum());
                 this.currentMonthSum = result.data.amountSum.value;
                 this.goals = this.mapGoalsToViewElements(pureGoals, this.currentMonthSum);
+                this.isLoading = false;
             }
             ,
             mapGoalsToViewElements(goals, currentAmount) {
