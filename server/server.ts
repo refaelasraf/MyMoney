@@ -50,7 +50,7 @@ app.post("/api/bankAccount/edit", (req, res) =>bankAccountC.edit(req, res));
 app.get("/api/bankAccount/remove/:id", (req, res) =>bankAccountC.remove(req, res));
 app.get("/api/bankAccount/getByUser/:userId", (req, res) =>bankAccountC.getByUser(req, res));
 app.get("/api/statistics/getUserStats/:userId", statisticsController.getUserStatistics);
-app.post("/api/statistics/getUserSimilarStats", statisticsController.getUserSimilarStatistics)
+app.post("/api/statistics/getUserSimilarStats", statisticsController.getUserSimilarStatistics);
 
 function  createTransactionRouter() {
     let elasticHelper = new ElasticHelper(config.DAL.elasticsearch);
