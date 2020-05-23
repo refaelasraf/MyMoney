@@ -22,4 +22,13 @@ export class userController {
             res.status(500).send('login failed');
         }
     }
+
+    public async setUserAsAdmin(req: Request, res: Response) {
+        try {
+            await this.userBl.setUserAsAdmin(req.params.id);
+            res.status(200).send('success');
+        } catch (e) {
+            res.status(500).send('admin insertion failed')
+        }
+    }
 }

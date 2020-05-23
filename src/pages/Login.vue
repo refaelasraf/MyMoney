@@ -87,9 +87,9 @@
 				}
 				await PushManager.subscriptionToNotification(user._id);
 				localStorage.userId = user._id;
+				localStorage.isAdmin = user.isAdmin;
 				await this.$router.push('/landing')
 			},
 		},
 	};
 </script>
-<style></style>

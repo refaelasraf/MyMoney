@@ -45,12 +45,10 @@
             [FormGroupInput.name]: FormGroupInput
         },
         created() {
-            this.Users = AdminService.getUserList();
             //TODO: insert Users into chartData
         },
         data() {
             return {
-                //TODO: Get data as: await AdminService.getUserList();
                 chartData: [
                     ['החודש', 'אני', 'החברלך'],
                     ['ינואר', 1000, 200],

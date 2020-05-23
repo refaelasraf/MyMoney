@@ -8,9 +8,4 @@ export default class AdminService {
 		let res = await axios.get(this.#route + '/getStats', {userName});
 		return res.data;
 	}
-
-	static async getUserList() {
-		let res = await axios.get(this.#route + '/getUserList', {});
-		return res.data;
-	}
 }

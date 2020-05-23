@@ -56,7 +56,7 @@ app.use("/api/subscription", subscriptionRouter);
 //user
 app.post("/api/user/register", (req, res) => userC.register(req, res));
 app.post("/api/user/login", (req, res) =>userC.login(req, res));
-app.post("/api/user/register" , userC.register);
+app.get("/api/user/setUserAsAdmin/:id" , (req, res) => userC.setUserAsAdmin(req, res));
 
 //credit card
 app.post("/api/creditCard/add", (req, res) =>creditCardC.add(req, res));
@@ -76,8 +76,6 @@ app.post("/api/statistics/getUserSimilarStats", statisticsController.getUserSimi
 
 
 app.get("/api/admin/getStats");
-app.get("/api/admin/getUserList", adminController.getUserList);
-
 
 function  createTransactionRouter() {
     let elasticHelper = new ElasticHelper(config.DAL.elasticsearch);

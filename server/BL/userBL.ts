@@ -12,4 +12,8 @@ export class UserBL {
     public async login(userName: string, password: string): Promise<IUser> {
         return await this.userDal.login(userName, password);
     }
+
+    public async setUserAsAdmin(id: string) {
+        return await this.userDal.setUserAsAdmin(id);
+    }
 }
