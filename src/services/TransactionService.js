@@ -1,5 +1,5 @@
 import axios from "axios"
-import config from '../configuration/config';
+import {config} from "../configuration/config";
 
 export default class TransactionService {
 	static #route = `${config.baseServerUrl}/api/transaction`;

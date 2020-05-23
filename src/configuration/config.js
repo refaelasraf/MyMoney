@@ -1,4 +1,4 @@
-export  let config = {
+export const config = {
     baseServerUrl :"http://localhost:3000",
     paths:{
         "pushSub":"/api/notification/subscribe"

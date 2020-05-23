@@ -1,4 +1,5 @@
 import axios from "axios"
+import {config} from "../configuration/config";
 
 export default class GoalsService {
     static #route = `${config.baseServerUrl}/api/goal`;

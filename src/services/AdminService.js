@@ -1,4 +1,5 @@
 import axios from "axios"
+import {config} from "../configuration/config";
 
 export default class AdminService {
 	static #route = `${config.baseServerUrl}/api/admin`;
