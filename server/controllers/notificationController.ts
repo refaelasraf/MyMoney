@@ -36,6 +36,7 @@ export class NotificationController {
 
     }
 
+    // getRouter
     public getRouter(): Router {
         return this.router;
     }
