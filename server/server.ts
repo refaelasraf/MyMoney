@@ -15,14 +15,13 @@ import {NotificationController} from "./controllers/notificationController";
 import GoalController from "./controllers/goalController";
 import Cors from "cors";
 import SubscriptionController from "./controllers/subscriptionController";
+import path from 'path';
+import serveStatic from 'serve-static';
 
 const app = express();
 const port = 3000;
 app.use(Cors());
-app.listen(port, ()=> {
-
-    console.log("app is running on port " + port);
-});
+app.listen(port, ()=> console.log(`app is running on port ${port}`));
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -46,6 +45,7 @@ const adminController = new AdminController();
 const transactionRouter = createTransactionRouter();
 
 app.use(bodyParser.json());
+app.use(serveStatic(path.join(__dirname, '..', '..', '/dist')));
 
 app.use("/api/notification", notificationRouter);
 app.use("/api/transaction", transactionRouter);
