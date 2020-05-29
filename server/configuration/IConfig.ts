@@ -1,19 +1,21 @@
 export interface IConfig {
-    DAL:{
+    DAL: {
         elasticsearch?: IElasticSearchConfig,
         transactionDal?: IESDALConfig
     },
-    pushWeb:{
-        publicKey:string,
-        privateKey:string
-    }
+    pushWeb: IPushWebConfig
+}
+
+export interface IPushWebConfig {
+    publicKey: string,
+    privateKey: string
 }
 
 export interface IElasticSearchConfig {
-    host:string
+    host: string
 }
 
-export interface IESDALConfig{
-    index:string,
-    type : "_doc"
+export interface IESDALConfig {
+    index: string,
+    type: "_doc"
 }

@@ -15,6 +15,7 @@ import {NotificationController} from "./controllers/notificationController";
 import GoalController from "./controllers/goalController";
 import Cors from "cors";
 import SubscriptionController from "./controllers/subscriptionController";
+import {GoalChecker} from "./service/GoalChecker";
 import path from 'path';
 import serveStatic from 'serve-static';
 
@@ -85,3 +86,5 @@ function  createTransactionRouter() {
     let transactionController = new TransactionController(transactionBL);
     return transactionController.getRouter();
 }
+
+new GoalChecker();
