@@ -8,6 +8,7 @@ export class NotificationBL {
         webPush.setVapidDetails("mailto:refaelasraf@gmail.com", webPushConfig.publicKey, webPushConfig.privateKey);
     }
 
+    // Send Notification
     public sendNotification(webSubscription: any, userName: string , title:string) {
         const payload = JSON.stringify({
             title: title + userName,
