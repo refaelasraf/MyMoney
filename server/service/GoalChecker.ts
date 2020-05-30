@@ -60,7 +60,8 @@ export class GoalChecker {
 
             const relevantGoals: IGoal[] = this.checkGoals(goals, monthStat);
             if (relevantGoals.length != 0 && subscriptions.length != 0) {
-                this.sendNotifications(goals, subscriptions, user);
+                this.sendNotifications(relevantGoals, subscriptions, user);
+                this.updateGoals(relevantGoals);
             }
         }
 
@@ -73,7 +74,9 @@ export class GoalChecker {
     }
 
     private checkGoals(goals: IGoal[], monthStat: number): IGoal[] {
-        return _.filter(goals, (goal: IGoal) => goal.triggerValue <= monthStat && goal.isActivated);
+        let nowDate =   new Date(Date.now());
+        return _.filter(goals, (goal: IGoal) => goal.triggerValue <= monthStat && goal.isActivated &&
+            (goal.lastTriggerDate.getMonth() != nowDate.getMonth() || goal.lastTriggerDate.getFullYear() != nowDate.getFullYear()));
     }
 
     private sendNotifications(relevantGoals: IGoal[], subscriptions: ISubscription[], user: IUser): void {
@@ -81,6 +84,13 @@ export class GoalChecker {
             _.forEach(subscriptions, (subscription: ISubscription) => {
                 this.notificationBL.sendNotification(subscription.subscription, user.userName, `Goal ${relevantGoal.title} has been activated pleas give attention`)
             })
+        })
+    }
+
+    private updateGoals(goals:IGoal[]){
+        _.forEach(goals, (goal)=>{
+            goal.lastTriggerDate = new Date(Date.now());
+            this.goalBL.edit(goal._id, goal).then();
         })
     }
 }
