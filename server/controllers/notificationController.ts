@@ -1,4 +1,4 @@
-import {Router, Request, Response} from "express";
+import {Router} from "express";
 import {SubscriptionBL} from "../BL/subscriptionBL";
 import {ISubscription} from "../models/subscription";
 import {NotificationBL} from "../BL/notificationBL";

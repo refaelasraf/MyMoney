@@ -10,7 +10,8 @@
 </template>
 
 <script>
-    import { GChart } from "vue-google-charts";
+    import {GChart} from "vue-google-charts";
+
     export default {
         name: "SecondChart",
         components: {
@@ -30,7 +31,7 @@
                     ["", 68, 477, 80]
                 ],
                 chartOptions: {
-                    colorAxis: { colors: ["yellow", "red"] }
+                    colorAxis: {colors: ["yellow", "red"]}
                 }
             };
         }

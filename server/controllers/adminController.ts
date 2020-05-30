@@ -1,5 +1,5 @@
-import { adminBL } from "../BL/adminBL";
-import {Request,Response} from 'express'
+import {adminBL} from "../BL/adminBL";
+import {Request, Response} from 'express'
 
 export class adminController {
 

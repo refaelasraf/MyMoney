@@ -14,8 +14,9 @@
 </template>
 
 <script>
-    import { GChart } from "vue-google-charts";
-    import {  Button} from '@/components';
+    import {GChart} from "vue-google-charts";
+    import {Button} from '@/components';
+
     export default {
         props:{
           label:String,

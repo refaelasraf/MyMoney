@@ -82,7 +82,7 @@
     </div>
 </template>
 <script>
-    import {Card, FormGroupInput, Button} from '@/components';
+    import {Button, Card, FormGroupInput} from '@/components';
     import UserService from "../../services/UserService";
     import {DatePicker} from 'element-ui'
     import PushManager from "../../services/PushManager";

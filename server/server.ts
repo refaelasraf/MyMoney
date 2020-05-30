@@ -6,11 +6,11 @@ import {TransactionController} from "./controllers/transactionController";
 import {TransactionDAL} from "./DAL/ElasticSearchDAL/transactionDAL";
 import * as bodyParser from 'body-parser';
 import {userController} from './controllers/userController'
-import { statisticsController as StatisticsController } from "./controllers/statisticsController";
+import {statisticsController as StatisticsController} from "./controllers/statisticsController";
 import creditCardController from "./controllers/creditCardController";
 import BankAccountController from "./controllers/bankAccountController";
 import mongoHelper from "./dbHelpers/mongoHelper";
-import { adminController as AdminController } from "./controllers/adminController";
+import {adminController as AdminController} from "./controllers/adminController";
 import {NotificationController} from "./controllers/notificationController";
 import GoalController from "./controllers/goalController";
 import Cors from "cors";

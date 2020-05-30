@@ -43,7 +43,7 @@
     </div>
 </template>
 <script>
-    import {Modal, Button, FormGroupInput} from '@/components';
+    import {Button, FormGroupInput, Modal} from '@/components';
     import GoalComponent from "./components/GoalComponent";
     import TransactionService from "../services/TransactionService";
     import GoalsService from "../services/GoalsService";
@@ -59,16 +59,16 @@
         },
         data() {
             return {
-                isLoading:false,
+                isLoading: false,
                 currentMonthSum: null,
                 goals: null,
                 modals: {
                     classic: false,
                     editProfile: false,
                     editGoal: {
-                        isVisible:false,
-                        goal:{
-                            _id:null,
+                        isVisible: false,
+                        goal: {
+                            _id: null,
                             title: null,
                             triggerValue: 0,
                             owner: null,
@@ -100,11 +100,11 @@
                 await this.getMonthSum();
                 this.restoreAddGoalModal();
             },
-            showUpdateModal(goal){
+            showUpdateModal(goal) {
                 this.modals.editGoal.isVisible = true;
                 this.modals.editGoal.goal = goal;
             },
-            hideUpdateModal(){
+            hideUpdateModal() {
                 this.modals.editGoal.isVisible = false;
             },
             async editGoal() {

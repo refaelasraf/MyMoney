@@ -1,5 +1,5 @@
-import {Schema, Document} from "mongoose";
 import * as mongoose from "mongoose";
+import {Document, Schema} from "mongoose";
 
 export interface IBankAccount {
     owner: string;

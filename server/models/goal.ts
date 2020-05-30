@@ -1,6 +1,6 @@
-import {Schema, Document} from "mongoose";
 import * as mongoose from "mongoose";
-let maxDate = new Date(8640000000000000);
+import {Document, Schema} from "mongoose";
+
 let minDate = new Date(-8640000000000000);
 
 export interface IGoal {

@@ -1,5 +1,6 @@
-import { UserDal } from "../DAL/userDAL";
-import { IUser } from "../models/user";
+import {UserDal} from "../DAL/userDAL";
+import {IUser} from "../models/user";
+
 export class adminBL {
     /**
      * Admin BL

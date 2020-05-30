@@ -8,7 +8,7 @@
             </parallax>
             <div class="container">
 
-            <signup-form></signup-form>
+                <signup-form></signup-form>
             </div>
         </div>
     </div>
@@ -17,6 +17,7 @@
 <script>
     import SignupForm from "./components/SignupForm";
     import Parallax from "../components/Parallax";
+
     export default {
         name: "SignUp",
         components: {

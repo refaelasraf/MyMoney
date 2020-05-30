@@ -1,4 +1,4 @@
-import {Request,Response} from 'express'
+import {Request, Response} from 'express'
 import {UserBL} from "../BL/userBL";
 
 export class userController {

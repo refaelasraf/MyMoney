@@ -8,10 +8,6 @@ import {IGoal} from "../models/goal";
 import {ISubscription} from "../models/subscription";
 import {NotificationBL} from "../BL/notificationBL";
 
-const goalBL = new GoalBL();
-const subscriptionBL = new SubscriptionBL();
-const usersBL = new UserBL();
-
 interface IUsersFullDetails {
     user: IUser,
     subscriptions: ISubscription[],

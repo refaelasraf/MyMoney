@@ -1,5 +1,6 @@
-import { statisticsBL as StatisticsBL } from "../BL/statisticsBL";
-import {Request,Response} from 'express'
+import {statisticsBL as StatisticsBL} from "../BL/statisticsBL";
+import {Request, Response} from 'express'
+
 export class statisticsController {
 
 

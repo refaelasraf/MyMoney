@@ -1,9 +1,8 @@
-import { ElasticHelper } from "../dbHelpers/elasticHelper";
-import { ESBaseDAL } from "./ElasticSearchDAL/esBaseDAL";
-import { ITransaction } from "../models/transaction";
-import { IESDALConfig } from "../configuration/IConfig";
-import { IUserStatistic } from "../models/userStatistic";
-import { IUser } from "../models/user";
+import {ElasticHelper} from "../dbHelpers/elasticHelper";
+import {ESBaseDAL} from "./ElasticSearchDAL/esBaseDAL";
+import {ITransaction} from "../models/transaction";
+import {IESDALConfig} from "../configuration/IConfig";
+import {IUserStatistic} from "../models/userStatistic";
 
 export class statisticsDAL extends ESBaseDAL<ITransaction> {
     private readonly esConfig : IESDALConfig = {
