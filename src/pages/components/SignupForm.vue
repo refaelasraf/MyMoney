@@ -8,26 +8,6 @@
                 <card class="card-signup" header-classes="text-center" color="orange">
                     <template slot="header">
                         <h3 class="card-title title-up">Sign Up</h3>
-                        <div class="social-line">
-                            <a
-                                    href="#pablo"
-                                    class="btn btn-neutral btn-facebook btn-icon btn-round"
-                            >
-                                <i class="fab fa-facebook-square"></i>
-                            </a>
-                            <a
-                                    href="#pablo"
-                                    class="btn btn-neutral btn-twitter btn-icon btn-lg btn-round"
-                            >
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a
-                                    href="#pablo"
-                                    class="btn btn-neutral btn-google btn-icon btn-round"
-                            >
-                                <i class="fab fa-google-plus"></i>
-                            </a>
-                        </div>
                     </template>
                     <template>
                         <fg-input
@@ -54,14 +34,6 @@
                                 v-model="email"
                         >
                         </fg-input>
-
-                        <fg-input>
-                            <el-date-picker v-model="date"
-                                            popper-class="date-picker-primary"
-                                            type="date"
-                                            placeholder="Birthday...">
-                            </el-date-picker>
-                        </fg-input>
                         <fg-input
                                 class="no-border"
                                 placeholder="City..."
@@ -82,6 +54,13 @@
                                 addon-left-icon="now-ui-icons shopping_cart-simple"
                                 v-model="numOfPersonsToTakeCareOf"
                         >
+                        </fg-input>
+                        <fg-input>
+                            <el-date-picker v-model="date"
+                                            popper-class="date-picker-primary"
+                                            type="date"
+                                            placeholder="Birthday...">
+                            </el-date-picker>
                         </fg-input>
                     </template>
                     <div class="card-footer text-center">
