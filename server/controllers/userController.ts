@@ -7,7 +7,7 @@ export class userController {
 
     public async register(req: Request, res: Response) {
         try {
-            const id = await this.userBl.register(req.body.userName, req.body.password, req.body.dateOfBirth, req.body.email);
+            const id = await this.userBl.register(req.body.userName, req.body.password, req.body.dateOfBirth, req.body.email, req.body.city, req.body.DistenceFromWork, req.body.numOfPersonsToTakeCareOf);
             res.status(200).send(id);
         } catch (e) {
             res.send('registration failed' + e).status(500);

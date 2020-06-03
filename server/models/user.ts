@@ -9,6 +9,9 @@ export interface IUser {
     email: string;
     groupId: string;
     isAdmin: boolean;
+    city: string;
+    DistenceFromWork: number;
+    numOfPersonsToTakeCareOf: number;
 }
 
 const UserSchema: Schema = new Schema({
@@ -18,6 +21,9 @@ const UserSchema: Schema = new Schema({
     email: { type: String, required: true },
     groupId : {type: String, required : false},
     isAdmin: {type: Boolean, required: false},
+    city : {type: String, required : true},
+    DistenceFromWork : {type: Number, required : true},
+    numOfPersonsToTakeCareOf : {type: Number, required : true},
 });
 
 export const UserModel = mongoose.model<IUser & Document>('User', UserSchema);

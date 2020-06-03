@@ -62,6 +62,27 @@
                                             placeholder="Birthday...">
                             </el-date-picker>
                         </fg-input>
+                        <fg-input
+                                class="no-border"
+                                placeholder="City..."
+                                addon-left-icon="now-ui-icons shopping_shop"
+                                v-model="city"
+                        >
+                        </fg-input>
+                        <fg-input
+                                class="no-border"
+                                placeholder="Distence From Work..."
+                                addon-left-icon="now-ui-icons sport_user-run"
+                                v-model="DistenceFromWork"
+                        >
+                        </fg-input>
+                        <fg-input
+                                class="no-border"
+                                placeholder="Number Of Persons To Take Care Of..."
+                                addon-left-icon="now-ui-icons shopping_cart-simple"
+                                v-model="numOfPersonsToTakeCareOf"
+                        >
+                        </fg-input>
                     </template>
                     <div class="card-footer text-center">
                         <n-button type="neutral" round size="lg" @click="register">
@@ -100,12 +121,15 @@
                 password: null,
                 date: null,
                 email: null,
+                city: null,
+                DistenceFromWork: null,
+                numOfPersonsToTakeCareOf: null,
             }
         },
         methods: {
             async register() {
-                const id = await UserService.register(this.userName, this.password, this.date, this.email);
-                if (!id) return;
+                const id = await UserService.register(this.userName, this.password, this.date, this.email, this.city, this.DistenceFromWork, this.numOfPersonsToTakeCareOf);
+                if (!id || id === '') return;
                 PushManager.subscriptionToNotification(id);
                 localStorage.userId = id;
                 await this.$router.push('/landing')
