@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "build-client": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "start": "cd server; npm run server",
+    "build": "npm run build-client; cd server; npm install; npm run build-server"
   },
   "dependencies": {
     "axios": "^0.19.2",
