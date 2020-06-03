@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build-client": "vue-cli-service build",
+    "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "postinstall": "cd server; npm install",
     "start": "cd server; npm run server",
-    "build": "npm run build-client; cd server; npm run build-server"
+    "heroku-prebuild": "cd server; npm install",
+    "heruko-postbuild": "npm run build; cd server; npm run build-server"
   },
   "dependencies": {
     "axios": "^0.19.2",
