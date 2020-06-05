@@ -12,6 +12,11 @@ export interface IUser {
     city: string;
     DistenceFromWork: number;
     numOfPersonsToTakeCareOf: number;
+    numOfProviders : number;
+    studyYears : number;
+    netoIncome : number;
+    taxesPayment : number;
+    socialCarePayment : number;
 }
 
 const UserSchema: Schema = new Schema({
@@ -24,6 +29,11 @@ const UserSchema: Schema = new Schema({
     city : {type: String, required : true},
     DistenceFromWork : {type: Number, required : true},
     numOfPersonsToTakeCareOf : {type: Number, required : true},
+    numOfProviders : {type : Number, required: true},
+    studyYears : {type : Number, required: true},
+    netoIncome : {type : Number, required: true},
+    taxesPayment : {type : Number, required: true},
+    socialCarePayment :{type : Number, required: true},
 });
 
 export const UserModel = mongoose.model<IUser & Document>('User', UserSchema);
