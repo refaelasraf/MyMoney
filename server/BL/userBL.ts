@@ -7,7 +7,7 @@ export class UserBL {
     }
 
     public async register(user:IUser) {
-        //const userGrop = this.userGropCalc.calculateUserGroup({})
+        user.groupId = this.userGropCalc.calculateUserGroup(user)
         return await this.userDal.register(user);
     }
 
