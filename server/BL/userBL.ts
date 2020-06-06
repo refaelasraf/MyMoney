@@ -6,9 +6,9 @@ export class UserBL {
     constructor(private readonly userDal: UserDal = new UserDal(), private readonly userGropCalc = new UserGroupCalculator()) {
     }
 
-    public async register(userName: string, password: string, dateOfBirth: Date, email: string, city: string, DistenceFromWork: number, numOfPersonsToTakeCareOf: number) {
+    public async register(user:IUser) {
         //const userGrop = this.userGropCalc.calculateUserGroup({})
-        return await this.userDal.register(userName, password, dateOfBirth, email, city, DistenceFromWork, numOfPersonsToTakeCareOf);
+        return await this.userDal.register(user);
     }
 
     public async login(userName: string, password: string): Promise<IUser> {
