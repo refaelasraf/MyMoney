@@ -7,7 +7,7 @@ export interface IUser {
     dateOfBirth : Date;
     password: string;
     email: string;
-    groupId: string;
+    groupId: number;
     isAdmin: boolean;
     city: string;
     DistenceFromWork: number;
@@ -24,7 +24,7 @@ const UserSchema: Schema = new Schema({
     dateOfBirth: { type: Date, required: true },
     password: { type: String, required: true },
     email: { type: String, required: true },
-    groupId : {type: String, required : false},
+    groupId : {type: Number, required : false},
     isAdmin: {type: Boolean, required: false},
     city : {type: String, required : true},
     DistenceFromWork : {type: Number, required : true},
