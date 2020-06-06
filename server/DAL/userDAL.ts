@@ -2,7 +2,13 @@ import {IUser, UserModel} from "../models/user";
 
 export class UserDal {
     public async register(user:IUser) {
-        const res = await UserModel.create({user});
+        let res;
+        try {
+            res = await UserModel.create(user);
+        }
+        catch (ex) {
+            console.log(ex)
+        }
         return res._id;
     }
 
