@@ -4,6 +4,8 @@ export class UserDal {
     public async register(user:IUser) {
         let res;
         try {
+            delete user._id;
+            delete user.id;
             res = await UserModel.create(user);
         }
         catch (ex) {

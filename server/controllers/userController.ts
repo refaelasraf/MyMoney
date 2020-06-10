@@ -25,8 +25,6 @@ export class userController {
                 groupId : -1,
                 id : null,
                 isAdmin : false,
-                                
-
             }
             const id = await this.userBl.register(user);
             res.status(200).send(id);
