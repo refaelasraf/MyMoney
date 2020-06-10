@@ -3,7 +3,17 @@ export interface IConfig {
         elasticsearch?: IElasticSearchConfig,
         transactionDal?: IESDALConfig
     },
-    pushWeb: IPushWebConfig
+    pushWeb: IPushWebConfig,
+    mail: IMailConfig
+}
+
+
+export interface IMailConfig {
+    auth: {
+        user: string,
+        pass: string
+    },
+    service: string
 }
 
 export interface IPushWebConfig {

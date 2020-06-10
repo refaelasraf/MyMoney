@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/nodemailer": "^6.4.0",
+    "nodemailer": "^6.4.8",
     "@elastic/elasticsearch": "^7.0.0-rc.1",
     "@types/cors": "^2.8.6",
     "@types/lodash": "^4.14.152",
