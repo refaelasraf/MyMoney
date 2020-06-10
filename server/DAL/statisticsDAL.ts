@@ -10,36 +10,36 @@ export class statisticsDAL extends ESBaseDAL<ITransaction> {
       index : "my_money",
       type : "_doc"      
     }
-    public constructor ( elasticHelper = new ElasticHelper(), transactionConfig: IESDALConfig = config.DAL.transactionDal){
+    public constructor ( elasticHelper = new ElasticHelper(), private readonly transactionConfig: IESDALConfig = config.DAL.transactionDal){
         super(elasticHelper, transactionConfig);
     }
     
     public getUserStatistics = async (clientId : string) : Promise<Array<IUserStatistic>> => {
-       const aggsResult = await this.elasticHelper.aggregate(this.esConfig.index, this.esConfig.type, {
+       const aggsResult = await this.elasticHelper.aggregate(this.transactionConfig.index, this.transactionConfig.type, {
           "query" : {
             "match" : {
               "clientId" : clientId
             }
           },
           "aggs": {
-            "category" : {
+            "categoryId" : {
               "terms": {
-                "field": "category"
+                "field": "categoryId"
               },
               "aggs": {
                 "sum_money": {
                   "sum": {
-                    "field": "ammount"
+                    "field": "amount"
                   }
                 }
               }
             }
           }
         })
-        const ress = aggsResult.category.buckets.map((bucket : any) => {
+        const ress = aggsResult.categoryId.buckets.map((bucket : any) => {
           return {
-            category :bucket.key,
-            ammount : bucket.sum_money.value
+            categoryId :bucket.key,
+            amount : bucket.sum_money.value
           }
         })
         return ress;
@@ -58,14 +58,14 @@ export class statisticsDAL extends ESBaseDAL<ITransaction> {
             "interval" : "month"
           },
           "aggs" : {
-            "category" : {
+            "categoryId" : {
               "terms": {
-                "field": "category"
+                "field": "categoryId"
               },
               "aggs": {
                 "sum_money": {
                   "sum": {
-                    "field": "ammount"
+                    "field": "amount"
                   }
                 }
               }
@@ -105,10 +105,10 @@ export class statisticsDAL extends ESBaseDAL<ITransaction> {
       
       const userStats  = userAggs.date.buckets.map((bucket:any)=> {
         const date  = bucket.key_as_string;
-        const expense = bucket.category.buckets.map((bucket : any) => {
+        const expense = bucket.categoryId.buckets.map((bucket : any) => {
           return {
-            category :bucket.key,
-            ammount : bucket.sum_money.value
+            categoryId :bucket.key,
+            amount : bucket.sum_money.value
           }
         });
         return {
@@ -120,10 +120,10 @@ export class statisticsDAL extends ESBaseDAL<ITransaction> {
      
       const otherStats = otherAggs.date.buckets.map((bucket:any)=> {
         const date  = bucket.key_as_string;
-        const expense = bucket.category.buckets.map((bucket : any) => {
+        const expense = bucket.categoryId.buckets.map((bucket : any) => {
           return {
-            category :bucket.key,
-            ammount : bucket.sum_money.value
+            categoryId :bucket.key,
+            amount : bucket.sum_money.value
           }
         });
         return {

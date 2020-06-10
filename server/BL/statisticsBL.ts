@@ -23,7 +23,7 @@ export class statisticsBL {
     }
 
     public getUserStatistics = async (clientId:string) => {
-        const user  = await this.userDAL.getById(clientId);
+      //  const user  = await this.userDAL.getById(clientId);
         return await this.statisticsDAL.getUserStatistics(clientId);
     }
 }
