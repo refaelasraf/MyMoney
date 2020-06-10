@@ -86,6 +86,8 @@ export class GoalChecker {
         })
     }
 
+    
+
     private updateGoals(goals:IGoal[]){
         _.forEach(goals, (goal : IGoal)=>{
             goal.lastTriggerDate = new Date(Date.now());
