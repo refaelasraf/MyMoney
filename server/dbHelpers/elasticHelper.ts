@@ -20,6 +20,7 @@ export class ElasticHelper {
     }
 
     public async aggregate(index: string|Array<string>, type:string|Array<string>, body: any):Promise<any>{
+        try {
         const res = await this.esClient.search({
             index:index,
             type: type,
@@ -27,6 +28,11 @@ export class ElasticHelper {
         });
 
         return res.body.aggregations;
+        }
+        catch (ex) {
+            console.log(ex)
+            
+        }
     }
 
     public async upsert<T>(index :string, type: string, document: T, documentId: string):Promise<boolean>
