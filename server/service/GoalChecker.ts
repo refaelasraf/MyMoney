@@ -7,6 +7,7 @@ import {IUser} from "../models/user";
 import {IGoal} from "../models/goal";
 import {ISubscription} from "../models/subscription";
 import {NotificationBL} from "../BL/notificationBL";
+import {MailSender} from "./MailSender";
 
 interface IUsersFullDetails {
     user: IUser,
@@ -23,7 +24,8 @@ export class GoalChecker {
                        private goalBL: GoalBL = new GoalBL(),
                        private subscriptionBL: SubscriptionBL = new SubscriptionBL(),
                        private usersBL: UserBL = new UserBL(),
-                       private notificationBL: NotificationBL = new NotificationBL()) {
+                       private notificationBL: NotificationBL = new NotificationBL(),
+                       private mailSender: MailSender = new MailSender()) {
         this.init().then(() => {
             this.run();
         })
@@ -79,6 +81,7 @@ export class GoalChecker {
         _.forEach(relevantGoals, (relevantGoal : IGoal) => {
             _.forEach(subscriptions, (subscription: ISubscription) => {
                 this.notificationBL.sendNotification(subscription.subscription, user.userName, `Goal ${relevantGoal.title} has been activated pleas give attention`)
+                this.mailSender.sendMail(user.email, `Goal ${relevantGoal.title} has been activated pleas give attention`, "hi please keep attention").then()
             })
         })
     }
