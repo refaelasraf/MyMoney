@@ -50,4 +50,13 @@ export class userController {
             res.status(500).send('admin insertion failed')
         }
     }
+
+    public async getById(req: Request, res: Response) {
+        try {
+            const user = await this.userBl.getById(req.params.id);
+            res.status(200).send(user);
+        } catch (e) {
+            res.status(500).send('getById failed')
+        }
+    }
 }

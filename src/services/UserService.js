@@ -17,4 +17,9 @@ export default class UserService {
         let res = await axios.post(this.#route + '/login', {userName, password});
         return res.data;
     }
+
+    static async getById(userId) {
+        let res = await axios.get(this.#route + `/getById/${userId}`);
+        return res.data;
+    }
 }

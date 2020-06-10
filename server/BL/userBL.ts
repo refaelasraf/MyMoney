@@ -22,4 +22,8 @@ export class UserBL {
     public async setUserAsAdmin(id: string) {
         return await this.userDal.setUserAsAdmin(id);
     }
+
+    public async getById(userId: string) {
+        return await this.userDal.getById(userId);
+    }
 }

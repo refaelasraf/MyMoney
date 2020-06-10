@@ -58,6 +58,7 @@ app.use("/api/subscription", subscriptionRouter);
 app.post("/api/user/register", (req, res) => userC.register(req, res));
 app.post("/api/user/login", (req, res) =>userC.login(req, res));
 app.get("/api/user/setUserAsAdmin/:id" , (req, res) => userC.setUserAsAdmin(req, res));
+app.get("/api/user/getById/:id" , (req, res) => userC.getById(req, res));
 
 //credit card
 app.post("/api/creditCard/add", (req, res) =>creditCardC.add(req, res));
