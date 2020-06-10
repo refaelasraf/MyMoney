@@ -3,17 +3,15 @@ import {ESBaseDAL} from "./ElasticSearchDAL/esBaseDAL";
 import {ITransaction} from "../models/transaction";
 import {IESDALConfig} from "../configuration/IConfig";
 import {IUserStatistic} from "../models/userStatistic";
+import {config} from "/../configuration/config";
 
 export class statisticsDAL extends ESBaseDAL<ITransaction> {
     private readonly esConfig : IESDALConfig = {
       index : "my_money",
       type : "_doc"      
     }
-    public constructor ( elasticHelper = new ElasticHelper({host:'http://localhost:9200'})){
-        super(elasticHelper, {
-          index : "my_money",
-          type : "_doc"      
-        });
+    public constructor ( elasticHelper = new ElasticHelper(), transactionConfig: IESDALConfig = config.DAL.transactionDal){
+        super(elasticHelper, transactionConfig);
     }
     
     public getUserStatistics = async (clientId : string) : Promise<Array<IUserStatistic>> => {

@@ -76,7 +76,7 @@ export class GoalChecker {
     }
 
     private sendNotifications(relevantGoals: IGoal[], subscriptions: ISubscription[], user: IUser): void {
-        _.forEach(relevantGoals, (relevantGoal) => {
+        _.forEach(relevantGoals, (relevantGoal : IGoal) => {
             _.forEach(subscriptions, (subscription: ISubscription) => {
                 this.notificationBL.sendNotification(subscription.subscription, user.userName, `Goal ${relevantGoal.title} has been activated pleas give attention`)
             })
@@ -84,7 +84,7 @@ export class GoalChecker {
     }
 
     private updateGoals(goals:IGoal[]){
-        _.forEach(goals, (goal)=>{
+        _.forEach(goals, (goal : IGoal)=>{
             goal.lastTriggerDate = new Date(Date.now());
             this.goalBL.edit(goal._id, goal).then();
         })
