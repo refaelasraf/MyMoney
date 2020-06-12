@@ -18,7 +18,7 @@ const goalSchema: Schema = new Schema({
     title: {type: String, required: true},
     owner: {type: Schema.Types.ObjectId, required: true},
     type: {type: String, required: true},
-    category: {type: String, required: true, default: "unknown"},
+    category: {type: String, required: true},
     triggerValue: {type: Number, required: true},
     isActivated: {type: Boolean, required: true, default: true},
     lastTriggerDate: {type: Date, required: true, default: minDate}

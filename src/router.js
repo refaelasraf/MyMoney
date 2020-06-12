@@ -13,7 +13,6 @@ import UserHome from "./pages/UserHome";
 import Comparison from './pages/Comparison.vue';
 import MainNavbar from './layout/MainNavbar.vue';
 import MainFooter from './layout/MainFooter.vue';
-
 Vue.use(Router);
 
 const router = new Router({

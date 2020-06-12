@@ -19,6 +19,16 @@
                     <h4 slot="header" class="title title-up">Add goal</h4>
                     <fg-input placeholder="title" v-model="modals.addGoal.goal.title"></fg-input>
                     <fg-input placeholder="trigger value" v-model="modals.addGoal.goal.triggerValue"></fg-input>
+                    <el-select class="select-danger"
+                               placeholder="Single Select"
+                               v-model="modals.addGoal.goal.category">
+                        <el-option v-for="option in categories.all"
+                                   class="select-danger"
+                                   :value="option.value"
+                                   :label="option.label"
+                                   :key="option.label">
+                        </el-option>
+                    </el-select>
                     <template slot="footer">
                         <n-button @click="addGoal">Add goal</n-button>
                         <n-button type="danger" @click.native="modals.addGoal.isVisible = false">Close</n-button>
@@ -28,6 +38,16 @@
                     <h4 slot="header" class="title title-up">Edit goal</h4>
                     <fg-input placeholder="title" v-model="modals.editGoal.goal.title"></fg-input>
                     <fg-input placeholder="trigger value" v-model="modals.editGoal.goal.triggerValue"></fg-input>
+                    <el-select class="select-danger"
+                               placeholder="Single Select"
+                               v-model="modals.editGoal.goal.category">
+                        <el-option v-for="option in categories.all"
+                                   class="select-danger"
+                                   :value="option.value"
+                                   :label="option.label"
+                                   :key="option.label">
+                        </el-option>
+                    </el-select>
                     <template slot="footer">
                         <n-button @click="editGoal">Edit goal</n-button>
                         <n-button type="danger" @click="hideUpdateModal">Close</n-button>
@@ -43,6 +63,7 @@
     </div>
 </template>
 <script>
+    import {Option, Select} from "element-ui"
     import {Button, FormGroupInput, Modal} from '@/components';
     import GoalComponent from "./components/GoalComponent";
     import TransactionService from "../services/TransactionService";
@@ -55,10 +76,21 @@
             GoalComponent,
             [Button.name]: Button,
             [FormGroupInput.name]: FormGroupInput,
-            [Modal.name]: Modal
+            [Modal.name]: Modal,
+            [Select.name]: Select,
+            [Option.name]: Option
         },
         data() {
             return {
+                categories: {
+                    all: [
+                        {value: 'all', label: 'all'},
+                        {value: 'clothing', label: 'clothing'},
+                        {value: 'food', label: 'food'},
+                        {value: 'electronics', label: 'electronics'},
+                        {value: 'fule', label: 'fule'},
+                        {value: 'culture', label: 'culture'}]
+                },
                 isLoading: false,
                 currentMonthSum: null,
                 goals: null,
@@ -73,6 +105,7 @@
                             triggerValue: 0,
                             owner: null,
                             type: null,
+                            category: "all",
                             isActivated: false
                         }
                     },
@@ -83,6 +116,7 @@
                             triggerValue: 0,
                             owner: localStorage.userId,
                             type: "amount",
+                            category: "all",
                             isActivated: true
                         }
                     }
@@ -116,6 +150,7 @@
                 this.modals.addGoal.isVisible = false;
                 this.modals.addGoal.goal.title = null;
                 this.modals.addGoal.goal.triggerValue = 0;
+                this.modals.addGoal.goal.category = "all"
             },
             async deleteGoal(id) {
                 await GoalsService.deleteGoal(id);
@@ -135,6 +170,7 @@
                 return goals.map((goal) => ({
                     pureGoal: goal,
                     title: goal.title,
+                    category: goal.category,
                     id: goal._id,
                     value: currentAmount,
                     redFrom: Math.floor(goal.triggerValue),
