@@ -40,7 +40,7 @@ export class TransactionDAL extends ESBaseDAL<ITransaction> {
                     },
                         {
                             term: {
-                                clientID: {
+                                clientId: {
                                     value: clientID
                                 }
                             }
@@ -135,12 +135,12 @@ export class TransactionDAL extends ESBaseDAL<ITransaction> {
     }
 
     private mapToCategoryDicForUser(stat: any): _.Dictionary<number> {
-        let dic : _.Dictionary<number> = {
+        const dic : _.Dictionary<number> = {
             all : stat.amountSum.value
         }
 
         _.forEach(stat.categorySum.buckets, (stat)=>{
-            dic[stat.key, stat.sum.value];
+            dic[stat.key] =  stat.sum.value;
         })
 
         return dic;
