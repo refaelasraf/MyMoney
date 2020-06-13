@@ -2,8 +2,6 @@ import {statisticsBL as StatisticsBL} from "../BL/statisticsBL";
 import {Request, Response} from 'express'
 
 export class statisticsController {
-
-
     public constructor(private readonly statisticsBL: StatisticsBL = new StatisticsBL()) {}
 
     public getUserStatistics = async (req: Request, res : Response) => {
@@ -21,7 +19,8 @@ export class statisticsController {
         const filters : string[] = req.body.filters;
         const userId : string = req.body.userId;
         const year : number = req.body.year;
-        const statistics = await this.statisticsBL.getUserSimilarStatistics(userId,filters,year)
+        const categories = req.body.categories;
+        const statistics = await this.statisticsBL.getUserSimilarStatistics(userId,filters,categories,year);
         res.json(statistics).status(200);
     }
 }
