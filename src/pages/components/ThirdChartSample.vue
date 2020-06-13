@@ -10,7 +10,8 @@
 </template>
 
 <script>
-    import { GChart } from "vue-google-charts";
+    import {GChart} from "vue-google-charts";
+
     export default {
         name: "ThirdChartSample",
         components: {
@@ -22,11 +23,11 @@
                 //TODO: Get stats from server
                 chartData: [
                     ['Task', 'Hours per Day'],
-                    ['Work',     11],
-                    ['Eat',      2],
-                    ['Commute',  2],
+                    ['Work', 11],
+                    ['Eat', 2],
+                    ['Commute', 2],
                     ['Watch TV', 2],
-                    ['Sleep',    7]
+                    ['Sleep', 7]
                 ]
             };
         }

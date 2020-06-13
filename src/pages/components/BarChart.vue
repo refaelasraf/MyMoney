@@ -10,7 +10,8 @@
 </template>
 
 <script>
-    import { GChart } from "vue-google-charts";
+    import {GChart} from "vue-google-charts";
+
     export default {
         name: "BarChart",
         components: {
@@ -22,7 +23,7 @@
                 //TODO: Get stats from server
                 chartData: [
                     ['Task', ''],
-                    ['Your Expeness in this month',     11],
+                    ['Your Expeness in this month', 11],
                 ]
             };
         }

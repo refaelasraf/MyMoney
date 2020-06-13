@@ -1,31 +1,31 @@
-import {Router, Request, Response} from "express";
-import {config} from "../configuration/config"
-import * as webPush from "web-push";
+import {Router} from "express";
+import {SubscriptionBL} from "../BL/subscriptionBL";
+import {ISubscription} from "../models/subscription";
+import {NotificationBL} from "../BL/notificationBL";
 
 export class NotificationController {
     private router = Router();
-    constructor() {
-        const publicKey = config.pushWeb.publicKey;
-        const privateKey = config.pushWeb.privateKey;
-
-        webPush.setVapidDetails("mailto:refaelasraf@gmail.com", publicKey, privateKey);
+    constructor(private subscriptionBL: SubscriptionBL = new SubscriptionBL(), notificationBL: NotificationBL = new NotificationBL()) {
 
         this.router.post('/subscribe', (req, res) => {
-            const subscription = req.body.subscription;
+            const webSubscription = req.body.subscription;
             const userId = req.body.userId;
+
+            const subMessage: ISubscription = {
+                owner : userId,
+                subscription:webSubscription
+            }
+
+            subscriptionBL.add(subMessage);
 
             res.status(201).json({});
 
-            const payload = JSON.stringify({
-                title: 'welcome user : ' + userId,
-            });
-
-            webPush.sendNotification(subscription, payload)
-                .catch(error => console.error(error));
+            notificationBL.sendNotification(webSubscription, userId, "Wellcome user");
         });
 
     }
 
+    // getRouter
     public getRouter(): Router {
         return this.router;
     }

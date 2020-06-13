@@ -5,7 +5,10 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "start": "cd server; npm run server",
+    "heroku-prebuild": "cd server; npm install",
+    "heruko-postbuild": "npm run build; cd server; npm run build-server"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -13,6 +16,7 @@
     "element-ui": "^2.5.4",
     "mongodb": "^3.5.7",
     "nouislider": "^11.1.0",
+    "register-service-worker": "^1.7.1",
     "vue": "^2.6.6",
     "vue-google-charts": "^0.3.2",
     "vue-lazy-load": "^0.0.7",
@@ -25,6 +29,7 @@
     "@types/express": "^4.17.6",
     "@vue/cli-plugin-babel": "^3.4.0",
     "@vue/cli-plugin-eslint": "^3.4.0",
+    "@vue/cli-plugin-pwa": "~4.4.0",
     "@vue/cli-service": "^3.4.0",
     "babel-plugin-component": "^1.1.1",
     "node-sass": "^4.14.1",

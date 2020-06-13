@@ -11,7 +11,7 @@
 </template>
 
 <script>
-    import { GChart } from "vue-google-charts";
+    import {GChart} from "vue-google-charts";
 
     const headers = ['action', 'company', 'date'];
 
@@ -29,16 +29,16 @@
                 chartOptions: {
                     width: 480, height: 380,
                 },
-                packages:['table'],
+                packages: ['table'],
             };
         },
         watch: {
-            transactions: function(newVal) {
+            transactions: function (newVal) {
                 if (!newVal) return;
 
                 this.chartData = [
-                        headers,
-                        ...newVal.map(v => [v.amount, v.storeName, v.eventTime])
+                    headers,
+                    ...newVal.map(v => [v.amount, v.storeName, v.eventTime])
                 ];
             }
         }

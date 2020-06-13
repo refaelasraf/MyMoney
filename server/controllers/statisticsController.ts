@@ -1,12 +1,13 @@
-import { statisticsBL as StatisticsBL } from "../BL/statisticsBL";
-import {Request,Response} from 'express'
+import {statisticsBL as StatisticsBL} from "../BL/statisticsBL";
+import {Request, Response} from 'express'
+
 export class statisticsController {
 
 
     public constructor(private readonly statisticsBL: StatisticsBL = new StatisticsBL()) {}
 
     public getUserStatistics = async (req: Request, res : Response) => {
-        const clientId = req.params.clientId;
+        const clientId = req.params.userId;
         try {
             const userStatistics =  await this.statisticsBL.getUserStatistics(clientId);
             res.json(userStatistics).status(200);

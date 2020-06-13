@@ -16,4 +16,8 @@ export class SubscriptionDAL {
     public async getByUser(userId: string) {
         return await SubscriptionModel.find({owner: userId}).exec();
     }
+
+    public async getAll(){
+        return await SubscriptionModel.find({}).exec()
+    }
 }

@@ -16,4 +16,8 @@ export class GoalDAL {
     public async getByUser(userId: string) {
         return await GoalModel.find({owner: userId}).exec();
     }
+
+    public async getAllGoals(){
+        return await GoalModel.find({}).exec();
+    }
 }

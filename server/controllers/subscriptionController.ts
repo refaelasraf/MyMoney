@@ -1,5 +1,5 @@
 import {Request, Response, Router} from "express";
-import {SubscriptionBL} from "../BL/SubscriptionBL";
+import {SubscriptionBL} from "../BL/subscriptionBL";
 
 export default class SubscriptionController {
     private readonly router: Router;

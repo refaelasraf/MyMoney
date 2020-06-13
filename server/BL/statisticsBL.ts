@@ -1,7 +1,5 @@
-import { statisticsDAL as StatisticsDAL } from "../DAL/statisticsDAL";
-import { UserDal } from "../DAL/userDAL";
-import { IUser } from "../models/user";
-import { IUserStatistic } from "../models/userStatistic";
+import {statisticsDAL as StatisticsDAL} from "../DAL/statisticsDAL";
+import {UserDal} from "../DAL/userDAL";
 
 export class statisticsBL {
    
@@ -25,7 +23,7 @@ export class statisticsBL {
     }
 
     public getUserStatistics = async (clientId:string) => {
-        const user  = await this.userDAL.getById(clientId);
+      //  const user  = await this.userDAL.getById(clientId);
         return await this.statisticsDAL.getUserStatistics(clientId);
     }
 }

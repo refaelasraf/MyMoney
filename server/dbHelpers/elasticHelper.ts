@@ -1,11 +1,12 @@
 import {IElasticSearchConfig} from "../configuration/IConfig";
 import {Client as ESClient} from "@elastic/elasticsearch";
+import {config} from "../configuration/config";
 
 export class ElasticHelper {
     private esClient:ESClient;
 
-    public constructor(private elasticSearchConfig:IElasticSearchConfig) {
-        this.esClient = new ESClient({node : elasticSearchConfig.host});
+    public constructor(private elasticSearchConfig:IElasticSearchConfig = config.DAL.elasticsearch) {
+        this.esClient = new ESClient({node : this.elasticSearchConfig.host});
     }
 
     public async search<T>(index: string|Array<string>, type:string|Array<string>, body: any):Promise<Array<T>>{
@@ -19,6 +20,7 @@ export class ElasticHelper {
     }
 
     public async aggregate(index: string|Array<string>, type:string|Array<string>, body: any):Promise<any>{
+        try {
         const res = await this.esClient.search({
             index:index,
             type: type,
@@ -26,6 +28,11 @@ export class ElasticHelper {
         });
 
         return res.body.aggregations;
+        }
+        catch (ex) {
+            console.log(ex)
+            
+        }
     }
 
     public async upsert<T>(index :string, type: string, document: T, documentId: string):Promise<boolean>

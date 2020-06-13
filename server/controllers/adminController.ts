@@ -1,20 +1,17 @@
-import { adminBL } from "../BL/adminBL";
-import { IUser } from "../models/user";
-import {Request,Response} from 'express'
+import {adminBL} from "../BL/adminBL";
+import {Request, Response} from 'express'
 
 export class adminController {
 
-    constructor(private readonly _adminBL = new adminBL()) {
-        
-    }
+    constructor(private readonly _adminBL = new adminBL()) {}
 
-    public getUserList = async (req : Request, res : Response)  => {
+    public async getUsers(req : Request, res : Response) {
         try {
-        const userList = await this._adminBL.getUserList();
-        res.json(userList).status(200);
+            const users = await this._adminBL.getUsers();
+            res.status(200).json(users);
         }
         catch (ex){
-            res.json("couldnt get user list " + ex);
+            res.json("couldn't get user list " + ex);
         }
 
     }

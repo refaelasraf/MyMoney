@@ -7,7 +7,7 @@
             >
             </parallax>
             <div class="content-center">
-                <div class="container"  >
+                <div class="container">
                     <h1 class="title">Your Transactions</h1>
                     <el-date-picker v-model="date"
                                     popper-class="date-picker-primary"
@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="content-center">
-            <div class="container"  >
+            <div class="container">
                 <transaction-table v-bind:transactions="transactions"/>
                 <br/>
                 <div>

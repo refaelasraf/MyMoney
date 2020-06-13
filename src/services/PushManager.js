@@ -1,6 +1,7 @@
 import axios from "axios"
-import {config} from "../configuration/config" ;
-const registerUrl=  config.baseServerUrl + config.paths.pushSub;
+import {config} from "../configuration/config";
+
+const registerUrl = config.baseServerUrl + config.paths.pushSub;
 const publicKey = config.publicKey;
 
 export default class PushManager {
@@ -8,9 +9,7 @@ export default class PushManager {
 
     static publicKey = publicKey;
 
-    static triggerPush = document.querySelector('.trigger-push');
-
-    static  async  subscriptionToNotification(userId) {
+    static async subscriptionToNotification(userId) {
         if ('serviceWorker' in navigator) {
             const register = await navigator.serviceWorker.register('/sw.js', {
                 scope: '/'
@@ -21,15 +20,16 @@ export default class PushManager {
                 applicationServerKey: this.urlBase64ToUint8Array(this.publicKey),
             });
 
-            await axios.post(this.#route, {subscription, userId}, {headers: {
+            await axios.post(this.#route, {subscription, userId}, {
+                headers: {
                     'Content-Type': 'application/json',
-                }});
+                }
+            });
 
         } else {
             console.error('Service workers are not supported in this browser');
         }
     }
-
 
 
     static urlBase64ToUint8Array(base64String) {

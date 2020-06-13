@@ -9,7 +9,8 @@
 </template>
 
 <script>
-    import { GChart } from "vue-google-charts";
+    import {GChart} from "vue-google-charts";
+
     export default {
         name: "ChartExample",
         components: {
