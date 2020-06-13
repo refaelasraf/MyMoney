@@ -6,10 +6,7 @@ import {IUserStatistic} from "../models/userStatistic";
 import {config} from "../configuration/config";
 
 export class statisticsDAL extends ESBaseDAL<ITransaction> {
-    private readonly esConfig : IESDALConfig = {
-      index : "my_money",
-      type : "_doc"      
-    }
+    
     public constructor ( elasticHelper = new ElasticHelper(), private readonly transactionConfig: IESDALConfig = config.DAL.transactionDal){
         super(elasticHelper, transactionConfig);
     }
@@ -45,7 +42,7 @@ export class statisticsDAL extends ESBaseDAL<ITransaction> {
         return ress;
     }
 
-    public getUserSimilarStatistics = async (userId:string, otherIds : string[], year: number) 
+    public getUserSimilarStatistics = async (userId:string, otherIds : string[], year: number, categories : string[]) 
       : Promise<{'user' : IUserStatistic[], 'other' : IUserStatistic[]}> => {
       
       const fromYear = year + "-01-01"; 
@@ -92,13 +89,20 @@ export class statisticsDAL extends ESBaseDAL<ITransaction> {
           ]
         }
       }
-      const otherAggs = await this.elasticHelper.aggregate(this.esConfig.index, this.esConfig.type, {
+
+      if (categories.length > 0) {
+        query.bool.must.push({"terms" : {
+          "categoryId" : categories
+        }});
+      }
+
+      const otherAggs = await this.elasticHelper.aggregate(this.transactionConfig.index, this.transactionConfig.type, {
         query,
         aggs
       });
 
       query.bool.must[0].terms = {"clientId" : [userId]};
-      const userAggs = await this.elasticHelper.aggregate(this.esConfig.index, this.esConfig.type , {
+      const userAggs = await this.elasticHelper.aggregate(this.transactionConfig.index, this.transactionConfig.type , {
         query,
         aggs
       })
