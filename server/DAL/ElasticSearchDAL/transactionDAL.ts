@@ -1,8 +1,8 @@
-import {ElasticHelper} from "../../dbHelpers/elasticHelper";
-import {ESBaseDAL} from "./esBaseDAL";
-import {ITransaction} from "../../models/transaction";
-import {IESDALConfig} from "../../configuration/IConfig";
-import {config} from "../../configuration/config";
+import { ElasticHelper } from "../../dbHelpers/elasticHelper";
+import { ESBaseDAL } from "./esBaseDAL";
+import { ITransaction } from "../../models/transaction";
+import { IESDALConfig } from "../../configuration/IConfig";
+import { config } from "../../configuration/config";
 import * as _ from "lodash";
 
 export class TransactionDAL extends ESBaseDAL<ITransaction> {
@@ -38,13 +38,13 @@ export class TransactionDAL extends ESBaseDAL<ITransaction> {
                             }
                         }
                     },
-                        {
-                            term: {
-                                clientID: {
-                                    value: clientID
-                                }
+                    {
+                        term: {
+                            clientID: {
+                                value: clientID
                             }
                         }
+                    }
                     ]
                 }
             },
@@ -77,7 +77,7 @@ export class TransactionDAL extends ESBaseDAL<ITransaction> {
     public async getCurrentMonthStatsOfAllUsers(): Promise<_.Dictionary<_.Dictionary<number>>> {
         const query = {
             size: 0,
-            query:{
+            query: {
                 range: {
                     eventTime: {
                         gte: "now/M",
@@ -120,6 +120,20 @@ export class TransactionDAL extends ESBaseDAL<ITransaction> {
         const result = _.chain(aggregateResult.users.buckets).map(this.mapToUsersDic).fromPairs().value() as _.Dictionary<_.Dictionary<number>>;
 
         return result;
+    }
+
+    public async getCategoriesList(): Promise<string[]> {
+        const query = {
+            "aggs": {
+                "categories": {
+                    "terms": {
+                        "field": "categoryId"
+                    }
+                }
+            }
+        }
+        const aggsResult = await this.elasticHelper.aggregate(this.DALConfig.index, this.DALConfig.type, query);
+        return aggsResult.categories.buckets.map((bucket : any) => bucket.key);
     }
 
     private mapToUsersDic(stat: any) {

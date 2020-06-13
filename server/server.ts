@@ -18,6 +18,7 @@ import SubscriptionController from "./controllers/subscriptionController";
 import {GoalChecker} from "./service/GoalChecker";
 import path from 'path';
 import serveStatic from 'serve-static';
+import { CategoriesController } from "./controllers/categoriesController";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -38,6 +39,7 @@ const bankAccountC = new BankAccountController();
 const statisticsController = new StatisticsController();
 const goalController = new GoalController();
 const subscriptionController = new SubscriptionController();
+const categoriesController = new CategoriesController();
 
 const subscriptionRouter = subscriptionController.getRouter();
 const goalRouter = goalController.getRouter();
@@ -79,6 +81,9 @@ app.post("/api/statistics/getUserSimilarStats", statisticsController.getUserSimi
 
 app.get("/api/admin/getStats");
 app.get("/api/admin/getUsers", (req, res) => adminController.getUsers(req, res));
+
+//category
+app.get("/api/categories/getCategories", (req,res) => categoriesController.getCategoriesList(req,res))
 
 function  createTransactionRouter() {
     let elasticHelper = new ElasticHelper(config.DAL.elasticsearch);
