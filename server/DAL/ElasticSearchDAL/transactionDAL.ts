@@ -25,7 +25,7 @@ export class TransactionDAL extends ESBaseDAL<ITransaction> {
         return await this.elasticHelper.search(this.DALConfig.index, this.DALConfig.type, query);
     }
 
-    public async getSumOfCurrentMonth(clientID: string): Promise<ITransaction[]> {
+    public async getSumOfCurrentMonth(clientID: string): Promise<_.Dictionary<number>> {
         const query = {
             size: 0,
             query: {
@@ -70,14 +70,14 @@ export class TransactionDAL extends ESBaseDAL<ITransaction> {
             }
         };
 
-        return await this.elasticHelper.aggregate(this.DALConfig.index, this.DALConfig.type, query);
+        return this.mapToCategoryDicForUser(await this.elasticHelper.aggregate(this.DALConfig.index, this.DALConfig.type, query));
     }
 
 
     public async getCurrentMonthStatsOfAllUsers(): Promise<_.Dictionary<_.Dictionary<number>>> {
         const query = {
             size: 0,
-            query:{
+            query: {
                 range: {
                     eventTime: {
                         gte: "now/M",
@@ -132,5 +132,17 @@ export class TransactionDAL extends ESBaseDAL<ITransaction> {
         });
 
         return [stat.key, userStatByCategory]
+    }
+
+    private mapToCategoryDicForUser(stat: any): _.Dictionary<number> {
+        let dic : _.Dictionary<number> = {
+            all : stat.amountSum.value
+        }
+
+        _.forEach(stat.categorySum.buckets, (stat)=>{
+            dic[stat.key, stat.sum.value];
+        })
+
+        return dic;
     }
 }
