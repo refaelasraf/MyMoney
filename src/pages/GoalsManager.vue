@@ -161,23 +161,27 @@
                 this.isLoading = true;
                 const pureGoals = await GoalsService.getUserGoals();
                 const result = (await TransactionService.getCurrentMonthSum());
-                this.currentMonthSum = result.data.amountSum.value;
+                this.currentMonthSum = result;
                 this.goals = this.mapGoalsToViewElements(pureGoals, this.currentMonthSum);
                 this.isLoading = false;
             }
             ,
             mapGoalsToViewElements(goals, currentAmount) {
-                return goals.map((goal) => ({
-                    pureGoal: goal,
-                    title: goal.title,
-                    category: goal.category,
-                    id: goal._id,
-                    value: currentAmount,
-                    redFrom: Math.floor(goal.triggerValue),
-                    max: Math.floor(Math.max(goal.triggerValue * 1.30, currentAmount)),
-                    yellowFrom: Math.floor(goal.triggerValue * 0.75),
-                    yellowTo: Math.floor(goal.triggerValue)
-                }))
+                return goals.map((goal) => {
+                    let currentAmountNumber = currentAmount[goal.category] ? currentAmount[goal.category] : 0;
+
+                    return ({
+                        pureGoal: goal,
+                        title: goal.title,
+                        category: goal.category,
+                        id: goal._id,
+                        value: currentAmountNumber,
+                        redFrom: Math.floor(goal.triggerValue),
+                        max: Math.floor(Math.max(goal.triggerValue * 1.30, currentAmountNumber)),
+                        yellowFrom: Math.floor(goal.triggerValue * 0.75),
+                        yellowTo: Math.floor(goal.triggerValue)
+                    })
+                })
             }
         }
     }
