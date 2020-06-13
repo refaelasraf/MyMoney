@@ -22,7 +22,7 @@ export class TransactionBL {
         return await this.dal.getSumOfCurrentMonth(clientID);
     }
 
-    public async getCurrentMonthStatsOfAllUsers(): Promise<_.Dictionary<number>>{
+    public async getCurrentMonthStatsOfAllUsers(): Promise<_.Dictionary<_.Dictionary<number>>>{
         return await this.dal.getCurrentMonthStatsOfAllUsers();
     }
 }

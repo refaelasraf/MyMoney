@@ -13,7 +13,7 @@ interface IUsersFullDetails {
     user: IUser,
     subscriptions: ISubscription[],
     goals: IGoal[],
-    monthStats: number
+    monthStats: _.Dictionary<number>
 }
 
 export class GoalChecker {
@@ -43,7 +43,7 @@ export class GoalChecker {
         this.usersFullDetails = _.chain(users).map<IUsersFullDetails>((user: IUser) => ({
             goals: goalsByUserID[user._id],
             subscriptions: subscriptionByUserID[user._id],
-            monthStats: monthStatByUser[user._id] ? monthStatByUser[user._id] : 0,
+            monthStats: monthStatByUser[user._id] ? monthStatByUser[user._id] : null,
             user: user
         })).value()
     }
@@ -51,12 +51,12 @@ export class GoalChecker {
     private run() {
         for (var i = 0; i < this.usersFullDetails.length; i++) {
             const user: IUser = this.usersFullDetails[i].user;
-            const monthStat: number = this.usersFullDetails[i].monthStats;
+            const monthStat: _.Dictionary<number> = this.usersFullDetails[i].monthStats;
             const subscriptions: ISubscription[] = this.usersFullDetails[i].subscriptions;
             const goals: IGoal[] = this.usersFullDetails[i].goals;
 
 
-            const relevantGoals: IGoal[] = this.checkGoals(goals, monthStat);
+            const relevantGoals: IGoal[] = this.checkGoals(goals, monthStat ? monthStat.all: 0);
             if (relevantGoals.length != 0 && subscriptions.length != 0) {
                 this.sendNotifications(relevantGoals, subscriptions, user);
                 this.updateGoals(relevantGoals);
