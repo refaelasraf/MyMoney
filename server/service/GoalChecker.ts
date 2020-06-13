@@ -56,7 +56,7 @@ export class GoalChecker {
             const goals: IGoal[] = this.usersFullDetails[i].goals;
 
 
-            const relevantGoals: IGoal[] = this.checkGoals(goals, monthStat ? monthStat.all: 0);
+            const relevantGoals: IGoal[] = this.checkGoals(goals, monthStat ? monthStat : {});
             if (relevantGoals.length != 0 && subscriptions.length != 0) {
                 this.sendNotifications(relevantGoals, subscriptions, user);
                 this.updateGoals(relevantGoals);
@@ -71,14 +71,14 @@ export class GoalChecker {
             this.init().then();
     }
 
-    private checkGoals(goals: IGoal[], monthStat: number): IGoal[] {
-        let nowDate =   new Date(Date.now());
-        return _.filter(goals, (goal: IGoal) => goal.triggerValue <= monthStat && goal.isActivated &&
+    private checkGoals(goals: IGoal[], monthStat: _.Dictionary<number>): IGoal[] {
+        let nowDate = new Date(Date.now());
+        return _.filter(goals, (goal: IGoal) => goal.triggerValue <= (monthStat[goal.category] ? monthStat[goal.category] : 0) && goal.isActivated &&
             (goal.lastTriggerDate.getMonth() != nowDate.getMonth() || goal.lastTriggerDate.getFullYear() != nowDate.getFullYear()));
     }
 
     private sendNotifications(relevantGoals: IGoal[], subscriptions: ISubscription[], user: IUser): void {
-        _.forEach(relevantGoals, (relevantGoal : IGoal) => {
+        _.forEach(relevantGoals, (relevantGoal: IGoal) => {
             _.forEach(subscriptions, (subscription: ISubscription) => {
                 this.notificationBL.sendNotification(subscription.subscription, user.userName, `Goal ${relevantGoal.title} has been activated pleas give attention`)
                 this.mailSender.sendMail(user.email, `Goal ${relevantGoal.title} has been activated pleas give attention`, "hi please keep attention").then()
@@ -86,10 +86,9 @@ export class GoalChecker {
         })
     }
 
-    
 
-    private updateGoals(goals:IGoal[]){
-        _.forEach(goals, (goal : IGoal)=>{
+    private updateGoals(goals: IGoal[]) {
+        _.forEach(goals, (goal: IGoal) => {
             goal.lastTriggerDate = new Date(Date.now());
             this.goalBL.edit(goal._id, goal).then();
         })
