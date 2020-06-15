@@ -38,7 +38,7 @@
             [Radio.name]: Radio
         },
         async created() {
-            // this.UserStats = await StatisticsService.getUserStats(localStorage.userId);
+            this.UserStats = await StatisticsService.getUserStats(localStorage.userId);
             //Filter User By month
             // this.HevraStats = await StatisticsService.getSimilarStats(localStorage.userId, [], 2016);
             //Filter User By month
@@ -66,12 +66,14 @@
                 chartOptions: {
                     title: 'השוואת נתונים אל חברים אחרים',
                 },
+                mainCategories: [],
                 unchecked: false,
                 checked: true,
                 checkedCategories: ["email"],
                 mainYears: ["2020", "2019", "2018", "2017", "2016"],
                 enabledRadio: "5",
                 year: 2016,
+                UserStats: [],
             };
         },
         methods: {
