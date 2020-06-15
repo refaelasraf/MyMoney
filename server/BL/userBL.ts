@@ -26,4 +26,10 @@ export class UserBL {
     public async getById(userId: string) {
         return await this.userDal.getById(userId);
     }
+
+    public async edit(id: string, userName: string, email: string, city: string, DistenceFromWork: number, numOfPersonsToTakeCareOf: number,
+                        numOfProviders: number, netoIncome: number, taxesPayment: number)
+    {
+		await this.userDal.edit(id, userName, email, city, DistenceFromWork, numOfPersonsToTakeCareOf, numOfProviders, netoIncome, taxesPayment);
+	}
 }

@@ -15,8 +15,8 @@
         </div>
         <ul style="column-count: 3; padding: 10px; line-height: 2em; background: #fff;">
             <li v-for="mainCat in mainCategories">
-                <n-checkbox @input="filterByCat(mainCat.merchantId, $event)" id="mainCat.merchantId">Unchecked
-                    {{mainCat.merchantId}}
+                <n-checkbox @input="filterByCat(mainCat.merchantId, $event)" id="mainCat.merchantId">
+                    {{mainCat}}
                 </n-checkbox>
             </li>
         </ul>
@@ -27,6 +27,7 @@
     import {GChart} from "vue-google-charts";
     import {Button, Checkbox, Radio} from '@/components';
     import StatisticsService from "../../services/StatisticsService";
+    import CategoriesService from "../../services/CategoriesService";
 
     export default {
         name: "ColumChart",
@@ -36,11 +37,13 @@
             [Checkbox.name]: Checkbox,
             [Radio.name]: Radio
         },
-        created() {
-            this.UserStats = StatisticsService.getUserStats(localStorage.userId);
+        async created() {
+            // this.UserStats = await StatisticsService.getUserStats(localStorage.userId);
             //Filter User By month
-            this.HevraStats = StatisticsService.getSimilarStats(localStorage.userId, [], 2016);
+            // this.HevraStats = await StatisticsService.getSimilarStats(localStorage.userId, [], 2016);
             //Filter User By month
+
+            this.mainCategories = await CategoriesService.getCategories();
         },
         data() {
             return {
@@ -63,37 +66,6 @@
                 chartOptions: {
                     title: 'השוואת נתונים אל חברים אחרים',
                 },
-                mainCategories: [{
-                    merchantId: '1'
-                }, {
-                    merchantId: '2'
-                }, {
-                    merchantId: '3'
-                }, {
-                    merchantId: '4'
-                }, {
-                    merchantId: '5'
-                }, {
-                    merchantId: '6'
-                }, {
-                    merchantId: '7'
-                }, {
-                    merchantId: '8'
-                }, {
-                    merchantId: '9'
-                }, {
-                    merchantId: '10'
-                }, {
-                    merchantId: '11'
-                }, {
-                    merchantId: '12'
-                }, {
-                    merchantId: '13'
-                }, {
-                    merchantId: '14'
-                }, {
-                    merchantId: '15'
-                }],
                 unchecked: false,
                 checked: true,
                 checkedCategories: ["email"],
