@@ -40,6 +40,12 @@ export class UserDal {
     public async getAll(): Promise<IUser[]> {
         return await UserModel.find({}).exec();
     }
+
+    public async edit(id: string, userName: string, email: string, city: string, DistenceFromWork: number, numOfPersonsToTakeCareOf: number,
+                        numOfProviders: number, netoIncome: number, taxesPayment: number)
+        {
+		await UserModel.findByIdAndUpdate(id,{userName, email, city, DistenceFromWork, numOfPersonsToTakeCareOf, numOfProviders, netoIncome, taxesPayment}).exec();
+	}
 }
 
  

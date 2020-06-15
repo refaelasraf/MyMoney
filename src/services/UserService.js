@@ -22,4 +22,10 @@ export default class UserService {
         let res = await axios.get(this.#route + `/getById/${userId}`);
         return res.data;
     }
+
+    static async edit(id, userName, email, city, DistenceFromWork, numOfPersonsToTakeCareOf, numOfProviders, netoIncome, taxesPayment)
+    {
+        let res = await axios.post(this.#route + '/edit', {id, userName, email, city, DistenceFromWork, numOfPersonsToTakeCareOf, numOfProviders, netoIncome, taxesPayment});
+        return res.data;
+    }
 }

@@ -59,4 +59,14 @@ export class userController {
             res.status(500).send('getById failed')
         }
     }
+
+    public async edit(req: Request, res: Response) {
+		try {
+            await this.userBl.edit(req.body.id, req.body.userName, req.body.email, req.body.city,
+                                    req.body.DistenceFromWork, req.body.numOfPersonsToTakeCareOf, req.body.numOfProviders, req.body.netoIncome, req.body.taxesPayment);
+			res.send('success').status(200);
+		} catch (e) {
+			res.send('failed editing credit card').status(502);
+		}
+	}
 }
