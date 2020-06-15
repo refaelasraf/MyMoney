@@ -11,7 +11,7 @@ export class statisticsController {
             res.json(userStatistics).status(200);
         }
         catch (exp){
-            res.json("sorry got an exption" + exp).status(500)
+            res.json("sorry got an exception" + exp).status(500)
         }
     }
 
