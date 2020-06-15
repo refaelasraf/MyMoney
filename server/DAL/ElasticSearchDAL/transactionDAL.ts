@@ -45,10 +45,10 @@ export class TransactionDAL extends ESBaseDAL<ITransaction> {
                                 }
                             }
                         }
-                    }
-                    ]
-                }
-            },
+                    ]}
+                    
+                },
+            
             aggs: {
                 amountSum: {
                     sum: {
@@ -69,7 +69,7 @@ export class TransactionDAL extends ESBaseDAL<ITransaction> {
                     }
                 }
             }
-        };
+        }
 
         return this.mapToCategoryDicForUser(await this.elasticHelper.aggregate(this.DALConfig.index, this.DALConfig.type, query));
     }
