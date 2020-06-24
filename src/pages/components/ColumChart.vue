@@ -40,8 +40,19 @@
         async created() {
             this.UserStats = await StatisticsService.getUserStats(localStorage.userId);
             //Filter User By month
-            // this.HevraStats = await StatisticsService.getSimilarStats(localStorage.userId, [], 2016);
+            this.HevraStats = await StatisticsService.getSimilarStats(localStorage.userId, [], 2019);
             //Filter User By month
+            // let i = 0;
+            // this.HevraStats.user.forEach(item => {
+            // });
+
+            for(let i = 0 ; this.HevraStats.user.length > i; i++)
+            {
+                for(let j = 0 ; this.HevraStats.user[i].expense.length > j; j++)
+                {
+                  this.chartData[i+1][1] = this.HevraStats.user[i].expense[j].amount;
+                }
+            }
 
             this.mainCategories = await CategoriesService.getCategories();
         },
@@ -72,7 +83,8 @@
                 checkedCategories: ["email"],
                 mainYears: ["2020", "2019", "2018", "2017", "2016"],
                 enabledRadio: "5",
-                year: 2016,
+                year: 2020,
+                HevraStats: [],
                 UserStats: [],
             };
         },

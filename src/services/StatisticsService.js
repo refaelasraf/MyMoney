@@ -10,7 +10,7 @@ export default class StatisticsService {
 	}
 
 	static async getSimilarStats(userId, filters, year) {
-		let res = await axios.post(this.#route + '/getSimilarStats', {userId, filters, year});
+		let res = await axios.post(this.#route + '/getUserSimilarStats', {userId, filters, year});
 		return res.data;
 	}
 }

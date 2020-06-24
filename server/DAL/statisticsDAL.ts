@@ -15,7 +15,7 @@ export class statisticsDAL extends ESBaseDAL<ITransaction> {
        const aggsResult = await this.elasticHelper.aggregate(this.transactionConfig.index, this.transactionConfig.type, {
           "query" : {
             "match" : {
-              "clientId" : clientId
+              "client" : clientId
             }
           },
           "aggs": {
@@ -108,7 +108,7 @@ export class statisticsDAL extends ESBaseDAL<ITransaction> {
       })
       
       const userStats  = userAggs.date.buckets.map((bucket:any)=> {
-        const date  = bucket.key_as_string;
+        const date  = new Date(bucket.key_as_string).getMonth();
         const expense = bucket.categoryId.buckets.map((bucket : any) => {
           return {
             categoryId :bucket.key,

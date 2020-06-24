@@ -19,7 +19,8 @@ export class statisticsController {
         const filters : string[] = req.body.filters;
         const userId : string = req.body.userId;
         const year : number = req.body.year;
-        const categories = req.body.categories;
+        //TOM needs to change
+        const categories = req.body.filters;
         const statistics = await this.statisticsBL.getUserSimilarStatistics(userId,filters,categories,year);
         res.json(statistics).status(200);
     }
