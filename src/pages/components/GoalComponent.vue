@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <GChart
+        <GChart 
                 type="Gauge"
                 :data="chartData"
                 :options="chartOptions"

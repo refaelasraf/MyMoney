@@ -123,7 +123,7 @@ export class statisticsDAL extends ESBaseDAL<ITransaction> {
       })
      
       const otherStats = otherAggs.date.buckets.map((bucket:any)=> {
-        const date  = bucket.key_as_string;
+        const date  = new Date(bucket.key_as_string).getMonth();
         const expense = bucket.categoryId.buckets.map((bucket : any) => {
           return {
             categoryId :bucket.key,

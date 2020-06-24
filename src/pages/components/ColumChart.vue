@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" v-if="isVisible">
         <GChart
                 type="ColumnChart"
                 :data="chartData"
@@ -40,26 +40,34 @@
         async created() {
             this.UserStats = await StatisticsService.getUserStats(localStorage.userId);
             //Filter User By month
-            this.HevraStats = await StatisticsService.getSimilarStats(localStorage.userId, [], 2019);
-            //Filter User By month
-            // let i = 0;
-            // this.HevraStats.user.forEach(item => {
-            // });
+            // this.HevraStats = await StatisticsService.getSimilarStats(localStorage.userId, [], 2018);
+            // //Filter User By month
 
-            for(let i = 0 ; this.HevraStats.user.length > i; i++)
-            {
-                for(let j = 0 ; this.HevraStats.user[i].expense.length > j; j++)
-                {
-                  this.chartData[i+1][1] = this.HevraStats.user[i].expense[j].amount;
-                }
-            }
+            // for(let i = 0 ; this.HevraStats.user.length > i; i++)
+            // {
+            //     for(let j = 0 ; this.HevraStats.user[i].expense.length > j; j++)
+            //     {
+            //       this.chartData[i+1][1] = this.HevraStats.user[i].expense[j].amount;
+            //     }
+            // }
+
+            
+            // for(let i = 0 ; this.HevraStats.other.length > i; i++)
+            // {
+            //     for(let j = 0 ; this.HevraStats.other[i].expense.length > j; j++)
+            //     {
+            //       this.chartData[i+1][2] = this.HevraStats.other[i].expense[j].amount;
+            //     }
+            // }
+
+            this.changeYear(2018);
 
             this.mainCategories = await CategoriesService.getCategories();
         },
         data() {
             return {
                 // Array will be automatically processed with visualization.arrayToDataTable function
-                chartData: [
+                chartDataa: [
                     ['החודש', 'אני', 'החברלך'],
                     ['ינואר', 1000, 200],
                     ['פארבואר', 1170, 250],
@@ -80,22 +88,53 @@
                 mainCategories: [],
                 unchecked: false,
                 checked: true,
-                checkedCategories: ["email"],
+                checkedCategories: [],
                 mainYears: ["2020", "2019", "2018", "2017", "2016"],
                 enabledRadio: "5",
                 year: 2020,
                 HevraStats: [],
                 UserStats: [],
+                CharStats: [],
+                isVisible: true,
+                chartDataUpdated: [],
             };
         },
+        computed: {
+                chartData (){ 
+                    return this.chartDataUpdated;
+                }
+        },
         methods: {
-            changeYear: function (yearChoosen, e) {
+            changeYear: async function (yearChoosen, e) {
                 console.log("changeYear");
                 console.log(yearChoosen);
                 this.chartOptions.title = 'נתונים עם חברלך אחרים בשנת ' + yearChoosen;
                 this.year = yearChoosen;
 
-                this.CharStats = StatisticsService.getSimilarStats(localStorage.userId, checkedCategories, yearChoosen);
+                this.isVisible = false;
+                this.CharStats = await StatisticsService.getSimilarStats(localStorage.userId, this.checkedCategories, parseInt(yearChoosen));
+
+                this.chartDataUpdated = this.chartDataa;
+                for(let i = 0 ; this.CharStats.user.length > i; i++)
+                {
+                    for(let j = 0 ; this.CharStats.user[i].expense.length > j; j++)
+                    {
+                    this.chartDataUpdated[i+1][1] = this.CharStats.user[i].expense[j].amount;
+                    }
+                }
+
+                
+                for(let i = 0 ; this.CharStats.other.length > i; i++)
+                {
+                    for(let j = 0 ; this.CharStats.other[i].expense.length > j; j++)
+                    {
+                    this.chartDataUpdated[i+1][2] = this.CharStats.other[i].expense[j].amount;
+                    }
+                }
+
+
+                this.isVisible = true;
+                // this.renderChart(this.chartData, this.chartOptions);
             },
             filterByCat: function (cat, e) {
                 console.log("Ohad The King");
