@@ -41,25 +41,6 @@
         async created() {
             this.UserStats = await StatisticsService.getUserStats(localStorage.userId);
             //Filter User By month
-            // this.HevraStats = await StatisticsService.getSimilarStats(localStorage.userId, [], 2018);
-            // //Filter User By month
-
-            // for(let i = 0 ; this.HevraStats.user.length > i; i++)
-            // {
-            //     for(let j = 0 ; this.HevraStats.user[i].expense.length > j; j++)
-            //     {
-            //       this.chartData[i+1][1] = this.HevraStats.user[i].expense[j].amount;
-            //     }
-            // }
-
-            
-            // for(let i = 0 ; this.HevraStats.other.length > i; i++)
-            // {
-            //     for(let j = 0 ; this.HevraStats.other[i].expense.length > j; j++)
-            //     {
-            //       this.chartData[i+1][2] = this.HevraStats.other[i].expense[j].amount;
-            //     }
-            // }
 
             this.changeYear(2018);
 
@@ -130,9 +111,6 @@
                 this.isVisible = false;
                 this.CharStats = await StatisticsService.getSimilarStats(localStorage.userId, this.checkedCategories, parseInt(yearChoosen));
 
-                console.log("this.CharStats");
-                console.log(JSON.stringify(this.CharStats));
-
                 this.chartDataUpdated = [
                     ['החודש', 'אני', 'החברלך'],
                     ['ינואר', 0, 0],
@@ -169,7 +147,6 @@
                 this.isVisible = true;
             },
             filterByCat: async function (cat, e) {
-                console.log("Ohad The King");
                 console.log(this.checkedCategories, cat, e);
                 if (e == true) {
                     //Send to server this Categorie

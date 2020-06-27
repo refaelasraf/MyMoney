@@ -11,16 +11,27 @@
 
 <script>
     import {GChart} from "vue-google-charts";
+    import StatisticsService from "../../services/StatisticsService";
 
     export default {
         name: "ThirdChartSample",
         components: {
             GChart
         },
+        async created() {
+            this.UserStats = await StatisticsService.getUserStats(localStorage.userId);
+
+            for(let i = 0 ; this.UserStats.length > i; i++)
+            {
+
+                this.chartData[i+1][0] = this.UserStats[i].categoryId;
+                this.chartData[i+1][1] = this.UserStats[i].amount;
+            }
+
+        },
         data() {
             return {
                 // Array will be automatically processed with visualization.arrayToDataTable function
-                //TODO: Get stats from server
                 chartData: [
                     ['Task', 'Hours per Day'],
                     ['Work', 11],
@@ -28,7 +39,8 @@
                     ['Commute', 2],
                     ['Watch TV', 2],
                     ['Sleep', 7]
-                ]
+                ],
+                UserStats: [],
             };
         }
     };
