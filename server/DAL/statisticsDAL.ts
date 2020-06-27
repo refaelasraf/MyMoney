@@ -90,7 +90,7 @@ export class statisticsDAL extends ESBaseDAL<ITransaction> {
         }
       }
 
-      if (categories.length > 0) {
+      if (categories && categories.length > 0) {
         query.bool.must.push({"terms" : {
           "categoryId" : categories
         }});
