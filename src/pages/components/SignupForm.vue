@@ -28,6 +28,7 @@
                         </fg-input>
 
                         <fg-input
+                                type="email"
                                 class="no-border"
                                 placeholder="Email"
                                 addon-left-icon="now-ui-icons ui-1_email-85"
@@ -42,6 +43,7 @@
                         >
                         </fg-input>
                         <fg-input
+                                type="number"
                                 class="no-border"
                                 placeholder="Distence From Work..."
                                 addon-left-icon="now-ui-icons sport_user-run"
@@ -49,6 +51,7 @@
                         >
                         </fg-input>
                         <fg-input
+                                type="number"
                                 class="no-border"
                                 placeholder="Number Of Persons To Take Care Of..."
                                 addon-left-icon="now-ui-icons shopping_cart-simple"
@@ -77,6 +80,7 @@
                     </template>
                     <template>
                         <fg-input
+                                type="number"
                                 class="no-border"
                                 placeholder="Num Of Providers..."
                                 addon-left-icon="now-ui-icons ui-2_settings-90"
@@ -84,6 +88,7 @@
                         >
                         </fg-input>
                         <fg-input
+                                type="number"
                                 class="no-border"
                                 placeholder="Study Years..."
                                 addon-left-icon="now-ui-icons education_hat"
@@ -91,6 +96,7 @@
                         >
                         </fg-input>
                         <fg-input
+                                type="number"
                                 class="no-border"
                                 placeholder="Neto Income..."
                                 addon-left-icon="now-ui-icons shopping_credit-card"
@@ -98,6 +104,7 @@
                         >
                         </fg-input>
                         <fg-input
+                                type="number"
                                 class="no-border"
                                 placeholder="Taxes Payment..."
                                 addon-left-icon="now-ui-icons business_money-coins"
@@ -105,6 +112,7 @@
                         >
                         </fg-input>
                         <fg-input
+                                type="number"
                                 class="no-border"
                                 placeholder="Social Care Payment..."
                                 addon-left-icon="now-ui-icons health_ambulance"
