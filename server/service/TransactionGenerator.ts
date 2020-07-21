@@ -14,7 +14,7 @@ export class TransactionGenerator {
         const id = userId;
         if (i > 3000)
          return;
-        const response = await axios.default.get("https://next.json-generator.com/api/json/get/E1GvqTK2O")
+        const response = await axios.default.get("https://next.json-generator.com/api/json/get/4y0_kZxxK")
         const transactions : ITransaction[] = response.data
             
         for (let transaction in transactions)
