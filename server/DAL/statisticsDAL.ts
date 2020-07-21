@@ -15,7 +15,7 @@ export class statisticsDAL extends ESBaseDAL<ITransaction> {
        const aggsResult = await this.elasticHelper.aggregate(this.transactionConfig.index, this.transactionConfig.type, {
           "query" : {
             "match" : {
-              "client" : clientId
+              "clientId" : clientId
             }
           },
           "aggs": {
@@ -75,7 +75,7 @@ export class statisticsDAL extends ESBaseDAL<ITransaction> {
           "must" : [
             {
             "terms" : {
-              "client" : otherIds
+              "clientId" : otherIds
               }
             },
             {
@@ -101,7 +101,7 @@ export class statisticsDAL extends ESBaseDAL<ITransaction> {
         aggs
       });
 
-      query.bool.must[0].terms = {"client" : [userId]};
+      query.bool.must[0].terms = {"clientId" : [userId]};
       const userAggs = await this.elasticHelper.aggregate(this.transactionConfig.index, this.transactionConfig.type , {
         query,
         aggs

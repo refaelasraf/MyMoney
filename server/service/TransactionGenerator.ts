@@ -24,7 +24,7 @@ export class TransactionGenerator {
 
             try 
             {
-                this.dal.upsert(transactions[transaction], transactions[transaction].docID);
+                this.dal.upsert(transactions[transaction], null);
             }
             catch (ex)
             {
