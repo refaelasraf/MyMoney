@@ -1,4 +1,5 @@
 import {IUser, UserModel} from "../models/user";
+import { ObjectId } from "mongodb";
 
 export class UserDal {
     public async register(user:IUser) {
