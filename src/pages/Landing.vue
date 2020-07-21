@@ -54,7 +54,7 @@
             };
         },
         async created() {
-            const stats = await StatisticsService.getUserStats('1');
+            const stats = await StatisticsService.getUserStats(localStorage.userId);
             this.expansesBySubject = [this.expansesBySubjectHeaders, ...stats.map(s => [s.categoryId, s.amount])];
         }
     };
