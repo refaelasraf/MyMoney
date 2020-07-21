@@ -14,7 +14,7 @@
         </div>
         <div class="container">
             <colum-chart></colum-chart>
-            <second-chart></second-chart>
+            <!--<second-chart></second-chart>-->
             <third-chart-sample></third-chart-sample>
         </div>
     </div>
