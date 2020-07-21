@@ -14,6 +14,10 @@ export class TransactionBL {
         return await this.dal.delete(doc.docID);
     }
 
+    public async getByDateAndUser(start: Date, end: Date, clientID : string){
+        return this.dal.getByDateAndUser(start,end, clientID)
+    }
+
     public async getByDate(start: Date, end: Date) {
         return await this.dal.getByDate(start, end);
     }

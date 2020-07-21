@@ -1,8 +1,8 @@
-import { ElasticHelper } from "../../dbHelpers/elasticHelper";
-import { ESBaseDAL } from "./esBaseDAL";
-import { ITransaction } from "../../models/transaction";
-import { IESDALConfig } from "../../configuration/IConfig";
-import { config } from "../../configuration/config";
+import {ElasticHelper} from "../../dbHelpers/elasticHelper";
+import {ESBaseDAL} from "./esBaseDAL";
+import {ITransaction} from "../../models/transaction";
+import {IESDALConfig} from "../../configuration/IConfig";
+import {config} from "../../configuration/config";
 import * as _ from "lodash";
 
 export class TransactionDAL extends ESBaseDAL<ITransaction> {
@@ -18,6 +18,31 @@ export class TransactionDAL extends ESBaseDAL<ITransaction> {
                         gte: start,
                         lte: end
                     }
+                }
+            }
+        };
+
+        return await this.elasticHelper.search(this.DALConfig.index, this.DALConfig.type, query);
+    }
+
+    public async getByDateAndUser(start: Date, end: Date, clientID: String): Promise<ITransaction[]> {
+        const query = {
+            query: {
+                bool: {
+                    must: [{
+                        range: {
+                            eventTime: {
+                                gte: start,
+                                lte: end
+                            }
+                        }
+                    }, {
+                        term: {
+                            clientId: {
+                                value: clientID
+                            }
+                        }
+                    }]
                 }
             }
         };
@@ -45,10 +70,11 @@ export class TransactionDAL extends ESBaseDAL<ITransaction> {
                                 }
                             }
                         }
-                    ]}
-                    
-                },
-            
+                    ]
+                }
+
+            },
+
             aggs: {
                 amountSum: {
                     sum: {
@@ -134,7 +160,7 @@ export class TransactionDAL extends ESBaseDAL<ITransaction> {
             }
         }
         const aggsResult = await this.elasticHelper.aggregate(this.DALConfig.index, this.DALConfig.type, query);
-        return aggsResult.categories.buckets.map((bucket : any) => bucket.key);
+        return aggsResult.categories.buckets.map((bucket: any) => bucket.key);
     }
 
     private mapToUsersDic(stat: any) {
@@ -150,12 +176,12 @@ export class TransactionDAL extends ESBaseDAL<ITransaction> {
     }
 
     private mapToCategoryDicForUser(stat: any): _.Dictionary<number> {
-        const dic : _.Dictionary<number> = {
-            all : stat.amountSum.value
+        const dic: _.Dictionary<number> = {
+            all: stat.amountSum.value
         }
 
-        _.forEach(stat.categorySum.buckets, (stat)=>{
-            dic[stat.key] =  stat.sum.value;
+        _.forEach(stat.categorySum.buckets, (stat) => {
+            dic[stat.key] = stat.sum.value;
         })
 
         return dic;

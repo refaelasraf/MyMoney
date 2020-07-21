@@ -9,6 +9,16 @@ export default class TransactionService {
         return res.data;
     }
 
+    static async getMonthByUser(date) {
+        let res = await axios.post(this.#route + '/getByDateAndUser', {
+            start: date,
+            end: this.getNextMonth(date),
+            clientID: localStorage.userId
+        });
+
+        return res.data;
+    }
+
     static async getCurrentMonthSum() {
         let res = await axios.post(this.#route + "/getSumOfMonth", {clientID: localStorage.userId});
         return res.data;

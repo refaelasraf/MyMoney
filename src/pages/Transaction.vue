@@ -56,7 +56,7 @@
         },
         methods: {
             async getTransactions(event) {
-                this.transactions = await TransactionService.getMonth(event);
+                this.transactions = await TransactionService.getMonthByUser(event);
                 this.totalSpending = this.transactions.map(t => t.amount).reduce((accum, curr) => accum + curr, 0);
             },
         }
