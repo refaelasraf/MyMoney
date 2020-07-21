@@ -17,8 +17,8 @@
                 <n-button @click.native="modals.addGoal.isVisible = true">Add Goal</n-button>
                 <modal :show.sync="modals.addGoal.isVisible" headerClasses="justify-content-center">
                     <h4 slot="header" class="title title-up">Add goal</h4>
-                    <fg-input placeholder="title" v-model="modals.addGoal.goal.title"></fg-input>
-                    <fg-input placeholder="trigger value" v-model="modals.addGoal.goal.triggerValue"></fg-input>
+                    <fg-input placeholder="title" maxlength="10" v-model="modals.addGoal.goal.title"></fg-input>
+                    <fg-input placeholder="trigger value" type="number"   v-model="modals.addGoal.goal.triggerValue"></fg-input>
                     <el-select class="select-danger"
                                placeholder="Single Select"
                                v-model="modals.addGoal.goal.category">
@@ -36,8 +36,8 @@
                 </modal>
                 <modal :show.sync="modals.editGoal.isVisible" headerClasses="justify-content-center">
                     <h4 slot="header" class="title title-up">Edit goal</h4>
-                    <fg-input placeholder="title" v-model="modals.editGoal.goal.title"></fg-input>
-                    <fg-input placeholder="trigger value" v-model="modals.editGoal.goal.triggerValue"></fg-input>
+                    <fg-input placeholder="title" maxlength="10" v-model="modals.editGoal.goal.title"></fg-input>
+                    <fg-input placeholder="trigger value" type="number" v-model="modals.editGoal.goal.triggerValue"></fg-input>
                     <el-select class="select-danger"
                                placeholder="Single Select"
                                v-model="modals.editGoal.goal.category">
