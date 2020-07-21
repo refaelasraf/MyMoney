@@ -57,7 +57,7 @@ export class TransactionDAL extends ESBaseDAL<ITransaction> {
                 },
                 categorySum: {
                     terms: {
-                        field: "categoryId",
+                        field: "categoryId.keyword",
                         size: 100
                     },
                     aggs: {
@@ -89,7 +89,7 @@ export class TransactionDAL extends ESBaseDAL<ITransaction> {
             aggs: {
                 users: {
                     terms: {
-                        field: "clientId",
+                        field: "clientId.keyword",
                         size: 5000
                     },
                     aggs: {
@@ -100,7 +100,7 @@ export class TransactionDAL extends ESBaseDAL<ITransaction> {
                         },
                         category: {
                             terms: {
-                                field: "categoryId",
+                                field: "categoryId.keyword",
                                 size: 50
                             },
                             aggs: {
@@ -128,7 +128,7 @@ export class TransactionDAL extends ESBaseDAL<ITransaction> {
             "aggs": {
                 "categories": {
                     "terms": {
-                        "field": "categoryId"
+                        "field": "categoryId.keyword"
                     }
                 }
             }
