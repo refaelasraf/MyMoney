@@ -64,7 +64,7 @@ export class GoalChecker {
         }
 
 
-        setTimeout(() => this.run(), 20000);
+        setTimeout(() => this.run(), 2000);
 
         this.count++;
         if (this.count % 5 == 0)

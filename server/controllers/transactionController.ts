@@ -11,6 +11,7 @@ export class TransactionController {
         router.post("/delete", (req, res) => this.delete(req, res));
         router.post('/getByDate', (req, res) => this.getByDate(req, res));
         router.post("/getSumOfMonth", (req, res) => this.getSumOfMonth(req, res));
+        router.post("/getByDateAndUser", (req, res) => this.getByDateAndUser(req, res))
         return router;
     }
 
@@ -39,6 +40,15 @@ export class TransactionController {
             res.send(entities).status(200);
         } catch (e) {
             res.send('failed get by date transaction').status(502);
+        }
+    }
+
+    private async getByDateAndUser(req: Request, res: Response) {
+        try {
+            const entities = await this.bl.getByDateAndUser(req.body.start, req.body.end, req.body.clientID);
+            res.send(entities).status(200);
+        } catch (e) {
+            res.send('failed get by date and User transaction').status(502);
         }
     }
 
