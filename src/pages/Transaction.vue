@@ -115,7 +115,6 @@
                 this.modals.add.transaction.eventTime = Date.now();
                 this.modals.add.transaction.amount = 0;
                 this.modals.add.transaction.storeName = "Store Name"
-                this.date = dt;
                 await this.getTransactions(this.date);
             },
             async getTransactions(event) {

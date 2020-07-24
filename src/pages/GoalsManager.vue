@@ -58,6 +58,7 @@
                                 :label="goal.title" :red-from="goal.redFrom" :red-to="goal.max" :max="goal.max"
                                 :yellow-from="goal.yellowFrom" :yellow-to="goal.yellowTo"
                                 :value="goal.value"></goal-component>
+
             </center>
         </div>
     </div>

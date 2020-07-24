@@ -1,6 +1,6 @@
 import {ElasticHelper} from "../../dbHelpers/elasticHelper";
 import {ESBaseDAL} from "./esBaseDAL";
-import {ITransaction} from "../../models/transaction";
+import {ITransaction, Transaction} from "../../models/transaction";
 import {IESDALConfig} from "../../configuration/IConfig";
 import {config} from "../../configuration/config";
 import * as _ from "lodash";
@@ -10,6 +10,14 @@ export class TransactionDAL extends ESBaseDAL<ITransaction> {
         super(elasticHelper, transactionConfig);
     }
 
+
+    public async upsert(document: Transaction, documentId: string): Promise<boolean> {
+        if(_.isNumber(document.eventTime)){
+            document.eventTime = new Date(document.eventTime);
+        }
+
+        return super.upsert(document, documentId);
+    }
     public async getByDate(start: Date, end: Date): Promise<ITransaction[]> {
         const query = {
             query: {
@@ -83,7 +91,7 @@ export class TransactionDAL extends ESBaseDAL<ITransaction> {
                 },
                 categorySum: {
                     terms: {
-                        field: "categoryId.keyword",
+                        field: "categoryId",
                         size: 100
                     },
                     aggs: {
@@ -115,7 +123,7 @@ export class TransactionDAL extends ESBaseDAL<ITransaction> {
             aggs: {
                 users: {
                     terms: {
-                        field: "clientId.keyword",
+                        field: "clientId",
                         size: 5000
                     },
                     aggs: {
@@ -126,7 +134,7 @@ export class TransactionDAL extends ESBaseDAL<ITransaction> {
                         },
                         category: {
                             terms: {
-                                field: "categoryId.keyword",
+                                field: "categoryId",
                                 size: 50
                             },
                             aggs: {
@@ -154,7 +162,7 @@ export class TransactionDAL extends ESBaseDAL<ITransaction> {
             "aggs": {
                 "categories": {
                     "terms": {
-                        "field": "categoryId.keyword"
+                        "field": "categoryId"
                     }
                 }
             }
