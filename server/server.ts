@@ -61,6 +61,7 @@ app.post("/api/user/register", (req, res) => userC.register(req, res));
 app.post("/api/user/login", (req, res) =>userC.login(req, res));
 app.get("/api/user/setUserAsAdmin/:id" , (req, res) => userC.setUserAsAdmin(req, res));
 app.get("/api/user/getById/:id" , (req, res) => userC.getById(req, res));
+app.get("/api/user/load" , (req, res) => userC.loadUsers(req, res));
 app.post("/api/user/edit" , (req, res) => userC.edit(req, res));
 
 //credit card
