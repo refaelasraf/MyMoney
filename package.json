@@ -17,6 +17,7 @@
     "mongodb": "^3.5.7",
     "nouislider": "^11.1.0",
     "register-service-worker": "^1.7.1",
+    "uuid": "^8.2.0",
     "vue": "^2.6.6",
     "vue-google-charts": "^0.3.2",
     "vue-lazy-load": "^0.0.7",

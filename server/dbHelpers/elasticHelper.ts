@@ -6,7 +6,7 @@ export class ElasticHelper {
     private esClient:ESClient;
 
     public constructor(private elasticSearchConfig:IElasticSearchConfig = config.DAL.elasticsearch) {
-        this.esClient = new ESClient({node : this.elasticSearchConfig.host});
+        this.esClient = new ESClient({node : this.elasticSearchConfig.host, auth:{username: "elastic", password:"elasticsearch"}});
     }
 
     public async search<T>(index: string|Array<string>, type:string|Array<string>, body: any):Promise<Array<T>>{
