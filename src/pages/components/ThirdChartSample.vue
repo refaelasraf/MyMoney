@@ -21,20 +21,22 @@
         async created() {
             this.UserStats = await StatisticsService.getUserStats(localStorage.userId);
 
-                this.chartDataUpdated = [
-                    ['Task', 'Hours per Day'],
-                    ['Work', 11],
-                    ['Eat', 2],
-                    ['Commute', 2],
-                    ['Watch TV', 2],
-                    ['Sleep', 7]
-                ];
+            this.chartDataUpdated = [
+                ['Task', 'Hours per Day'],
+                ['Work', 11],
+                ['', 0],
+                    ['', 0],
+                    ['',0],
+                    ['', 0],
+                    ['', 0],
 
-            for(let i = 0 ; this.UserStats.length > i; i++)
-            {
+            ];
 
-                this.chartDataUpdated[i+1][0] = this.UserStats[i].categoryId;
-                this.chartDataUpdated[i+1][1] = this.UserStats[i].amount;
+            for (let i = 0; this.UserStats.length > i; i++) {
+                debugger;
+
+                this.chartDataUpdated[i + 1][0] = this.UserStats[i].categoryId;
+                this.chartDataUpdated[i + 1][1] = this.UserStats[i].amount;
             }
 
         },
@@ -44,19 +46,15 @@
                 chartDataa: [
                     ['Task', 'Hours per Day'],
                     ['Work', 11],
-                    ['Eat', 2],
-                    ['Commute', 2],
-                    ['Watch TV', 2],
-                    ['Sleep', 7]
                 ],
                 UserStats: [],
                 chartDataUpdated: [],
             };
         },
         computed: {
-                chartData (){ 
-                    return this.chartDataUpdated;
-                }
+            chartData() {
+                return this.chartDataUpdated;
+            }
         },
     };
 </script>
