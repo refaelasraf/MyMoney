@@ -49,7 +49,7 @@
             const expansesBySubjectHeaders = ['Subject', 'Expanses'];
             return {
                 expansesBySubjectHeaders,
-                expansesBySubject: [expansesBySubjectHeaders, ['Food', 500], ['Clothing', 200]],
+                expansesBySubject: [expansesBySubjectHeaders],
                 expansesBySubjectOptions: {title: 'Expanses By Subject'}
             };
         },

@@ -14,8 +14,22 @@ export class statisticsDAL extends ESBaseDAL<ITransaction> {
     public getUserStatistics = async (clientId : string) : Promise<Array<IUserStatistic>> => {
        const aggsResult = await this.elasticHelper.aggregate(this.transactionConfig.index, this.transactionConfig.type, {
           "query" : {
-            "match" : {
-              "clientId" : clientId
+            "bool": {
+              "must": [
+                {
+                  "match" : {
+                    "clientId" : clientId
+                  }
+                },
+                {
+                  "range" : {
+                    "eventTime": {
+                      "gte": "now/M",
+                      "lte": "now+M/M"
+                    }
+                  }
+                }
+              ]
             }
           },
           "aggs": {
