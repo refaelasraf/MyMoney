@@ -41,14 +41,15 @@ export class ElasticHelper {
             index:index,
             id:documentId,
             type: type,
-            body:document
+            body:document,
+            refresh:"true"
         });
 
         return res.body.acknowledged;
     }
 
     public async delete<T>(index:string, type:string, documentId:string):Promise<string> {
-        const res = await this.esClient.delete({index: index, type: type, id: documentId});
+        const res = await this.esClient.delete({index: index, type: type, id: documentId, refresh:"true"});
         return res.body.result;
     }
 }
