@@ -30,8 +30,6 @@
 </template>
 <script>
     import {Button, FormGroupInput} from '@/components';
-    import SecondChart from "./components/SecondChart";
-    import ThirdChartSample from "./components/ThirdChartSample";
     import {GChart} from "vue-google-charts";
     import StatisticsService from "../services/StatisticsService";
 
@@ -40,8 +38,6 @@
         bodyClass: 'landing-page',
         components: {
             GChart,
-            ThirdChartSample,
-            SecondChart,
             [Button.name]: Button,
             [FormGroupInput.name]: FormGroupInput
         },
@@ -54,8 +50,19 @@
             };
         },
         async created() {
-            const stats = await StatisticsService.getUserStats(localStorage.userId);
-            this.expansesBySubject = [this.expansesBySubjectHeaders, ...stats.map(s => [s.categoryId, s.amount])];
+                await this.initializeStats();
+        },
+        methods: {
+            async initializeStats() {
+                const stats = await StatisticsService.getUserStats(localStorage.userId);
+
+                if (!!stats && stats.length > 0) {
+                    this.expansesBySubject = [this.expansesBySubjectHeaders, ...stats.map(s => [s.categoryId, s.amount])];
+                    return;
+                }
+
+                setTimeout(() => this.initializeStats(),1000);
+            }
         }
     };
 </script>
