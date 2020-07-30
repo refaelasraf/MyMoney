@@ -33,8 +33,6 @@
             ];
 
             for (let i = 0; this.UserStats.length > i; i++) {
-                debugger;
-
                 this.chartDataUpdated[i + 1][0] = this.UserStats[i].categoryId;
                 this.chartDataUpdated[i + 1][1] = this.UserStats[i].amount;
             }

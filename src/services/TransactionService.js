@@ -7,7 +7,6 @@ export default class TransactionService {
 
     static async upsert(transaction) {
         transaction.docID = uuidv4();
-        debugger;
         let res = await axios.post(this.#route + '/upsert', {transaction});
         return res.data;
     }
