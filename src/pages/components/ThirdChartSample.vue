@@ -21,18 +21,27 @@
         async created() {
             this.UserStats = await StatisticsService.getUserStats(localStorage.userId);
 
+                this.chartDataUpdated = [
+                    ['Task', 'Hours per Day'],
+                    ['Work', 11],
+                    ['Eat', 2],
+                    ['Commute', 2],
+                    ['Watch TV', 2],
+                    ['Sleep', 7]
+                ];
+
             for(let i = 0 ; this.UserStats.length > i; i++)
             {
 
-                this.chartData[i+1][0] = this.UserStats[i].categoryId;
-                this.chartData[i+1][1] = this.UserStats[i].amount;
+                this.chartDataUpdated[i+1][0] = this.UserStats[i].categoryId;
+                this.chartDataUpdated[i+1][1] = this.UserStats[i].amount;
             }
 
         },
         data() {
             return {
                 // Array will be automatically processed with visualization.arrayToDataTable function
-                chartData: [
+                chartDataa: [
                     ['Task', 'Hours per Day'],
                     ['Work', 11],
                     ['Eat', 2],
@@ -41,7 +50,13 @@
                     ['Sleep', 7]
                 ],
                 UserStats: [],
+                chartDataUpdated: [],
             };
-        }
+        },
+        computed: {
+                chartData (){ 
+                    return this.chartDataUpdated;
+                }
+        },
     };
 </script>
