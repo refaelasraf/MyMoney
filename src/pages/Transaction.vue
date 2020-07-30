@@ -83,6 +83,11 @@
                         {value: 'food', label: 'food'},
                         {value: 'electronics', label: 'electronics'},
                         {value: 'fule', label: 'fule'},
+                        {value: 'Furniture', label: 'Furniture'},
+                        {value: 'Pharmecy', label: 'Pharmecy'},
+                        {value: 'Vication', label: 'Vication'},
+                        {value: 'GOV', label: 'GOV'},
+                        {value: 'Helth', label: 'Helth'},
                         {value: 'culture', label: 'culture'}]
                 },
                 modals: {
