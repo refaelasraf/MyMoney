@@ -119,7 +119,7 @@
             },
             async getTransactions(event) {
                 this.transactions = await TransactionService.getMonthByUser(event);
-                this.totalSpending = this.transactions.map(t => t.amount).reduce((accum, curr) => accum + curr, 0);
+                this.totalSpending = this.transactions.map(t => t.amount).reduce((accum, curr) => parseInt(accum) + parseInt(curr), 0);
             },
         }
     };
