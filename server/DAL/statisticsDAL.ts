@@ -141,7 +141,7 @@ export class statisticsDAL extends ESBaseDAL<ITransaction> {
         const expense = bucket.categoryId.buckets.map((bucket : any) => {
           return {
             categoryId :bucket.key,
-            amount : bucket.sum_money.value
+            amount : (bucket.sum_money.value / (otherIds.length +1))
           }
         });
         return {
